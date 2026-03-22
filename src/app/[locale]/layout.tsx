@@ -2,12 +2,15 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 
 const locales = ['en', 'zh'];
 
 export const metadata: Metadata = {
   title: 'ImmiTracker — US Immigration Guide',
-  description: 'Comprehensive US immigration information for OPT, STEM OPT, H-1B, H-4, PERM, and Green Card',
+  description:
+    'Comprehensive US immigration information for OPT, STEM OPT, H-1B, H-4, PERM, and Green Card',
 };
 
 export default async function LocaleLayout({
@@ -26,12 +29,10 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body>
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <Header />
+      <main className="flex-1">{children}</main>
+      <Footer />
+    </NextIntlClientProvider>
   );
 }

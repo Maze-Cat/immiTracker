@@ -1,8 +1,19 @@
-export default function H4Page() {
-  return (
-    <main className="max-w-4xl mx-auto py-12 px-4">
-      <h1 className="text-3xl font-bold mb-4">H-4 Visa</h1>
-      <p className="text-gray-500">Detailed content coming soon.</p>
-    </main>
-  );
+import VisaPageContent from '@/components/visa/VisaPageContent';
+import type { Metadata } from 'next';
+import visaDataMap from '@/data/visa-info';
+
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const data = visaDataMap['h4'];
+  const content = locale === 'zh' ? data.zh : data.en;
+  return { title: `${content.title} — ImmiTracker`, description: content.subtitle };
+}
+
+export default async function H4Page({ params }: Props) {
+  const { locale } = await params;
+  return <VisaPageContent locale={locale} slug="h4" />;
 }

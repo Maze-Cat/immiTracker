@@ -16,22 +16,28 @@
     "finalAction": "Final Action Dates",
     "datesForFiling": "Dates for Filing",
     "lastUpdated": "Last updated",
+    "bulletinMonth": "Bulletin Month",
     "employmentBased": "Employment-Based",
     "familyBased": "Family-Based",
     "historicalTrends": "Historical Trends",
+    "historicalTrendsDesc": "Priority date movement over time — full chart coming soon",
     "category": "Category",
     "allChargeability": "All Chargeability",
     "china": "China",
     "india": "India",
     "mexico": "Mexico",
-    "philippines": "Philippines"
+    "philippines": "Philippines",
+    "loading": "Loading bulletin data…",
+    "error": "Failed to load bulletin data. Please try again.",
+    "noData": "No bulletin data available."
   },
   "visa": {
     "overview": "Overview",
     "eligibility": "Eligibility Requirements",
     "processSteps": "Application Process",
     "timeline": "Timeline",
-    "faqs": "Frequently Asked Questions"
+    "faqs": "Frequently Asked Questions",
+    "keyStats": "Key Stats"
   },
   "common": {
     "loading": "Loading...",
@@ -41,18 +47,49 @@
     "lastUpdated": "Last Updated"
   },
   "home": {
+    "announcementBar": "March 2026 Visa Bulletin is now available — EB-2 India advances to Jan 2013",
+    "announcementBadge": "New",
     "hero": {
-      "title": "Your US Immigration Guide",
-      "subtitle": "Comprehensive information for immigrants and non-immigrants navigating the US visa system",
-      "cta": "Explore Visa Types"
+      "title": "Your US Immigration",
+      "titleAccent": "Guide",
+      "subtitle": "Comprehensive, bilingual information for immigrants navigating OPT, H-1B, PERM, and the green card process.",
+      "ctaPrimary": "Explore Visa Types",
+      "ctaSecondary": "Check Priority Dates →",
+      "socialProof": "trusted by thousands of immigration applicants",
+      "liveDataLabel": "Live Priority Dates",
+      "eb2Label": "EB-2 India",
+      "eb3Label": "EB-3 India",
+      "eb2China": "EB-2 China",
+      "asOfLabel": "As of Mar 2026 Bulletin"
+    },
+    "visaSection": {
+      "eyebrow": "Visa Types",
+      "title": "Every Step of Your Journey",
+      "subtitle": "From your first student visa to permanent residency — we cover it all."
+    },
+    "visaCards": {
+      "opt": { "name": "Optional Practical Training", "tag": "Student", "emoji": "🎓" },
+      "stemOpt": { "name": "STEM OPT Extension", "tag": "Student", "emoji": "🔬" },
+      "h1b": { "name": "Specialty Occupation Work Visa", "tag": "Work", "emoji": "💼" },
+      "h4": { "name": "H-1B Dependent Visa", "tag": "Family", "emoji": "👨‍👩‍👧" },
+      "perm": { "name": "Labor Certification", "tag": "Green Card", "emoji": "📋" },
+      "greenCard": { "name": "Permanent Residency", "tag": "Green Card", "emoji": "🇺🇸" }
     },
     "features": {
-      "visaInfo": "Detailed Visa Information",
-      "visaInfoDesc": "In-depth guides for OPT, STEM OPT, H-1B, H-4, PERM, and Green Card",
-      "tracker": "Priority Date Tracker",
-      "trackerDesc": "Real-time Green Card priority date tracking with historical trends",
-      "bilingual": "Bilingual Support",
-      "bilingualDesc": "Available in English and Chinese"
+      "eyebrow": "Why ImmiTracker",
+      "title": "Built for Immigrants, By Immigrants",
+      "visaInfo": "Detailed Visa Guides",
+      "visaInfoDesc": "In-depth, bilingual guides covering eligibility, process steps, timelines, and FAQs for every major visa category.",
+      "tracker": "Real-Time Priority Dates",
+      "trackerDesc": "Automatically updated from the monthly USCIS Visa Bulletin. Historical trends and EB-2 / EB-3 breakdowns included.",
+      "bilingual": "Full Bilingual Support",
+      "bilingualDesc": "All content available in English and Simplified Chinese so you can share with family."
+    },
+    "cta": {
+      "title": "Ready to Track Your Immigration Journey?",
+      "subtitle": "Get the latest priority dates and visa guidance — free, always up to date.",
+      "primary": "View Priority Dates",
+      "secondary": "Browse Visa Guides"
     }
   }
 }

@@ -5,44 +5,111 @@ import type { CategoryTable } from '@/types/visa-bulletin';
 interface PriorityDateTableProps {
   data?: CategoryTable;
   type?: 'finalAction' | 'datesForFiling';
+  title?: string;
 }
 
-export default function PriorityDateTable({ data, type = 'finalAction' }: PriorityDateTableProps) {
+function DateCell({ value }: { value: string }) {
+  if (value === 'C') {
+    return (
+      <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-green-50 text-green-700">
+        ● Current
+      </span>
+    );
+  }
+  if (value === 'U') {
+    return (
+      <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-red-50 text-red-700">
+        ✕ Unavail.
+      </span>
+    );
+  }
+  return <span className="text-xs whitespace-nowrap text-gray-600">{value}</span>;
+}
+
+export default function PriorityDateTable({
+  data,
+  type = 'finalAction',
+  title,
+}: PriorityDateTableProps) {
   const t = useTranslations('tracker');
 
   if (!data) {
-    return <p className="text-gray-500">{t('lastUpdated')}: —</p>;
+    return (
+      <div className="text-sm text-gray-400 py-4 text-center">{t('noData')}</div>
+    );
   }
 
+  const tableTitle = title ?? (type === 'finalAction' ? t('finalAction') : t('datesForFiling'));
+
   return (
-    <div className="overflow-x-auto mb-8">
-      <h2 className="text-xl font-semibold mb-3">
-        {type === 'finalAction' ? t('finalAction') : t('datesForFiling')}
-      </h2>
-      <table className="w-full border-collapse text-sm">
-        <thead>
-          <tr className="bg-blue-900 text-white">
-            <th className="border border-blue-700 px-3 py-2 text-left">{t('category')}</th>
-            <th className="border border-blue-700 px-3 py-2">{t('allChargeability')}</th>
-            <th className="border border-blue-700 px-3 py-2">{t('china')}</th>
-            <th className="border border-blue-700 px-3 py-2">{t('india')}</th>
-            <th className="border border-blue-700 px-3 py-2">{t('mexico')}</th>
-            <th className="border border-blue-700 px-3 py-2">{t('philippines')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.entries(data).map(([category, row], i) => (
-            <tr key={category} className={i % 2 === 0 ? 'bg-white' : 'bg-blue-50'}>
-              <td className="border border-gray-200 px-3 py-2 font-medium">{category}</td>
-              <td className="border border-gray-200 px-3 py-2 text-center">{row.allChargeability}</td>
-              <td className="border border-gray-200 px-3 py-2 text-center">{row.china}</td>
-              <td className="border border-gray-200 px-3 py-2 text-center">{row.india}</td>
-              <td className="border border-gray-200 px-3 py-2 text-center">{row.mexico}</td>
-              <td className="border border-gray-200 px-3 py-2 text-center">{row.philippines}</td>
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-6">
+      <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+        <div>
+          <p className="text-[15px] font-bold text-gray-800">{tableTitle}</p>
+          <p className="text-[12px] text-gray-400 mt-0.5">
+            {type === 'finalAction'
+              ? t('finalAction')
+              : t('datesForFiling')}
+          </p>
+        </div>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse text-sm">
+          <thead>
+            <tr className="bg-gray-50">
+              <th className="text-left px-4 py-3 text-[11px] font-bold uppercase tracking-wide text-gray-500 border-b border-gray-100 whitespace-nowrap">
+                {t('category')}
+              </th>
+              <th className="text-center px-4 py-3 text-[11px] font-bold uppercase tracking-wide text-gray-500 border-b border-gray-100 whitespace-nowrap">
+                {t('allChargeability')}
+              </th>
+              <th className="text-center px-4 py-3 text-[11px] font-bold uppercase tracking-wide text-gray-500 border-b border-gray-100">
+                {t('china')}
+              </th>
+              <th className="text-center px-4 py-3 text-[11px] font-bold uppercase tracking-wide text-gray-500 border-b border-gray-100">
+                {t('india')}
+              </th>
+              <th className="text-center px-4 py-3 text-[11px] font-bold uppercase tracking-wide text-gray-500 border-b border-gray-100">
+                {t('mexico')}
+              </th>
+              <th className="text-center px-4 py-3 text-[11px] font-bold uppercase tracking-wide text-gray-500 border-b border-gray-100">
+                {t('philippines')}
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {Object.entries(data).map(([category, row], i) => (
+              <tr
+                key={category}
+                className="border-b border-gray-50 last:border-0 hover:bg-teal-50 transition-colors"
+              >
+                <td className="px-4 py-3 font-bold text-gray-800">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-teal-500 flex-shrink-0" />
+                    {category}
+                  </div>
+                </td>
+                <td className="px-4 py-3 text-center">
+                  <DateCell value={row.allChargeability} />
+                </td>
+                <td className="px-4 py-3 text-center">
+                  <DateCell value={row.china} />
+                </td>
+                <td className="px-4 py-3 text-center">
+                  <DateCell value={row.india} />
+                </td>
+                <td className="px-4 py-3 text-center">
+                  <DateCell value={row.mexico} />
+                </td>
+                <td className="px-4 py-3 text-center">
+                  <DateCell value={row.philippines} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
