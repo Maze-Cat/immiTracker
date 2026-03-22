@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
@@ -13,12 +13,10 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const isZh = locale === 'zh';
+  const t = await getTranslations({ locale, namespace: 'meta' });
   return {
-    title: isZh ? 'ImmiTracker — 美国移民指南' : 'ImmiTracker — US Immigration Guide',
-    description: isZh
-      ? '涵盖OPT、STEM OPT、H-1B、H-4、PERM及绿卡的全面双语移民信息'
-      : 'Comprehensive US immigration information for OPT, STEM OPT, H-1B, H-4, PERM, and Green Card',
+    title: t('title'),
+    description: t('description'),
   };
 }
 
@@ -38,10 +36,14 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <NextIntlClientProvider messages={messages}>
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
-    </NextIntlClientProvider>
+    <html lang={locale} className="h-full">
+      <body className="min-h-full flex flex-col bg-gray-50 text-gray-700 antialiased">
+        <NextIntlClientProvider messages={messages}>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }

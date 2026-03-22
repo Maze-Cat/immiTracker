@@ -37,7 +37,8 @@
     "eb2India": "EB-2 印度",
     "eb3India": "EB-3 印度",
     "chartComingSoon": "完整互动图表即将上线",
-    "autoUpdated": "每月自动从USCIS签证公告更新"
+    "autoUpdated": "每月自动从USCIS签证公告更新",
+    "trendBadge": "平均前进2个月"
   },
   "visa": {
     "overview": "概述",
@@ -67,6 +68,19 @@
       "categories": "类别"
     }
   },
+  "footer": {
+    "tagline": "全面的双语美国移民信息和排期追踪。",
+    "disclaimer": "本网站仅供参考，不构成法律建议。",
+    "visaTypes": "签证类型",
+    "resources": "资源",
+    "priorityTracker": "排期追踪器",
+    "dataSource": "数据来源：美国国务院。",
+    "notAffiliated": "与USCIS或美国政府无关。"
+  },
+  "meta": {
+    "title": "ImmiTracker — 美国移民指南",
+    "description": "涵盖OPT、STEM OPT、H-1B、H-4、PERM及绿卡的全面双语移民信息"
+  },
   "common": {
     "loading": "加载中...",
     "error": "数据加载失败，请重试。",
@@ -89,7 +103,13 @@
       "eb2Label": "EB-2 印度",
       "eb3Label": "EB-3 印度",
       "eb2China": "EB-2 中国",
-      "asOfLabel": "截至2026年3月公告"
+      "asOfLabel": "截至2026年3月公告",
+      "eb2IndiaDate": "2013年1月1日 · 最终行动",
+      "eb2IndiaChange": "较上月前进2个月",
+      "eb3IndiaDate": "2012年1月1日 · 最终行动",
+      "eb3IndiaChange": "较上月前进1个月",
+      "eb2ChinaDate": "2019年6月8日 · 最终行动",
+      "trendBadge": "平均前进2个月"
     },
     "visaSection": {
       "eyebrow": "签证类型",

@@ -37,7 +37,8 @@
     "eb2India": "EB-2 India",
     "eb3India": "EB-3 India",
     "chartComingSoon": "Full interactive chart coming soon",
-    "autoUpdated": "Auto-updated monthly from USCIS Visa Bulletin"
+    "autoUpdated": "Auto-updated monthly from USCIS Visa Bulletin",
+    "trendBadge": "+2 mo avg"
   },
   "visa": {
     "overview": "Overview",
@@ -67,6 +68,19 @@
       "categories": "Categories"
     }
   },
+  "footer": {
+    "tagline": "Comprehensive bilingual US immigration information and priority date tracking.",
+    "disclaimer": "This site is for informational purposes only and does not constitute legal advice.",
+    "visaTypes": "Visa Types",
+    "resources": "Resources",
+    "priorityTracker": "Priority Date Tracker",
+    "dataSource": "Data sourced from the U.S. Department of State.",
+    "notAffiliated": "Not affiliated with USCIS or the U.S. Government."
+  },
+  "meta": {
+    "title": "ImmiTracker — US Immigration Guide",
+    "description": "Comprehensive US immigration information for OPT, STEM OPT, H-1B, H-4, PERM, and Green Card"
+  },
   "common": {
     "loading": "Loading...",
     "error": "Failed to load data. Please try again.",
@@ -89,7 +103,13 @@
       "eb2Label": "EB-2 India",
       "eb3Label": "EB-3 India",
       "eb2China": "EB-2 China",
-      "asOfLabel": "As of Mar 2026 Bulletin"
+      "asOfLabel": "As of Mar 2026 Bulletin",
+      "eb2IndiaDate": "Jan 1, 2013 · Final Action",
+      "eb2IndiaChange": "+2 months vs last bulletin",
+      "eb3IndiaDate": "Jan 1, 2012 · Final Action",
+      "eb3IndiaChange": "+1 month vs last bulletin",
+      "eb2ChinaDate": "Jun 8, 2019 · Final Action",
+      "trendBadge": "+2 mo avg"
     },
     "visaSection": {
       "eyebrow": "Visa Types",

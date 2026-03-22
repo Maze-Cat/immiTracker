@@ -18,7 +18,7 @@ export default async function TrackerPage({ params }: TrackerPageProps) {
         <div className="max-w-7xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-3 py-1 text-xs font-semibold mb-4">
             <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
-            {locale === 'zh' ? '每月自动更新' : 'Auto-updated monthly'}
+            {t('autoUpdated')}
           </div>
           <h1 className="text-[36px] font-extrabold tracking-tight mb-2">{t('title')}</h1>
           <p className="text-white/80 text-[16px] max-w-xl">{t('subtitle')}</p>

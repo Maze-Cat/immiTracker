@@ -154,9 +154,9 @@ export default async function HomePage({ params }: HomePageProps) {
                   {t('hero.liveDataLabel')}
                 </p>
                 <p className="text-[15px] font-bold text-gray-800 mt-0.5">{t('hero.eb2Label')}</p>
-                <p className="text-[13px] text-gray-500">Jan 1, 2013 · Final Action</p>
+                <p className="text-[13px] text-gray-500">{t('hero.eb2IndiaDate')}</p>
                 <span className="inline-flex items-center gap-1 mt-1.5 bg-teal-50 text-teal-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                  ↑ +2 months vs last bulletin
+                  ↑ {t('hero.eb2IndiaChange')}
                 </span>
               </div>
             </div>
@@ -171,9 +171,9 @@ export default async function HomePage({ params }: HomePageProps) {
                   {t('hero.liveDataLabel')}
                 </p>
                 <p className="text-[15px] font-bold text-gray-800 mt-0.5">{t('hero.eb3Label')}</p>
-                <p className="text-[13px] text-gray-500">Jan 1, 2012 · Final Action</p>
+                <p className="text-[13px] text-gray-500">{t('hero.eb3IndiaDate')}</p>
                 <span className="inline-flex items-center gap-1 mt-1.5 bg-orange-50 text-orange-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                  ↑ +1 month vs last bulletin
+                  ↑ {t('hero.eb3IndiaChange')}
                 </span>
               </div>
             </div>
@@ -188,7 +188,7 @@ export default async function HomePage({ params }: HomePageProps) {
                   {t('hero.liveDataLabel')}
                 </p>
                 <p className="text-[15px] font-bold text-gray-800 mt-0.5">{t('hero.eb2China')}</p>
-                <p className="text-[13px] text-gray-500">Jun 8, 2019 · Final Action</p>
+                <p className="text-[13px] text-gray-500">{t('hero.eb2ChinaDate')}</p>
                 <span className="inline-flex items-center gap-1 mt-1.5 bg-teal-50 text-teal-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
                   {t('hero.asOfLabel')}
                 </span>
@@ -269,9 +269,9 @@ export default async function HomePage({ params }: HomePageProps) {
                 title: t('features.bilingual'),
                 desc: t('features.bilingualDesc'),
               },
-            ].map((f) => (
+            ].map((f, idx) => (
               <div
-                key={f.title}
+                key={idx}
                 className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className={`w-12 h-12 ${f.iconBg} rounded-xl flex items-center justify-center text-2xl mb-4`}>

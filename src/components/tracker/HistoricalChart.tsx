@@ -17,7 +17,7 @@ export default function HistoricalChart() {
         </div>
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-green-700 bg-green-50 px-2.5 py-1 rounded-full">
-            ↑ +2 mo avg
+            ↑ {t('trendBadge')}
           </span>
         </div>
       </div>

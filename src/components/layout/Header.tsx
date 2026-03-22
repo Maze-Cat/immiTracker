@@ -20,6 +20,7 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleLocale = () => {
     const newLocale = locale === 'en' ? 'zh' : 'en';
@@ -59,18 +60,31 @@ export default function Header() {
             <button
               className="text-sm font-medium text-gray-500 px-3.5 py-1.5 rounded-lg hover:bg-teal-50 hover:text-teal-700 transition-colors flex items-center gap-1 cursor-pointer border-none bg-transparent"
               aria-haspopup="true"
+              aria-expanded={dropdownOpen}
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              onBlur={(e) => {
+                if (!e.currentTarget.parentElement?.contains(e.relatedTarget)) {
+                  setDropdownOpen(false);
+                }
+              }}
             >
               {t('visa')}
               <svg className="w-3.5 h-3.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            <div className="absolute top-full left-0 mt-1 hidden group-hover:block group-focus-within:block bg-white rounded-xl shadow-lg border border-gray-100 py-2 w-44 z-50">
+            <div className={`absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-gray-100 py-2 w-44 z-50 ${dropdownOpen ? 'block' : 'hidden group-hover:block group-focus-within:block'}`}>
               {visaLinks.map(({ key, slug }) => (
                 <Link
                   key={slug}
                   href={`/${locale}/visa/${slug}`}
                   className="block px-4 py-2 text-sm text-gray-600 hover:bg-teal-50 hover:text-teal-700 transition-colors"
+                  onClick={() => setDropdownOpen(false)}
+                  onBlur={(e) => {
+                    if (!e.currentTarget.parentElement?.parentElement?.contains(e.relatedTarget)) {
+                      setDropdownOpen(false);
+                    }
+                  }}
                 >
                   {t(key)}
                 </Link>
@@ -132,7 +146,7 @@ export default function Header() {
 
       {/* Mobile nav */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-gray-100 bg-white px-4 py-3 flex flex-col gap-1">
+        <nav aria-label="Mobile navigation" className="md:hidden border-t border-gray-100 bg-white px-4 py-3 flex flex-col gap-1">
           <Link
             href={`/${locale}/tracker`}
             className="text-sm font-medium text-gray-600 px-3 py-2 rounded-lg hover:bg-teal-50 hover:text-teal-700"
@@ -150,7 +164,7 @@ export default function Header() {
               {t(key)}
             </Link>
           ))}
-        </div>
+        </nav>
       )}
     </header>
   );
