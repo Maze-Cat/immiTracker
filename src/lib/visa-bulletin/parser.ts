@@ -39,7 +39,9 @@ function normaliseDateValue(raw: string): string {
   // Already ISO or partial ISO
   if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return v;
 
-  return v; // return as-is if nothing matches
+  // Unrecognized format — treat as unavailable
+  console.warn(`[parser] Unrecognized date value: "${raw.trim()}"`);
+  return 'U';
 }
 
 const MONTHS: Record<string, string> = {
@@ -218,10 +220,19 @@ export function parseVisaBulletin(html: string): VisaBulletin {
           Object.assign(fbFiling, parsed);
           break;
       }
-      // Reset after consuming the table so we don't double-assign
-      currentKind = null;
+      // Don't reset currentKind — allows multi-table sections to be captured
     }
   });
+
+  // Validate that we actually parsed some data
+  const hasData = [ebFinal, ebFiling, fbFinal, fbFiling].some(
+    (t) => Object.keys(t).length > 0,
+  );
+  if (!hasData) {
+    throw new Error(
+      'Parser produced no category data — the DOS HTML structure may have changed',
+    );
+  }
 
   return {
     fetchedAt: new Date().toISOString(),

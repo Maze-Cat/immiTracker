@@ -47,7 +47,10 @@ function extractLatestBulletinUrl(indexHtml: string): string | null {
  */
 export async function fetchAndStoreBulletin(): Promise<{ bulletinMonth: string }> {
   // Step 1: Fetch the index page
-  const indexResponse = await fetch(DOS_INDEX_URL, { next: { revalidate: 0 } });
+  const indexResponse = await fetch(DOS_INDEX_URL, {
+    next: { revalidate: 0 },
+    signal: AbortSignal.timeout(10_000),
+  });
   if (!indexResponse.ok) {
     throw new Error(
       `Failed to fetch Visa Bulletin index (HTTP ${indexResponse.status}): ${DOS_INDEX_URL}`,
@@ -65,7 +68,10 @@ export async function fetchAndStoreBulletin(): Promise<{ bulletinMonth: string }
   }
 
   // Step 3: Fetch the bulletin page
-  const bulletinResponse = await fetch(bulletinUrl, { next: { revalidate: 0 } });
+  const bulletinResponse = await fetch(bulletinUrl, {
+    next: { revalidate: 0 },
+    signal: AbortSignal.timeout(10_000),
+  });
   if (!bulletinResponse.ok) {
     throw new Error(
       `Failed to fetch bulletin page (HTTP ${bulletinResponse.status}): ${bulletinUrl}`,
