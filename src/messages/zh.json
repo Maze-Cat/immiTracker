@@ -8,7 +8,9 @@
     "h1b": "H-1B",
     "h4": "H-4",
     "perm": "PERM",
-    "greenCard": "绿卡"
+    "greenCard": "绿卡",
+    "tagline": "美国移民指南",
+    "trackDates": "查看排期"
   },
   "tracker": {
     "title": "绿卡排期追踪器",
@@ -29,7 +31,13 @@
     "philippines": "菲律宾",
     "loading": "正在加载公告数据…",
     "error": "加载公告数据失败，请重试。",
-    "noData": "暂无公告数据。"
+    "noData": "暂无公告数据。",
+    "current": "当前",
+    "unavailable": "不可用",
+    "eb2India": "EB-2 印度",
+    "eb3India": "EB-3 印度",
+    "chartComingSoon": "完整互动图表即将上线",
+    "autoUpdated": "每月自动从USCIS签证公告更新"
   },
   "visa": {
     "overview": "概述",
@@ -37,7 +45,27 @@
     "processSteps": "申请流程",
     "timeline": "时间线",
     "faqs": "常见问题",
-    "keyStats": "关键数据"
+    "keyStats": "关键数据",
+    "home": "首页",
+    "visaInfoBadge": "签证信息",
+    "relatedVisas": "相关签证",
+    "trackYourDate": "追踪您的排期",
+    "viewPriorityDates": "查看最新优先排期日期 →",
+    "stats": {
+      "duration": "有效期",
+      "stemExtension": "STEM延期",
+      "form": "表格",
+      "baseOpt": "基础OPT",
+      "initialPeriod": "初始期",
+      "maxDuration": "最长",
+      "annualCap": "名额上限",
+      "tiedTo": "依附于",
+      "ead": "EAD条件",
+      "processing": "审理周期",
+      "agency": "主管机构",
+      "validity": "有效期",
+      "categories": "类别"
+    }
   },
   "common": {
     "loading": "加载中...",
@@ -56,6 +84,7 @@
       "ctaPrimary": "探索签证类型",
       "ctaSecondary": "查看优先日期 →",
       "socialProof": "数千名移民申请者信赖",
+      "livePill": "最新2026年3月公告已更新",
       "liveDataLabel": "实时排期数据",
       "eb2Label": "EB-2 印度",
       "eb3Label": "EB-3 印度",

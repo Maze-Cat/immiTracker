@@ -1,4 +1,6 @@
+'use client';
 import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
 
 const visaLinks = [
   { label: 'OPT', slug: 'opt' },
@@ -10,6 +12,9 @@ const visaLinks = [
 ];
 
 export default function Footer() {
+  const locale = useLocale();
+  const t = useTranslations('footer');
+
   return (
     <footer className="bg-gray-800 text-gray-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
@@ -23,23 +28,21 @@ export default function Footer() {
               <span className="text-white font-extrabold text-lg">ImmiTracker</span>
             </div>
             <p className="text-sm leading-relaxed text-gray-500 max-w-xs">
-              Free, bilingual immigration guides and real-time priority date tracking for the US visa
-              journey.
+              {t('tagline')}
             </p>
             <p className="text-xs mt-4 text-gray-600">
-              For informational purposes only. Not legal advice. Always consult a qualified
-              immigration attorney.
+              {t('disclaimer')}
             </p>
           </div>
 
           {/* Visa links */}
           <div>
-            <h4 className="text-white text-sm font-semibold mb-4">Visa Types</h4>
+            <h4 className="text-white text-sm font-semibold mb-4">{t('visaTypes')}</h4>
             <ul className="space-y-2">
               {visaLinks.map(({ label, slug }) => (
                 <li key={slug}>
                   <Link
-                    href={`/en/visa/${slug}`}
+                    href={`/${locale}/visa/${slug}`}
                     className="text-sm text-gray-500 hover:text-teal-400 transition-colors"
                   >
                     {label}
@@ -51,14 +54,14 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h4 className="text-white text-sm font-semibold mb-4">Resources</h4>
+            <h4 className="text-white text-sm font-semibold mb-4">{t('resources')}</h4>
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/en/tracker"
+                  href={`/${locale}/tracker`}
                   className="text-sm text-gray-500 hover:text-teal-400 transition-colors"
                 >
-                  Priority Date Tracker
+                  {t('priorityTracker')}
                 </Link>
               </li>
               <li>
@@ -97,10 +100,9 @@ export default function Footer() {
 
         <div className="border-t border-gray-700 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-gray-600">
-            © {new Date().getFullYear()} ImmiTracker. Data sourced from U.S. Department of State
-            &amp; USCIS.
+            © {new Date().getFullYear()} ImmiTracker. {t('dataSource')}
           </p>
-          <p className="text-xs text-gray-600">Not affiliated with any government agency.</p>
+          <p className="text-xs text-gray-600">{t('notAffiliated')}</p>
         </div>
       </div>
     </footer>

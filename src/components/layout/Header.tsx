@@ -40,7 +40,7 @@ export default function Header() {
               ImmiTracker
             </span>
             <span className="text-[11px] text-gray-400 font-normal mt-0.5">
-              {locale === 'zh' ? '移民追踪器' : 'US Immigration Guide'}
+              {t('tagline')}
             </span>
           </div>
         </Link>
@@ -56,13 +56,16 @@ export default function Header() {
 
           {/* Visa dropdown */}
           <div className="relative group">
-            <button className="text-sm font-medium text-gray-500 px-3.5 py-1.5 rounded-lg hover:bg-teal-50 hover:text-teal-700 transition-colors flex items-center gap-1 cursor-pointer border-none bg-transparent">
+            <button
+              className="text-sm font-medium text-gray-500 px-3.5 py-1.5 rounded-lg hover:bg-teal-50 hover:text-teal-700 transition-colors flex items-center gap-1 cursor-pointer border-none bg-transparent"
+              aria-haspopup="true"
+            >
               {t('visa')}
               <svg className="w-3.5 h-3.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            <div className="absolute top-full left-0 mt-1 hidden group-hover:block bg-white rounded-xl shadow-lg border border-gray-100 py-2 w-44 z-50">
+            <div className="absolute top-full left-0 mt-1 hidden group-hover:block group-focus-within:block bg-white rounded-xl shadow-lg border border-gray-100 py-2 w-44 z-50">
               {visaLinks.map(({ key, slug }) => (
                 <Link
                   key={slug}
@@ -107,7 +110,7 @@ export default function Header() {
             href={`/${locale}/tracker`}
             className="hidden sm:inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white text-sm font-bold px-4 py-2 rounded-[9px] shadow-[0_2px_8px_rgba(249,115,22,0.35)] hover:-translate-y-px hover:shadow-[0_4px_14px_rgba(249,115,22,0.4)] transition-all no-underline"
           >
-            {locale === 'zh' ? '查看排期' : 'Track Dates'}
+            {t('trackDates')}
           </Link>
 
           {/* Mobile menu button */}

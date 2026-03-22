@@ -8,7 +8,9 @@
     "h1b": "H-1B",
     "h4": "H-4",
     "perm": "PERM",
-    "greenCard": "Green Card"
+    "greenCard": "Green Card",
+    "tagline": "US Immigration Guide",
+    "trackDates": "Track Dates"
   },
   "tracker": {
     "title": "Green Card Priority Date Tracker",
@@ -29,7 +31,13 @@
     "philippines": "Philippines",
     "loading": "Loading bulletin data…",
     "error": "Failed to load bulletin data. Please try again.",
-    "noData": "No bulletin data available."
+    "noData": "No bulletin data available.",
+    "current": "Current",
+    "unavailable": "Unavailable",
+    "eb2India": "EB-2 India",
+    "eb3India": "EB-3 India",
+    "chartComingSoon": "Full interactive chart coming soon",
+    "autoUpdated": "Auto-updated monthly from USCIS Visa Bulletin"
   },
   "visa": {
     "overview": "Overview",
@@ -37,7 +45,27 @@
     "processSteps": "Application Process",
     "timeline": "Timeline",
     "faqs": "Frequently Asked Questions",
-    "keyStats": "Key Stats"
+    "keyStats": "Key Stats",
+    "home": "Home",
+    "visaInfoBadge": "Visa Information",
+    "relatedVisas": "Related Visas",
+    "trackYourDate": "Track Your Date",
+    "viewPriorityDates": "View Latest Priority Dates →",
+    "stats": {
+      "duration": "Duration",
+      "stemExtension": "Extension",
+      "form": "Form",
+      "baseOpt": "Base OPT",
+      "initialPeriod": "Initial",
+      "maxDuration": "Max",
+      "annualCap": "Cap",
+      "tiedTo": "Tied to",
+      "ead": "EAD",
+      "processing": "Processing",
+      "agency": "Agency",
+      "validity": "Valid",
+      "categories": "Categories"
+    }
   },
   "common": {
     "loading": "Loading...",
@@ -56,6 +84,7 @@
       "ctaPrimary": "Explore Visa Types",
       "ctaSecondary": "Check Priority Dates →",
       "socialProof": "trusted by thousands of immigration applicants",
+      "livePill": "March 2026 Bulletin Updated",
       "liveDataLabel": "Live Priority Dates",
       "eb2Label": "EB-2 India",
       "eb3Label": "EB-3 India",

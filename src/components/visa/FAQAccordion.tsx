@@ -21,9 +21,11 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
             }`}
           >
             <button
+              id={`faq-btn-${i}`}
               className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left"
               onClick={() => setOpenIndex(isOpen ? null : i)}
               aria-expanded={isOpen}
+              aria-controls={`faq-panel-${i}`}
             >
               <span className="text-sm font-bold text-gray-800">{item.question}</span>
               <span
@@ -37,7 +39,12 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
               </span>
             </button>
             {isOpen && (
-              <div className="px-5 pb-4 border-t border-gray-100">
+              <div
+                id={`faq-panel-${i}`}
+                role="region"
+                aria-labelledby={`faq-btn-${i}`}
+                className="px-5 pb-4 border-t border-gray-100"
+              >
                 <p className="text-sm text-gray-600 leading-relaxed pt-3">{item.answer}</p>
               </div>
             )}

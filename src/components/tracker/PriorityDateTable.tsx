@@ -9,17 +9,18 @@ interface PriorityDateTableProps {
 }
 
 function DateCell({ value }: { value: string }) {
+  const t = useTranslations('tracker');
   if (value === 'C') {
     return (
       <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-green-50 text-green-700">
-        ● Current
+        ● {t('current')}
       </span>
     );
   }
   if (value === 'U') {
     return (
       <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-red-50 text-red-700">
-        ✕ Unavail.
+        ✕ {t('unavailable')}
       </span>
     );
   }
@@ -55,7 +56,8 @@ export default function PriorityDateTable({
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-sm">
+        <table className="w-full border-collapse text-sm" aria-label={tableTitle}>
+          <caption className="sr-only">{tableTitle}</caption>
           <thead>
             <tr className="bg-gray-50">
               <th className="text-left px-4 py-3 text-[11px] font-bold uppercase tracking-wide text-gray-500 border-b border-gray-100 whitespace-nowrap">

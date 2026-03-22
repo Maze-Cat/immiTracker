@@ -7,11 +7,20 @@ import Footer from '@/components/layout/Footer';
 
 const locales = ['en', 'zh'];
 
-export const metadata: Metadata = {
-  title: 'ImmiTracker — US Immigration Guide',
-  description:
-    'Comprehensive US immigration information for OPT, STEM OPT, H-1B, H-4, PERM, and Green Card',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isZh = locale === 'zh';
+  return {
+    title: isZh ? 'ImmiTracker — 美国移民指南' : 'ImmiTracker — US Immigration Guide',
+    description: isZh
+      ? '涵盖OPT、STEM OPT、H-1B、H-4、PERM及绿卡的全面双语移民信息'
+      : 'Comprehensive US immigration information for OPT, STEM OPT, H-1B, H-4, PERM, and Green Card',
+  };
+}
 
 export default async function LocaleLayout({
   children,

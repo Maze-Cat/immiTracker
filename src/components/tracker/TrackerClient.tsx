@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import PriorityDateTable from './PriorityDateTable';
 import HistoricalChart from './HistoricalChart';
 import type { VisaBulletin } from '@/types/visa-bulletin';
@@ -10,6 +10,7 @@ type SectionMode = 'employment' | 'family';
 
 export default function TrackerClient() {
   const t = useTranslations('tracker');
+  const locale = useLocale();
   const [bulletin, setBulletin] = useState<VisaBulletin | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -17,7 +18,8 @@ export default function TrackerClient() {
   const [section, setSection] = useState<SectionMode>('employment');
 
   useEffect(() => {
-    fetch('/api/visa-bulletin/current')
+    const controller = new AbortController();
+    fetch('/api/visa-bulletin/current', { signal: controller.signal })
       .then((r) => {
         if (!r.ok) throw new Error('non-ok');
         return r.json();
@@ -26,10 +28,12 @@ export default function TrackerClient() {
         setBulletin(data);
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
+        if (err.name === 'AbortError') return;
         setError(true);
         setLoading(false);
       });
+    return () => controller.abort();
   }, []);
 
   if (loading) {

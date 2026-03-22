@@ -27,11 +27,11 @@ export default function HistoricalChart() {
         <div className="flex gap-4 mb-4">
           <div className="flex items-center gap-1.5 text-xs text-gray-500">
             <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-t from-teal-700 to-teal-400" />
-            EB-2 India
+            {t('eb2India')}
           </div>
           <div className="flex items-center gap-1.5 text-xs text-gray-500">
             <span className="w-2.5 h-2.5 rounded-full bg-orange-500" />
-            EB-3 India
+            {t('eb3India')}
           </div>
         </div>
 
@@ -58,7 +58,7 @@ export default function HistoricalChart() {
         </div>
 
         <p className="text-xs text-gray-400 text-center mt-4">
-          Full interactive chart with historical data coming in next release
+          {t('chartComingSoon')}
         </p>
       </div>
     </div>

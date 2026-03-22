@@ -9,70 +9,37 @@ interface VisaPageContentProps {
   slug: string;
 }
 
-// Key stats per visa type for the header card
-const visaStats: Record<string, { label: string; value: string }[]> = {
+// Key stats per visa type — labelKey maps to visa.stats.* in translation files
+const visaStats: Record<string, { labelKey: string; value: string }[]> = {
   opt: [
-    { label: 'Duration', value: '12 months' },
-    { label: 'Extension', value: '+24 mo STEM' },
-    { label: 'Form', value: 'I-765' },
+    { labelKey: 'stats.duration', value: '12 mo' },
+    { labelKey: 'stats.stemExtension', value: '+24 mo' },
+    { labelKey: 'stats.form', value: 'I-765' },
   ],
   'stem-opt': [
-    { label: 'Duration', value: '24 months' },
-    { label: 'Base OPT', value: '12 months' },
-    { label: 'Form', value: 'I-765' },
+    { labelKey: 'stats.duration', value: '24 mo' },
+    { labelKey: 'stats.baseOpt', value: '12 mo' },
+    { labelKey: 'stats.form', value: 'I-765' },
   ],
   h1b: [
-    { label: 'Initial', value: '3 years' },
-    { label: 'Max', value: '6+ years' },
-    { label: 'Cap', value: '65,000 + 20,000' },
+    { labelKey: 'stats.initialPeriod', value: '3 yr' },
+    { labelKey: 'stats.maxDuration', value: '6+ yr' },
+    { labelKey: 'stats.annualCap', value: '65k + 20k' },
   ],
   h4: [
-    { label: 'Tied to', value: 'H-1B holder' },
-    { label: 'EAD', value: 'I-140 approved' },
-    { label: 'Form', value: 'I-539' },
+    { labelKey: 'stats.tiedTo', value: 'H-1B' },
+    { labelKey: 'stats.ead', value: 'I-140' },
+    { labelKey: 'stats.form', value: 'I-539' },
   ],
   perm: [
-    { label: 'Processing', value: '6–18 months' },
-    { label: 'Agency', value: 'DOL' },
-    { label: 'Form', value: 'ETA-9089' },
+    { labelKey: 'stats.processing', value: '6–18 mo' },
+    { labelKey: 'stats.agency', value: 'DOL' },
+    { labelKey: 'stats.form', value: 'ETA-9089' },
   ],
   'green-card': [
-    { label: 'Valid', value: '10 years' },
-    { label: 'Categories', value: 'EB-1 to EB-5' },
-    { label: 'Form', value: 'I-485 / DS-260' },
-  ],
-};
-
-const visaStatsZh: Record<string, { label: string; value: string }[]> = {
-  opt: [
-    { label: '有效期', value: '12个月' },
-    { label: 'STEM延期', value: '+24个月' },
-    { label: '表格', value: 'I-765' },
-  ],
-  'stem-opt': [
-    { label: '有效期', value: '24个月' },
-    { label: '基础OPT', value: '12个月' },
-    { label: '表格', value: 'I-765' },
-  ],
-  h1b: [
-    { label: '初始期', value: '3年' },
-    { label: '最长', value: '6年以上' },
-    { label: '名额上限', value: '65,000 + 20,000' },
-  ],
-  h4: [
-    { label: '依附于', value: 'H-1B持有人' },
-    { label: 'EAD条件', value: 'I-140已批' },
-    { label: '表格', value: 'I-539' },
-  ],
-  perm: [
-    { label: '审理周期', value: '6–18个月' },
-    { label: '主管机构', value: '劳工部' },
-    { label: '表格', value: 'ETA-9089' },
-  ],
-  'green-card': [
-    { label: '有效期', value: '10年' },
-    { label: '类别', value: 'EB-1至EB-5' },
-    { label: '表格', value: 'I-485 / DS-260' },
+    { labelKey: 'stats.validity', value: '10 yr' },
+    { labelKey: 'stats.categories', value: 'EB-1–EB-5' },
+    { labelKey: 'stats.form', value: 'I-485 / DS-260' },
   ],
 };
 
@@ -82,7 +49,7 @@ export default async function VisaPageContent({ locale, slug }: VisaPageContentP
 
   const content = locale === 'zh' ? data.zh : data.en;
   const t = await getTranslations({ locale, namespace: 'visa' });
-  const stats = locale === 'zh' ? (visaStatsZh[slug] ?? []) : (visaStats[slug] ?? []);
+  const stats = visaStats[slug] ?? [];
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -90,7 +57,7 @@ export default async function VisaPageContent({ locale, slug }: VisaPageContentP
         {/* Breadcrumb */}
         <nav className="text-sm text-gray-400 mb-6 flex items-center gap-2">
           <Link href={`/${locale}`} className="hover:text-teal-600 transition-colors">
-            {locale === 'zh' ? '首页' : 'Home'}
+            {t('home')}
           </Link>
           <span>/</span>
           <span className="text-gray-600 font-medium">{content.title}</span>
@@ -106,7 +73,7 @@ export default async function VisaPageContent({ locale, slug }: VisaPageContentP
               </div>
               <div className="inline-flex items-center gap-1.5 bg-white/15 border border-white/25 rounded-full px-3 py-1 text-xs font-semibold mb-3">
                 <span className="w-[7px] h-[7px] rounded-full bg-emerald-300" />
-                {locale === 'zh' ? '非移民/移民签证' : 'Visa Information'}
+                {t('visaInfoBadge')}
               </div>
               <h1 className="text-[36px] font-extrabold tracking-tight leading-tight mb-2">
                 {content.title}
@@ -115,9 +82,10 @@ export default async function VisaPageContent({ locale, slug }: VisaPageContentP
               {stats.length > 0 && (
                 <div className="flex gap-4 flex-wrap">
                   {stats.map((s) => (
-                    <div key={s.label} className="bg-white/12 rounded-xl px-4 py-2.5">
+                    <div key={s.labelKey} className="bg-white/12 rounded-xl px-4 py-2.5">
                       <p className="text-[11px] text-white/70 font-semibold uppercase tracking-wide">
-                        {s.label}
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        {t(s.labelKey as any)}
                       </p>
                       <p className="text-[16px] font-bold mt-0.5">{s.value}</p>
                     </div>
@@ -226,15 +194,16 @@ export default async function VisaPageContent({ locale, slug }: VisaPageContentP
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
               <div className="px-4 py-3.5 border-b border-gray-100 flex items-center gap-2 text-sm font-bold text-gray-700">
                 <span>⚡</span>
-                {locale === 'zh' ? '关键数据' : 'Key Stats'}
+                {t('keyStats')}
               </div>
               <div className="px-4 py-1">
                 {stats.map((s) => (
                   <div
-                    key={s.label}
+                    key={s.labelKey}
                     className="flex justify-between items-center py-2.5 border-b border-gray-50 last:border-0 text-sm"
                   >
-                    <span className="text-gray-400">{s.label}</span>
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    <span className="text-gray-400">{t(s.labelKey as any)}</span>
                     <span className="text-teal-600 font-semibold">{s.value}</span>
                   </div>
                 ))}
@@ -244,7 +213,7 @@ export default async function VisaPageContent({ locale, slug }: VisaPageContentP
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
               <div className="px-4 py-3.5 border-b border-gray-100 flex items-center gap-2 text-sm font-bold text-gray-700">
                 <span>🔗</span>
-                {locale === 'zh' ? '相关签证' : 'Related Visas'}
+                {t('relatedVisas')}
               </div>
               <div className="px-4 py-3 flex flex-col gap-1">
                 {Object.keys(visaDataMap)
@@ -275,10 +244,10 @@ export default async function VisaPageContent({ locale, slug }: VisaPageContentP
                 className="bg-gradient-to-br from-teal-600 to-teal-700 text-white rounded-2xl p-5 no-underline block hover:-translate-y-0.5 transition-transform shadow-md"
               >
                 <p className="text-[13px] font-bold text-white/80 uppercase tracking-wide mb-1">
-                  {locale === 'zh' ? '追踪您的排期' : 'Track Your Date'}
+                  {t('trackYourDate')}
                 </p>
                 <p className="text-base font-bold">
-                  {locale === 'zh' ? '查看最新优先排期日期 →' : 'View Latest Priority Dates →'}
+                  {t('viewPriorityDates')}
                 </p>
               </Link>
             )}

@@ -1,95 +1,75 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
+export const revalidate = 3600;
+
 interface HomePageProps {
   params: Promise<{ locale: string }>;
 }
 
 interface VisaCardConfig {
   slug: string;
+  tKey: 'opt' | 'stemOpt' | 'h1b' | 'h4' | 'perm' | 'greenCard';
   emoji: string;
   code: string;
   tagClass: string;
   topBar: string;
-  nameEn: string;
-  tagEn: string;
-  nameZh: string;
-  tagZh: string;
 }
 
 const visaCardData: VisaCardConfig[] = [
   {
     slug: 'opt',
+    tKey: 'opt',
     emoji: '🎓',
     code: 'OPT',
     tagClass: 'bg-blue-50 text-blue-700',
     topBar: 'from-blue-500 to-blue-400',
-    nameEn: 'Optional Practical Training',
-    tagEn: 'Student',
-    nameZh: '选择性实习培训',
-    tagZh: '学生',
   },
   {
     slug: 'stem-opt',
+    tKey: 'stemOpt',
     emoji: '🔬',
     code: 'STEM OPT',
     tagClass: 'bg-blue-50 text-blue-700',
     topBar: 'from-blue-500 to-blue-400',
-    nameEn: 'STEM OPT Extension',
-    tagEn: 'Student',
-    nameZh: 'STEM OPT延期',
-    tagZh: '学生',
   },
   {
     slug: 'h1b',
+    tKey: 'h1b',
     emoji: '💼',
     code: 'H-1B',
     tagClass: 'bg-teal-50 text-teal-700',
     topBar: 'from-teal-600 to-teal-400',
-    nameEn: 'Specialty Occupation Work Visa',
-    tagEn: 'Work',
-    nameZh: '专业技术工作签证',
-    tagZh: '工作',
   },
   {
     slug: 'h4',
+    tKey: 'h4',
     emoji: '👨‍👩‍👧',
     code: 'H-4',
     tagClass: 'bg-orange-50 text-orange-700',
     topBar: 'from-orange-500 to-yellow-400',
-    nameEn: 'H-1B Dependent Visa',
-    tagEn: 'Family',
-    nameZh: 'H-1B家属签证',
-    tagZh: '家庭',
   },
   {
     slug: 'perm',
+    tKey: 'perm',
     emoji: '📋',
     code: 'PERM',
     tagClass: 'bg-purple-50 text-purple-700',
     topBar: 'from-purple-600 to-purple-400',
-    nameEn: 'Labor Certification',
-    tagEn: 'Green Card',
-    nameZh: '劳工认证',
-    tagZh: '绿卡',
   },
   {
     slug: 'green-card',
+    tKey: 'greenCard',
     emoji: '🇺🇸',
     code: 'Green Card',
     tagClass: 'bg-purple-50 text-purple-700',
     topBar: 'from-purple-600 to-purple-400',
-    nameEn: 'Permanent Residency',
-    tagEn: 'Green Card',
-    nameZh: '永久居留权',
-    tagZh: '绿卡',
   },
 ];
 
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
-  const isZh = locale === 'zh';
 
   return (
     <>
@@ -113,7 +93,7 @@ export default async function HomePage({ params }: HomePageProps) {
             {/* Live pill */}
             <div className="inline-flex items-center gap-2 bg-white border border-teal-100 rounded-full px-3.5 py-1.5 text-xs font-semibold text-teal-700 mb-6 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
-              {isZh ? '最新2026年3月公告已更新' : 'March 2026 Bulletin Updated'}
+              {t('hero.livePill')}
             </div>
 
             <h1 className="text-[46px] leading-[1.15] font-extrabold tracking-tight text-gray-800 mb-5">
@@ -232,7 +212,7 @@ export default async function HomePage({ params }: HomePageProps) {
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
-            {visaCardData.map(({ slug, emoji, code, tagClass, topBar, nameEn, tagEn, nameZh, tagZh }) => (
+            {visaCardData.map(({ slug, tKey, emoji, code, tagClass, topBar }) => (
               <Link
                 key={slug}
                 href={`/${locale}/visa/${slug}`}
@@ -245,10 +225,10 @@ export default async function HomePage({ params }: HomePageProps) {
                   {code}
                 </p>
                 <p className="text-[12px] text-gray-500 mb-3 leading-snug line-clamp-2">
-                  {isZh ? nameZh : nameEn}
+                  {t(`visaCards.${tKey}.name`)}
                 </p>
                 <span className={`inline-flex items-center text-[11px] font-bold px-2.5 py-0.5 rounded-full ${tagClass}`}>
-                  {isZh ? tagZh : tagEn}
+                  {t(`visaCards.${tKey}.tag`)}
                 </span>
                 <span className="absolute bottom-3.5 right-4 text-gray-300 group-hover:text-teal-500 group-hover:translate-x-0.5 transition-all text-[16px]">
                   →
