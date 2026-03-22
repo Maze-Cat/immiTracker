@@ -13,6 +13,7 @@ export async function POST(request: NextRequest) {
     const result = await fetchAndStoreBulletin();
     return NextResponse.json({ success: true, bulletinMonth: result.bulletinMonth, message: 'Bulletin fetched and stored successfully' });
   } catch (error) {
+    console.error('[cron/fetch-bulletin] Failed to fetch or store bulletin:', error);
     return NextResponse.json({ success: false, message: 'Failed to fetch bulletin' }, { status: 500 });
   }
 }
