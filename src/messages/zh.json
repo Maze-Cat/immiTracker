@@ -1,0 +1,58 @@
+{
+  "nav": {
+    "home": "首页",
+    "tracker": "排期追踪",
+    "visa": "签证信息",
+    "opt": "OPT",
+    "stemOpt": "STEM OPT",
+    "h1b": "H-1B",
+    "h4": "H-4",
+    "perm": "PERM",
+    "greenCard": "绿卡"
+  },
+  "tracker": {
+    "title": "绿卡排期追踪器",
+    "subtitle": "追踪最新 USCIS 签证公告排期日期",
+    "finalAction": "最终行动日期",
+    "datesForFiling": "递交申请日期",
+    "lastUpdated": "最后更新",
+    "employmentBased": "职业移民",
+    "familyBased": "家庭移民",
+    "historicalTrends": "历史趋势",
+    "category": "类别",
+    "allChargeability": "所有国家",
+    "china": "中国",
+    "india": "印度",
+    "mexico": "墨西哥",
+    "philippines": "菲律宾"
+  },
+  "visa": {
+    "overview": "概述",
+    "eligibility": "申请资格",
+    "processSteps": "申请流程",
+    "timeline": "时间线",
+    "faqs": "常见问题"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "数据加载失败，请重试。",
+    "learnMore": "了解更多",
+    "backToTop": "返回顶部",
+    "lastUpdated": "最后更新"
+  },
+  "home": {
+    "hero": {
+      "title": "您的美国移民指南",
+      "subtitle": "为移民和非移民提供全面的美国签证信息",
+      "cta": "探索签证类型"
+    },
+    "features": {
+      "visaInfo": "详细签证信息",
+      "visaInfoDesc": "OPT、STEM OPT、H-1B、H-4、PERM 和绿卡的深度指南",
+      "tracker": "排期追踪器",
+      "trackerDesc": "实时绿卡排期追踪及历史趋势分析",
+      "bilingual": "双语支持",
+      "bilingualDesc": "支持中英文"
+    }
+  }
+}

@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ImmiTracker — Option B: Modern &amp; Friendly</title>
+  <style>
+    /* =============================================
+       OPTION B — MODERN & FRIENDLY
+       Teal/Orange, Card-based, Warm & Approachable
+       ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:        #0d9488;
+      --teal-dark:   #0a7a6e;
+      --teal-light:  #14b8a6;
+      --teal-pale:   #ccfbf1;
+      --teal-bg:     #f0fdfa;
+      --orange:      #f97316;
+      --orange-dark: #ea6c0c;
+      --orange-pale: #fff7ed;
+      --orange-bg:   #ffedd5;
+      --white:       #ffffff;
+      --off-white:   #f9fafb;
+      --gray-50:     #f8fafc;
+      --gray-100:    #f1f5f9;
+      --gray-200:    #e2e8f0;
+      --gray-300:    #cbd5e1;
+      --gray-400:    #94a3b8;
+      --gray-500:    #64748b;
+      --gray-600:    #475569;
+      --gray-700:    #334155;
+      --gray-800:    #1e293b;
+      --purple:      #7c3aed;
+      --purple-bg:   #ede9fe;
+      --blue:        #3b82f6;
+      --blue-bg:     #eff6ff;
+      --green:       #16a34a;
+      --green-bg:    #dcfce7;
+      --red:         #dc2626;
+      --red-bg:      #fee2e2;
+      --yellow:      #d97706;
+      --yellow-bg:   #fef3c7;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md:   0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-lg:   0 10px 30px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: var(--gray-700);
+      background: var(--off-white);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ---- TOP ANNOUNCEMENT BAR ---- */
+    .announce-bar {
+      background: linear-gradient(90deg, var(--teal), var(--teal-dark));
+      color: var(--white);
+      font-size: 13px;
+      padding: 8px 24px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .announce-badge {
+      background: var(--orange);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+
+    /* ---- HEADER / NAV ---- */
+    header {
+      background: var(--white);
+      box-shadow: 0 1px 0 var(--gray-200), 0 2px 8px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .logo-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 17px;
+      box-shadow: 0 2px 8px rgba(13,148,136,0.3);
+    }
+    .logo-name {
+      font-size: 20px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .logo-zh {
+      font-size: 13px;
+      color: var(--gray-400);
+      font-weight: 400;
+      -webkit-text-fill-color: var(--gray-400);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex: 1;
+    }
+    nav a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-500);
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    nav a:hover { color: var(--teal); background: var(--teal-bg); text-decoration: none; }
+    nav a.active { color: var(--teal); background: var(--teal-bg); font-weight: 600; }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .lang-toggle {
+      display: flex;
+      background: var(--gray-100);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .lang-toggle button {
+      background: transparent;
+      border: none;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-400);
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.12s;
+      font-family: inherit;
+    }
+    .lang-toggle button.active {
+      background: var(--white);
+      color: var(--teal);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-cta {
+      background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 9px 20px;
+      border-radius: 9px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(249,115,22,0.35);
+      transition: all 0.15s;
+      text-decoration: none;
+      display: inline-block;
+      white-space: nowrap;
+    }
+    .btn-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(249,115,22,0.4); text-decoration: none; color: #fff; }
+
+    /* ---- HERO SECTION ---- */
+    .hero {
+      background: linear-gradient(160deg, #ecfdf9 0%, #f0fdfa 40%, #fff7ed 100%);
+      padding: 80px 24px 90px;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-blob-1 {
+      position: absolute;
+      top: -100px; right: -80px;
+      width: 450px; height: 450px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(13,148,136,0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-blob-2 {
+      position: absolute;
+      bottom: -120px; left: -60px;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(249,115,22,0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--white);
+      border: 1px solid var(--teal-pale);
+      border-radius: 999px;
+      padding: 5px 14px 5px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--teal-dark);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .hero-pill-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--gray-800);
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+    .hero h1 .accent { color: var(--teal); }
+    .hero h1 .accent-orange { color: var(--orange); }
+    .hero-subtitle {
+      font-size: 17px;
+      color: var(--gray-500);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 520px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .btn-hero-primary {
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      color: var(--white);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(13,148,136,0.4);
+      transition: all 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(13,148,136,0.5); text-decoration: none; color: #fff; }
+    .btn-hero-secondary {
+      background: var(--white);
+      color: var(--gray-700);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      border: 1.5px solid var(--gray-200);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-hero-secondary:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-1px); text-decoration: none; }
+    .hero-social-proof {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .avatar-stack { display: flex; }
+    .avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--white);
+      margin-left: -8px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .avatar:first-child { margin-left: 0; }
+    .avatar-1 { background: #7c3aed; }
+    .avatar-2 { background: var(--teal); }
+    .avatar-3 { background: var(--orange); }
+    .avatar-4 { background: #059669; }
+    .social-text { font-size: 13px; color: var(--gray-500); }
+    .social-text strong { color: var(--gray-700); }
+
+    /* Hero right: Feature cards */
+    .hero-cards { display: flex; flex-direction: column; gap: 14px; }
+    .hero-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      transition: transform 0.15s;
+    }
+    .hero-card:hover { transform: translateY(-2px); }
+    .hero-card-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .icon-teal { background: var(--teal-bg); }
+    .icon-orange { background: var(--orange-bg); }
+    .icon-purple { background: var(--purple-bg); }
+    .hero-card-label { font-size: 12px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.5px; }
+    .hero-card-title { font-size: 15px; font-weight: 700; color: var(--gray-800); margin: 2px 0; }
+    .hero-card-desc { font-size: 13px; color: var(--gray-500); line-height: 1.45; }
+    .hero-card-pill {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--teal-bg);
+      color: var(--teal-dark);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .hero-card-pill.orange { background: var(--orange-bg); color: var(--orange-dark); }
+
+    /* ---- VISA TYPES SECTION ---- */
+    .visa-section {
+      padding: 72px 24px;
+      background: var(--white);
+    }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--gray-800);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--gray-500);
+      margin-bottom: 40px;
+      max-width: 520px;
+    }
+
+    .visa-card-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .vcard {
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 14px;
+      padding: 22px 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .vcard::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 14px 14px 0 0;
+    }
+    .vcard.work::before { background: linear-gradient(90deg, var(--teal), var(--teal-light)); }
+    .vcard.student::before { background: linear-gradient(90deg, var(--blue), #60a5fa); }
+    .vcard.family::before { background: linear-gradient(90deg, var(--orange), #fbbf24); }
+    .vcard.gc::before { background: linear-gradient(90deg, var(--purple), #a78bfa); }
+    .vcard:hover {
+      border-color: var(--teal);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+    .vcard-emoji { font-size: 26px; margin-bottom: 12px; }
+    .vcard-code {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--gray-800);
+      margin-bottom: 4px;
+      letter-spacing: -0.3px;
+    }
+    .vcard-name { font-size: 13px; color: var(--gray-500); margin-bottom: 12px; line-height: 1.4; }
+    .vcard-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .tag-work { background: var(--teal-bg); color: var(--teal-dark); }
+    .tag-student { background: var(--blue-bg); color: var(--blue); }
+    .tag-family { background: var(--orange-bg); color: var(--orange-dark); }
+    .tag-gc { background: var(--purple-bg); color: var(--purple); }
+    .vcard-arrow {
+      position: absolute;
+      bottom: 14px; right: 16px;
+      color: var(--gray-300);
+      font-size: 16px;
+      transition: all 0.15s;
+    }
+    .vcard:hover .vcard-arrow { color: var(--teal); transform: translateX(2px); }
+
+    /* ---- VISA INFO SECTION ---- */
+    .visa-detail-section {
+      background: var(--off-white);
+      padding: 72px 24px;
+    }
+    .visa-detail-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 32px;
+    }
+
+    .main-col {}
+
+    /* Visa page header card */
+    .visa-header-card {
+      background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+      color: var(--white);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .visa-header-card::after {
+      content: 'H1B';
+      position: absolute;
+      right: -10px; top: -10px;
+      font-size: 100px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.06);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .visa-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .chip-dot { width: 7px; height: 7px; border-radius: 50%; background: #6ee7b7; }
+    .visa-header-card h1 {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+    .visa-header-card p { font-size: 15px; opacity: 0.85; margin-bottom: 20px; }
+    .visa-stats-row { display: flex; gap: 24px; flex-wrap: wrap; }
+    .vstat {
+      background: rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 10px 16px;
+    }
+    .vstat-label { font-size: 11px; opacity: 0.7; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .vstat-value { font-size: 16px; font-weight: 700; margin-top: 2px; }
+
+    /* Info cards */
+    .info-card {
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 20px;
+      overflow: hidden;
+      border: 1px solid var(--gray-100);
+    }
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .card-header-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--teal-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .card-header-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+    .info-card-body { padding: 20px 22px; }
+
+    /* Eligibility items */
+    .elig-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-50);
+    }
+    .elig-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .elig-check {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--green-bg);
+      color: var(--green);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-weight: 700;
+    }
+    .elig-text { font-size: 14px; color: var(--gray-600); line-height: 1.5; }
+
+    /* Timeline steps */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--teal), var(--teal-pale));
+      border-radius: 2px;
+    }
+    .t-step { position: relative; padding-bottom: 24px; }
+    .t-step:last-child { padding-bottom: 0; }
+    .t-dot {
+      position: absolute;
+      left: -28px; top: 3px;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 4px var(--teal-pale);
+    }
+    .t-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+    .t-title { font-size: 14px; font-weight: 700; color: var(--gray-800); }
+    .t-time {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--teal);
+      background: var(--teal-bg);
+      padding: 2px 10px;
+      border-radius: 999px;
+    }
+    .t-desc { font-size: 13px; color: var(--gray-500); line-height: 1.5; }
+
+    /* Right sidebar */
+    .right-col {}
+    .sidebar-card {
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-100);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .sc-header {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gray-700);
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--gray-100);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .sc-body { padding: 14px 18px; }
+    .sc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--gray-50);
+      font-size: 13px;
+    }
+    .sc-row:last-child { border-bottom: none; }
+    .sc-key { color: var(--gray-400); }
+    .sc-val { color: var(--gray-700); font-weight: 600; }
+    .sc-val.teal { color: var(--teal); }
+    .sc-val.orange { color: var(--orange); }
+
+    /* Alert card */
+    .alert-card {
+      background: linear-gradient(135deg, var(--orange-bg), #fff7ed);
+      border: 1.5px solid #fed7aa;
+      border-radius: 14px;
+      padding: 16px 18px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .alert-icon-wrap {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .alert-text { color: var(--gray-600); line-height: 1.5; }
+    .alert-text strong { color: var(--orange-dark); }
+
+    /* ---- PRIORITY DATE TRACKER ---- */
+    .tracker-section {
+      background: var(--white);
+      padding: 72px 24px;
+    }
+    .tracker-inner { max-width: 1200px; margin: 0 auto; }
+
+    /* Tab nav */
+    .tracker-tabs {
+      display: flex;
+      gap: 0;
+      background: var(--gray-100);
+      border-radius: 12px;
+      padding: 4px;
+      width: fit-content;
+      margin-bottom: 28px;
+    }
+    .tracker-tab {
+      padding: 9px 20px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: all 0.15s;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+    }
+    .tracker-tab.active {
+      background: var(--white);
+      color: var(--teal);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Filter row */
+    .filter-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .filter-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+    .filter-chip.active { border-color: var(--teal); color: var(--teal); background: var(--teal-bg); }
+    .filter-chip select {
+      border: none;
+      background: transparent;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* Tracker table card */
+    .tracker-card {
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-100);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .tracker-card-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .tracker-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+    .tracker-card-subtitle {
+      font-size: 13px;
+      color: var(--gray-400);
+      margin-top: 2px;
+    }
+    .bulletin-badge {
+      background: var(--teal-bg);
+      color: var(--teal-dark);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      background: var(--gray-50);
+      color: var(--gray-500);
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--gray-100);
+      text-align: center;
+      white-space: nowrap;
+    }
+    thead th:first-child { text-align: left; }
+    tbody tr { border-bottom: 1px solid var(--gray-50); transition: background 0.1s; }
+    tbody tr:hover { background: var(--teal-bg); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody td {
+      padding: 13px 16px;
+      color: var(--gray-600);
+      text-align: center;
+      font-size: 13px;
+    }
+    tbody td:first-child { text-align: left; font-weight: 700; color: var(--gray-800); }
+    .c-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .badge-current { background: var(--green-bg); color: var(--green); }
+    .badge-unavail { background: var(--red-bg); color: var(--red); }
+    .highlighted-row { background: #f0fdfa !important; }
+    .highlighted-row td:first-child { color: var(--teal); }
+    .date-cell { font-size: 12px; white-space: nowrap; }
+    .cat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+    .cat-indicator {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      flex-shrink: 0;
+    }
+
+    /* Chart card */
+    .chart-card {
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-100);
+      overflow: hidden;
+      padding: 24px;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .chart-title { font-size: 15px; font-weight: 700; color: var(--gray-800); }
+    .chart-subtitle { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+    .chart-legend {
+      display: flex;
+      gap: 16px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .chart-area {
+      height: 160px;
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+      border-bottom: 2px solid var(--gray-100);
+      padding-bottom: 0;
+      position: relative;
+    }
+    /* Horizontal grid lines */
+    .chart-area::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      top: 25%; bottom: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%, transparent calc(25% - 1px),
+        var(--gray-100) calc(25% - 1px), var(--gray-100) 25%,
+        transparent 25%, transparent calc(50% - 1px),
+        var(--gray-100) calc(50% - 1px), var(--gray-100) 50%,
+        transparent 50%, transparent calc(75% - 1px),
+        var(--gray-100) calc(75% - 1px), var(--gray-100) 75%
+      );
+      pointer-events: none;
+    }
+    .c-bar {
+      flex: 1;
+      border-radius: 5px 5px 0 0;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+      transition: opacity 0.15s;
+    }
+    .c-bar.teal-bar { background: linear-gradient(to top, var(--teal-dark), var(--teal-light)); opacity: 0.7; }
+    .c-bar.teal-bar:hover { opacity: 1; }
+    .c-bar.highlight { background: linear-gradient(to top, var(--orange-dark), var(--orange)); opacity: 1; }
+    .chart-months {
+      display: flex;
+      gap: 5px;
+      margin-top: 8px;
+    }
+    .chart-month-label { flex: 1; font-size: 10px; color: var(--gray-400); text-align: center; }
+    .trend-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+      background: var(--green-bg);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    /* ---- FAQ SECTION ---- */
+    .faq-section {
+      background: var(--off-white);
+      padding: 72px 24px;
+    }
+    .faq-grid {
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .faq-card {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1.5px solid var(--gray-100);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.15s;
+    }
+    .faq-card:hover { box-shadow: var(--shadow-md); }
+    .faq-q {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-800);
+      padding: 18px 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .faq-toggle {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--gray-400);
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    .faq-card.open .faq-toggle {
+      background: var(--teal);
+      color: #fff;
+      transform: rotate(45deg);
+    }
+    .faq-a {
+      font-size: 14px;
+      color: var(--gray-600);
+      padding: 0 20px 18px;
+      line-height: 1.65;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    /* ---- CTA BANNER ---- */
+    .cta-section {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 50%, #0891b2 100%);
+      padding: 60px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      pointer-events: none;
+    }
+    .cta-inner { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-inner h2 { font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .cta-inner p { font-size: 16px; color: rgba(255,255,255,0.8); margin-bottom: 28px; }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-cta-white {
+      background: #fff;
+      color: var(--teal-dark);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 13px 28px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      transition: all 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-cta-white:hover { transform: translateY(-2px); text-decoration: none; color: var(--teal-dark); }
+    .btn-cta-outline {
+      background: transparent;
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 13px 28px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-cta-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; text-decoration: none; color: #fff; }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--gray-800);
+      color: var(--gray-400);
+      padding: 56px 24px 28px;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .footer-logo-icon {
+      width: 36px; height: 36px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+    }
+    .footer-logo-name { font-size: 18px; font-weight: 800; color: var(--white); }
+    .footer-desc { font-size: 13px; line-height: 1.65; max-width: 280px; margin-bottom: 16px; }
+    .footer-disclaimer { font-size: 11px; font-style: italic; opacity: 0.6; line-height: 1.5; }
+    .footer-col-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--white); margin-bottom: 16px; }
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: var(--gray-400);
+      padding: 5px 0;
+      transition: color 0.12s;
+    }
+    .footer-col a:hover { color: var(--teal-light); text-decoration: none; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    /* ---- DESIGN LABEL ---- */
+    .design-label {
+      background: #111827;
+      color: #6ee7b7;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      text-align: center;
+      padding: 12px;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="design-label">▌ OPTION B — MODERN &amp; FRIENDLY  |  Teal/Orange · Card-Based · Warm &amp; Approachable ▐</div>
+
+<!-- Announcement bar -->
+<div class="announce-bar">
+  <span class="announce-badge">New</span>
+  March 2026 Visa Bulletin is now available — <a href="#tracker" style="color:#fff;font-weight:700;margin-left:5px;text-decoration:underline;">See priority date changes →</a>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">IT</div>
+      <div>
+        <div class="logo-name">ImmiTracker</div>
+        <div class="logo-zh">美国移民信息</div>
+      </div>
+    </a>
+    <nav>
+      <a href="#" class="active">Home</a>
+      <a href="#">Visa Guide</a>
+      <a href="#">Green Card</a>
+      <a href="#">Priority Dates</a>
+      <a href="#">News</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-toggle">
+        <button class="active">EN</button>
+        <button>中文</button>
+      </div>
+      <a href="#tracker" class="btn-cta">Track Dates ↗</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== SECTION 1: HERO ===== -->
+<section class="hero">
+  <div class="hero-blob-1"></div>
+  <div class="hero-blob-2"></div>
+  <div class="hero-inner">
+    <!-- Left -->
+    <div>
+      <div class="hero-pill">
+        <span class="hero-pill-dot"></span>
+        Updated March 22, 2026 · USCIS Data
+      </div>
+      <h1>Your <span class="accent">US Immigration</span><br/>Journey, <span class="accent-orange">Simplified</span></h1>
+      <p class="hero-subtitle">
+        Easy-to-understand guides on US visas, green cards, and priority dates.
+        Whether you're applying for H-1B or tracking your EB-2 date — we've got you covered.
+        In English and 中文.
+      </p>
+      <div class="hero-actions">
+        <a href="#visa-info" class="btn-hero-primary">Explore Visa Types →</a>
+        <a href="#tracker" class="btn-hero-secondary">Priority Date Tracker</a>
+      </div>
+      <div class="hero-social-proof">
+        <div class="avatar-stack">
+          <div class="avatar avatar-1">YL</div>
+          <div class="avatar avatar-2">MK</div>
+          <div class="avatar avatar-3">SR</div>
+          <div class="avatar avatar-4">JW</div>
+        </div>
+        <p class="social-text">Trusted by <strong>200k+ immigrants</strong> annually</p>
+      </div>
+    </div>
+    <!-- Right: Feature cards -->
+    <div class="hero-cards">
+      <div class="hero-card">
+        <div class="hero-card-icon icon-teal">📋</div>
+        <div>
+          <div class="hero-card-label">Visa Guide</div>
+          <div class="hero-card-title">H-1B Specialty Worker</div>
+          <div class="hero-card-desc">Step-by-step guide to the H-1B lottery, eligibility, and application process.</div>
+          <div class="hero-card-pill">FY2027 guide available</div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon icon-orange">📅</div>
+        <div>
+          <div class="hero-card-label">Priority Dates</div>
+          <div class="hero-card-title">EB-2 India — Jan 1, 2013</div>
+          <div class="hero-card-desc">Track monthly movement with historical charts and trend analysis.</div>
+          <div class="hero-card-pill orange">+2 months movement in Mar</div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon icon-purple">⚡</div>
+        <div>
+          <div class="hero-card-label">Quick Facts</div>
+          <div class="hero-card-title">F-1 OPT & STEM Extension</div>
+          <div class="hero-card-desc">Processing times, required docs, and timeline for OPT applicants.</div>
+          <div class="hero-card-pill">~3–5 months processing</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2: VISA TYPES ===== -->
+<section class="visa-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Explore by Category</div>
+    <h2 class="section-title">Find Your Visa Type</h2>
+    <p class="section-subtitle">Browse detailed guides for every major US immigration pathway, from work visas to family petitions.</p>
+    <div class="visa-card-grid">
+      <div class="vcard work">
+        <div class="vcard-emoji">💼</div>
+        <div class="vcard-code">H-1B</div>
+        <div class="vcard-name">Specialty Occupation Worker</div>
+        <div class="vcard-tag tag-work">&#10003; Work</div>
+        <div class="vcard-arrow">→</div>
+      </div>
+      <div class="vcard work">
+        <div class="vcard-emoji">🏢</div>
+        <div class="vcard-code">L-1</div>
+        <div class="vcard-name">Intracompany Transferee</div>
+        <div class="vcard-tag tag-work">&#10003; Work</div>
+        <div class="vcard-arrow">→</div>
+      </div>
+      <div class="vcard student">
+        <div class="vcard-emoji">🎓</div>
+        <div class="vcard-code">F-1</div>
+        <div class="vcard-name">Academic Student Visa</div>
+        <div class="vcard-tag tag-student">&#10003; Student</div>
+        <div class="vcard-arrow">→</div>
+      </div>
+      <div class="vcard work">
+        <div class="vcard-emoji">⭐</div>
+        <div class="vcard-code">O-1</div>
+        <div class="vcard-name">Extraordinary Ability</div>
+        <div class="vcard-tag tag-work">&#10003; Work</div>
+        <div class="vcard-arrow">→</div>
+      </div>
+      <div class="vcard gc">
+        <div class="vcard-emoji">🟢</div>
+        <div class="vcard-code">EB-2</div>
+        <div class="vcard-name">Advanced Degree / NIW</div>
+        <div class="vcard-tag tag-gc">&#10003; Green Card</div>
+        <div class="vcard-arrow">→</div>
+      </div>
+      <div class="vcard gc">
+        <div class="vcard-emoji">🛠️</div>
+        <div class="vcard-code">EB-3</div>
+        <div class="vcard-name">Skilled / Unskilled Worker</div>
+        <div class="vcard-tag tag-gc">&#10003; Green Card</div>
+        <div class="vcard-arrow">→</div>
+      </div>
+      <div class="vcard family">
+        <div class="vcard-emoji">❤️</div>
+        <div class="vcard-code">IR-1</div>
+        <div class="vcard-name">Immediate Relative Spouse</div>
+        <div class="vcard-tag tag-family">&#10003; Family</div>
+        <div class="vcard-arrow">→</div>
+      </div>
+      <div class="vcard student">
+        <div class="vcard-emoji">🌐</div>
+        <div class="vcard-code">J-1</div>
+        <div class="vcard-name">Exchange Visitor Program</div>
+        <div class="vcard-tag tag-student">&#10003; Student</div>
+        <div class="vcard-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3: VISA INFO PAGE (H-1B) ===== -->
+<section class="visa-detail-section" id="visa-info">
+  <div class="visa-detail-inner">
+
+    <!-- Left/Main -->
+    <div class="main-col">
+
+      <!-- Visa header card -->
+      <div class="visa-header-card">
+        <div class="visa-chip"><span class="chip-dot"></span> Temporary Non-Immigrant</div>
+        <h1>H-1B Visa</h1>
+        <p>Specialty Occupation — Technology, Finance, Healthcare, Engineering &amp; more</p>
+        <div class="visa-stats-row">
+          <div class="vstat">
+            <div class="vstat-label">Annual Cap</div>
+            <div class="vstat-value">85,000</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-label">Duration</div>
+            <div class="vstat-value">3 → 6 yrs</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-label">FY2026 Status</div>
+            <div class="vstat-value" style="color:#fde68a;">Closed</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-label">Next Filing</div>
+            <div class="vstat-value">Apr 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alert -->
+      <div class="alert-card">
+        <div class="alert-icon-wrap">⚠️</div>
+        <div class="alert-text">
+          <strong>FY2027 Heads Up:</strong> USCIS typically opens H-1B electronic registration in early March. Registration is expected March 2026 for FY2027 employment start (Oct 1, 2026). Set a reminder so you don't miss the window.
+        </div>
+      </div>
+
+      <!-- Eligibility -->
+      <div class="info-card">
+        <div class="info-card-header">
+          <div class="card-header-icon">✅</div>
+          <div class="card-header-title">Eligibility Requirements</div>
+        </div>
+        <div class="info-card-body">
+          <div class="elig-item">
+            <div class="elig-check">✓</div>
+            <div class="elig-text">Hold a U.S. bachelor's degree (or equivalent) in a directly related specialty field</div>
+          </div>
+          <div class="elig-item">
+            <div class="elig-check">✓</div>
+            <div class="elig-text">Have a US employer willing to sponsor you and file a petition on your behalf</div>
+          </div>
+          <div class="elig-item">
+            <div class="elig-check">✓</div>
+            <div class="elig-text">The position must qualify as a "specialty occupation" — requiring specialized knowledge</div>
+          </div>
+          <div class="elig-item">
+            <div class="elig-check">✓</div>
+            <div class="elig-text">Employer must pay the prevailing wage determined by the Department of Labor</div>
+          </div>
+          <div class="elig-item">
+            <div class="elig-check">✓</div>
+            <div class="elig-text">Labor Condition Application (LCA) must be certified by DOL before petition filing</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Process Timeline -->
+      <div class="info-card">
+        <div class="info-card-header">
+          <div class="card-header-icon">🗺️</div>
+          <div class="card-header-title">Application Timeline</div>
+        </div>
+        <div class="info-card-body">
+          <div class="timeline">
+            <div class="t-step">
+              <div class="t-dot">1</div>
+              <div class="t-header">
+                <div class="t-title">Employer files Labor Condition Application (LCA)</div>
+                <span class="t-time">~7 days</span>
+              </div>
+              <div class="t-desc">Submitted to DOL's FLAG system. Employer attests to paying the prevailing wage for the role and location.</div>
+            </div>
+            <div class="t-step">
+              <div class="t-dot">2</div>
+              <div class="t-header">
+                <div class="t-title">Electronic Registration Window</div>
+                <span class="t-time">Mar 1–20</span>
+              </div>
+              <div class="t-desc">Employer submits a registration with basic information about you during USCIS's registration period.</div>
+            </div>
+            <div class="t-step">
+              <div class="t-dot">3</div>
+              <div class="t-header">
+                <div class="t-title">USCIS Lottery (if oversubscribed)</div>
+                <span class="t-time">Late March</span>
+              </div>
+              <div class="t-desc">Random selection from all eligible registrations. ~65,000 regular cap + 20,000 U.S. master's exemption.</div>
+            </div>
+            <div class="t-step">
+              <div class="t-dot">4</div>
+              <div class="t-header">
+                <div class="t-title">File Form I-129 Petition</div>
+                <span class="t-time">Apr 1 – Jul 1</span>
+              </div>
+              <div class="t-desc">If selected, employer files a full petition with supporting documents and filing fees.</div>
+            </div>
+            <div class="t-step">
+              <div class="t-dot">5</div>
+              <div class="t-header">
+                <div class="t-title">Receive USCIS Decision</div>
+                <span class="t-time">2–6 months</span>
+              </div>
+              <div class="t-desc">Approval notice (I-797A) received. Premium processing ($2,805) guarantees 15-business-day decision.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right sidebar -->
+    <div class="right-col">
+
+      <div class="sidebar-card">
+        <div class="sc-header">📌 Quick Facts</div>
+        <div class="sc-body">
+          <div class="sc-row"><span class="sc-key">Visa Class</span><span class="sc-val">Non-Immigrant</span></div>
+          <div class="sc-row"><span class="sc-key">Initial Period</span><span class="sc-val">3 years</span></div>
+          <div class="sc-row"><span class="sc-key">Extension</span><span class="sc-val">Up to 6 years</span></div>
+          <div class="sc-row"><span class="sc-key">Annual Cap</span><span class="sc-val teal">85,000</span></div>
+          <div class="sc-row"><span class="sc-key">Form</span><span class="sc-val">I-129</span></div>
+          <div class="sc-row"><span class="sc-key">Filing Fee</span><span class="sc-val">$730+</span></div>
+          <div class="sc-row"><span class="sc-key">FY2026 Status</span><span class="sc-val orange">Closed</span></div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sc-header">🔗 Related Resources</div>
+        <div class="sc-body" style="padding: 8px 18px;">
+          <a href="#" style="display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--gray-50);font-size:13px;color:var(--teal);font-weight:600;text-decoration:none;">
+            <span>📄</span> USCIS H-1B Overview
+          </a>
+          <a href="#" style="display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--gray-50);font-size:13px;color:var(--teal);font-weight:600;text-decoration:none;">
+            <span>📝</span> Form I-129 (PDF)
+          </a>
+          <a href="#" style="display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--gray-50);font-size:13px;color:var(--teal);font-weight:600;text-decoration:none;">
+            <span>💰</span> DOL Prevailing Wage Tool
+          </a>
+          <a href="#" style="display:flex;align-items:center;gap:8px;padding:10px 0;font-size:13px;color:var(--teal);font-weight:600;text-decoration:none;">
+            <span>⏱️</span> USCIS Processing Times
+          </a>
+        </div>
+      </div>
+
+      <div class="sidebar-card" style="background: linear-gradient(135deg, var(--teal-bg), #f0fdfa); border-color: var(--teal-pale);">
+        <div class="sc-header" style="border-color: rgba(13,148,136,0.15);">💡 Did You Know?</div>
+        <div class="sc-body">
+          <p style="font-size:13px;color:var(--gray-600);line-height:1.6;">
+            Universities, nonprofits, and government research organizations are <strong>exempt from the H-1B cap</strong> — meaning they can sponsor H-1B workers year-round with no lottery.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 4: PRIORITY DATE TRACKER ===== -->
+<section class="tracker-section" id="tracker">
+  <div class="tracker-inner">
+    <div class="section-eyebrow">Green Card</div>
+    <h2 class="section-title" style="margin-bottom:8px;">Priority Date Tracker</h2>
+    <p class="section-subtitle">Live data from the DOS Visa Bulletin, updated monthly. Filter by category and country.</p>
+
+    <div class="tracker-tabs">
+      <button class="tracker-tab active">Final Action Dates</button>
+      <button class="tracker-tab">Dates for Filing</button>
+      <button class="tracker-tab">Historical Trends</button>
+    </div>
+
+    <div class="filter-row">
+      <div class="filter-chip active">
+        <span>📋</span>
+        <select><option>Employment-Based</option><option>Family-Based</option></select>
+      </div>
+      <div class="filter-chip">
+        <span>📅</span>
+        <select><option>March 2026</option><option>February 2026</option><option>January 2026</option></select>
+      </div>
+      <div class="filter-chip" style="margin-left:auto;cursor:pointer;">
+        <span>🔔</span> Subscribe to alerts
+      </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="tracker-card">
+      <div class="tracker-card-header">
+        <div>
+          <div class="tracker-card-title">Final Action Dates — Employment-Based</div>
+          <div class="tracker-card-subtitle">A visa number must be available before USCIS can approve adjustment of status.</div>
+        </div>
+        <span class="bulletin-badge">March 2026</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>All Areas<br/>(ROW)</th>
+            <th>China</th>
+            <th>ESG Countries</th>
+            <th>India</th>
+            <th>Mexico</th>
+            <th>Philippines</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="cat-badge">
+                <span class="cat-indicator"></span>EB-1
+              </div>
+            </td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td class="date-cell">Jan 1, 2022</td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td class="date-cell">Jan 1, 2022</td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td><span class="c-badge badge-current">Current</span></td>
+          </tr>
+          <tr class="highlighted-row">
+            <td>
+              <div class="cat-badge">
+                <span class="cat-indicator" style="background:var(--orange);"></span>EB-2
+              </div>
+            </td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td class="date-cell">Nov 22, 2019</td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td class="date-cell" style="font-weight:700;color:var(--teal);">Jan 1, 2013</td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td><span class="c-badge badge-current">Current</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="cat-badge">
+                <span class="cat-indicator" style="background:var(--purple);"></span>EB-3
+              </div>
+            </td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td class="date-cell">Sep 1, 2020</td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td class="date-cell">Mar 15, 2012</td>
+            <td class="date-cell">Jan 1, 2020</td>
+            <td class="date-cell">Sep 22, 2021</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="cat-badge">
+                <span class="cat-indicator" style="background:var(--yellow);"></span>EB-4
+              </div>
+            </td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td class="date-cell">Feb 22, 2020</td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td class="date-cell">Oct 1, 2019</td>
+            <td><span class="c-badge badge-unavail">Unavail.</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="cat-badge">
+                <span class="cat-indicator" style="background:#059669;"></span>EB-5
+              </div>
+            </td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td><span class="c-badge badge-current">Current</span></td>
+            <td><span class="c-badge badge-current">Current</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">EB-2 India — Priority Date Movement</div>
+          <div class="chart-subtitle">Jan 2025 – Mar 2026 · Higher = more recent date = more favorable</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+          <span class="trend-arrow">↑ +2 mo this month</span>
+          <div class="chart-legend">
+            <div class="legend-item"><span class="legend-dot" style="background:var(--teal);"></span>Prior months</div>
+            <div class="legend-item"><span class="legend-dot" style="background:var(--orange);"></span>Current</div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-area">
+        <div class="c-bar teal-bar" style="height:32%;"></div>
+        <div class="c-bar teal-bar" style="height:36%;"></div>
+        <div class="c-bar teal-bar" style="height:34%;"></div>
+        <div class="c-bar teal-bar" style="height:40%;"></div>
+        <div class="c-bar teal-bar" style="height:38%;"></div>
+        <div class="c-bar teal-bar" style="height:43%;"></div>
+        <div class="c-bar teal-bar" style="height:47%;"></div>
+        <div class="c-bar teal-bar" style="height:44%;"></div>
+        <div class="c-bar teal-bar" style="height:50%;"></div>
+        <div class="c-bar teal-bar" style="height:52%;"></div>
+        <div class="c-bar teal-bar" style="height:48%;"></div>
+        <div class="c-bar teal-bar" style="height:55%;"></div>
+        <div class="c-bar teal-bar" style="height:53%;"></div>
+        <div class="c-bar teal-bar" style="height:57%;"></div>
+        <div class="c-bar highlight" style="height:62%;"></div>
+      </div>
+      <div class="chart-months">
+        <span class="chart-month-label">Jan</span>
+        <span class="chart-month-label">Feb</span>
+        <span class="chart-month-label">Mar</span>
+        <span class="chart-month-label">Apr</span>
+        <span class="chart-month-label">May</span>
+        <span class="chart-month-label">Jun</span>
+        <span class="chart-month-label">Jul</span>
+        <span class="chart-month-label">Aug</span>
+        <span class="chart-month-label">Sep</span>
+        <span class="chart-month-label">Oct</span>
+        <span class="chart-month-label">Nov</span>
+        <span class="chart-month-label">Dec</span>
+        <span class="chart-month-label">Jan</span>
+        <span class="chart-month-label">Feb</span>
+        <span class="chart-month-label" style="color:var(--orange);font-weight:700;">Mar ★</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 5: FAQ ===== -->
+<section class="faq-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Common Questions</div>
+    <h2 class="section-title" style="margin-bottom:8px;">H-1B FAQs</h2>
+    <p class="section-subtitle" style="margin-bottom:32px;">Plain-language answers to the most frequently asked questions.</p>
+    <div class="faq-grid">
+      <div class="faq-card open">
+        <div class="faq-q">What happens if I'm not selected in the H-1B lottery? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">If you're not selected, you have options! Your employer can try again next year. You might also look into cap-exempt employers (universities, nonprofits), the O-1A visa if you have extraordinary achievements, or the L-1 if you're with a multinational company. Don't give up — many people get approved in subsequent years.</div>
+      </div>
+      <div class="faq-card">
+        <div class="faq-q">Can I change jobs while on H-1B? <span class="faq-toggle">+</span></div>
+      </div>
+      <div class="faq-card">
+        <div class="faq-q">Does H-1B lead to a green card? <span class="faq-toggle">+</span></div>
+      </div>
+      <div class="faq-card">
+        <div class="faq-q">Can my spouse work in the US while I'm on H-1B? <span class="faq-toggle">+</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BANNER ===== -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Stay Ahead of Visa Bulletin Changes</h2>
+    <p>Get monthly alerts when priority dates move. We'll notify you when it matters.</p>
+    <div class="cta-actions">
+      <a href="#" class="btn-cta-white">Set Up Date Alerts</a>
+      <a href="#" class="btn-cta-outline">Browse All Visa Types</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-icon">IT</div>
+          <span class="footer-logo-name">ImmiTracker</span>
+        </div>
+        <p class="footer-desc">Making US immigration understandable — for everyone. Clear guides, live data, bilingual support.</p>
+        <p class="footer-disclaimer">For informational purposes only. Not legal advice. Consult a licensed immigration attorney for your specific situation.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Visas</div>
+        <a href="#">H-1B</a>
+        <a href="#">L-1</a>
+        <a href="#">F-1 / OPT</a>
+        <a href="#">O-1A</a>
+        <a href="#">J-1</a>
+        <a href="#">TN Visa</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Green Card</div>
+        <a href="#">EB-1</a>
+        <a href="#">EB-2 / NIW</a>
+        <a href="#">EB-3</a>
+        <a href="#">Priority Dates</a>
+        <a href="#">I-485 Guide</a>
+        <a href="#">PERM Process</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">More</div>
+        <a href="#">News &amp; Updates</a>
+        <a href="#">USCIS Forms</a>
+        <a href="#">Processing Times</a>
+        <a href="#">Fee Schedule</a>
+        <a href="#">Find a Lawyer</a>
+        <a href="#">About Us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 ImmiTracker · Built with ❤️ for the immigrant community</span>
+      <span>Privacy · Terms · Accessibility · 中文</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
