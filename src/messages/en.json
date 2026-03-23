@@ -1,0 +1,58 @@
+{
+  "nav": {
+    "home": "Home",
+    "tracker": "Priority Date Tracker",
+    "visa": "Visa Info",
+    "opt": "OPT",
+    "stemOpt": "STEM OPT",
+    "h1b": "H-1B",
+    "h4": "H-4",
+    "perm": "PERM",
+    "greenCard": "Green Card"
+  },
+  "tracker": {
+    "title": "Green Card Priority Date Tracker",
+    "subtitle": "Track the latest USCIS Visa Bulletin priority dates",
+    "finalAction": "Final Action Dates",
+    "datesForFiling": "Dates for Filing",
+    "lastUpdated": "Last updated",
+    "employmentBased": "Employment-Based",
+    "familyBased": "Family-Based",
+    "historicalTrends": "Historical Trends",
+    "category": "Category",
+    "allChargeability": "All Chargeability",
+    "china": "China",
+    "india": "India",
+    "mexico": "Mexico",
+    "philippines": "Philippines"
+  },
+  "visa": {
+    "overview": "Overview",
+    "eligibility": "Eligibility Requirements",
+    "processSteps": "Application Process",
+    "timeline": "Timeline",
+    "faqs": "Frequently Asked Questions"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Failed to load data. Please try again.",
+    "learnMore": "Learn More",
+    "backToTop": "Back to Top",
+    "lastUpdated": "Last Updated"
+  },
+  "home": {
+    "hero": {
+      "title": "Your US Immigration Guide",
+      "subtitle": "Comprehensive information for immigrants and non-immigrants navigating the US visa system",
+      "cta": "Explore Visa Types"
+    },
+    "features": {
+      "visaInfo": "Detailed Visa Information",
+      "visaInfoDesc": "In-depth guides for OPT, STEM OPT, H-1B, H-4, PERM, and Green Card",
+      "tracker": "Priority Date Tracker",
+      "trackerDesc": "Real-time Green Card priority date tracking with historical trends",
+      "bilingual": "Bilingual Support",
+      "bilingualDesc": "Available in English and Chinese"
+    }
+  }
+}
