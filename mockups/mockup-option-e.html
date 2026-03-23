@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ImmiTracker — Navigate your US immigration journey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #FFFFFF;
+      --stone: #F5F0EB;
+      --near-black: #18181B;
+      --terracotta: #C1715B;
+      --sage: #7C9E8A;
+      --border: #E8E3DD;
+      --muted: #6B6860;
+      --muted-light: #A09D98;
+      --font-serif: 'Fraunces', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--near-black);
+      background: var(--white);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Utility ── */
+    .label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-light);
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 22px;
+      color: var(--terracotta);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--near-black);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--terracotta); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+
+    .lang-toggle {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      cursor: pointer;
+      user-select: none;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-nav {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      background: var(--near-black);
+      border: none;
+      border-radius: 6px;
+      padding: 8px 18px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 80px 40px 88px;
+      display: grid;
+      grid-template-columns: 60fr 40fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero-label {
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(38px, 5vw, 58px);
+      font-weight: 600;
+      line-height: 1.12;
+      color: var(--near-black);
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 460px;
+      margin-bottom: 36px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      background: var(--near-black);
+      border: none;
+      border-radius: 6px;
+      padding: 13px 24px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.15s;
+    }
+
+    .btn-primary:hover { background: #2d2d31; }
+
+    .btn-text-link {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--terracotta);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-text-link:hover { text-decoration: underline; }
+
+    /* Hero stat block */
+    .hero-stat-block {
+      background: var(--stone);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 32px;
+    }
+
+    .stat-block-label {
+      margin-bottom: 18px;
+    }
+
+    .stat-row {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat-row:last-child { border-bottom: none; }
+
+    .stat-row-header {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted-light);
+      margin-bottom: 6px;
+    }
+
+    .stat-row-value {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 15px;
+      color: var(--near-black);
+      font-weight: 600;
+    }
+
+    .stat-row-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .bulletin-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--sage);
+      background: rgba(124, 158, 138, 0.12);
+      border-radius: 20px;
+      padding: 3px 10px;
+    }
+
+    .bulletin-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+      display: inline-block;
+    }
+
+    /* ── Section Wrappers ── */
+    .section-white { background: var(--white); }
+    .section-stone { background: var(--stone); }
+
+    .section-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .section-header {
+      margin-bottom: 48px;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 600;
+      line-height: 1.18;
+      color: var(--near-black);
+      margin-top: 12px;
+      letter-spacing: -0.015em;
+    }
+
+    /* ── Visa List Section ── */
+    .visa-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .visa-item {
+      padding: 20px 24px 20px 0;
+      border-bottom: 1px solid var(--border);
+      border-left: 3px solid transparent;
+      padding-left: 16px;
+      transition: border-left-color 0.15s;
+      cursor: pointer;
+    }
+
+    .visa-item:nth-child(even) {
+      padding-left: 40px;
+    }
+
+    .visa-item:hover { border-left-color: var(--terracotta); }
+
+    .visa-item-name {
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--near-black);
+      margin-bottom: 5px;
+    }
+
+    .visa-item-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── H-1B Detail Section ── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted-light);
+      margin-bottom: 20px;
+    }
+
+    .breadcrumb a { color: var(--muted-light); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--terracotta); }
+    .breadcrumb-sep { color: var(--border); }
+
+    .h1b-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--near-black);
+      margin-bottom: 20px;
+      letter-spacing: -0.015em;
+    }
+
+    .quick-facts {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 36px;
+      padding: 14px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .qf-item { padding: 0 16px; }
+    .qf-item:first-child { padding-left: 0; }
+
+    .qf-sep {
+      color: var(--border);
+      font-size: 18px;
+      font-weight: 300;
+    }
+
+    .h1b-body { max-width: 760px; }
+
+    .h1b-body p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .subsection-title {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-light);
+      margin-bottom: 16px;
+    }
+
+    .checklist {
+      list-style: none;
+      margin-bottom: 40px;
+    }
+
+    .checklist li {
+      display: flex;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--near-black);
+      line-height: 1.6;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .checklist li:last-child { border-bottom: none; }
+
+    .check-mark {
+      color: var(--terracotta);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .process-steps {
+      list-style: none;
+      margin-bottom: 40px;
+    }
+
+    .step-item {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step-item:last-child { border-bottom: none; }
+
+    .step-num {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--terracotta);
+      padding-top: 2px;
+    }
+
+    .step-content {}
+
+    .step-title {
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--near-black);
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      margin-bottom: 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--near-black);
+      user-select: none;
+      gap: 16px;
+    }
+
+    .faq-toggle {
+      font-size: 20px;
+      color: var(--terracotta);
+      font-weight: 400;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .faq-answer {
+      display: none;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      padding-bottom: 20px;
+      max-width: 660px;
+    }
+
+    .faq-item.open .faq-answer { display: block; }
+    .faq-item.open .faq-toggle-plus { display: none; }
+    .faq-item:not(.open) .faq-toggle-minus { display: none; }
+
+    /* ── Priority Date Tracker ── */
+    .tracker-header-row {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .tracker-header-row h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 600;
+      color: var(--near-black);
+      letter-spacing: -0.015em;
+    }
+
+    .updated-badge {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sage);
+      background: rgba(124, 158, 138, 0.12);
+      border: 1px solid rgba(124, 158, 138, 0.3);
+      border-radius: 20px;
+      padding: 4px 12px;
+    }
+
+    .tab-switcher {
+      display: flex;
+      gap: 32px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 32px;
+    }
+
+    .tab-btn {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      padding: 0 0 14px;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .tab-btn.active {
+      color: var(--near-black);
+      border-bottom-color: var(--terracotta);
+    }
+
+    .priority-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-bottom: 48px;
+    }
+
+    .priority-table thead tr {
+      background: var(--terracotta);
+    }
+
+    .priority-table thead th {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      padding: 13px 20px;
+      text-align: left;
+    }
+
+    .priority-table tbody tr:nth-child(odd) { background: var(--white); }
+    .priority-table tbody tr:nth-child(even) { background: var(--stone); }
+
+    .priority-table tbody td {
+      padding: 12px 20px;
+      color: var(--near-black);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .priority-table tbody td.date-val {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      color: var(--near-black);
+    }
+
+    .priority-table tbody td.current {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      color: var(--terracotta);
+      font-weight: 700;
+    }
+
+    .cat-label {
+      font-weight: 600;
+      color: var(--near-black);
+    }
+
+    .country-badge {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--stone);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 7px;
+      margin-left: 8px;
+    }
+
+    /* SVG Chart */
+    .chart-section { margin-top: 16px; }
+
+    .chart-title {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .chart-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px 24px 16px;
+      overflow: hidden;
+    }
+
+    svg.trend-chart { display: block; width: 100%; height: auto; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--stone);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 56px 40px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 20px;
+      color: var(--terracotta);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 300px;
+    }
+
+    .footer-links-col h4 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-light);
+      margin-bottom: 16px;
+    }
+
+    .footer-links-col ul {
+      list-style: none;
+    }
+
+    .footer-links-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links-col ul li a {
+      font-size: 14px;
+      color: var(--near-black);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer-links-col ul li a:hover { color: var(--terracotta); }
+
+    .footer-bottom {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 20px 40px 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom-text {
+      font-size: 12px;
+      color: var(--muted-light);
+    }
+
+    .footer-lang {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .nav-inner { padding: 0 24px; }
+      .nav-links { display: none; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 48px 24px 56px;
+        gap: 40px;
+      }
+
+      .section-inner { padding: 56px 24px; }
+
+      .visa-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visa-item:nth-child(even) { padding-left: 16px; }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        padding: 40px 24px;
+        gap: 40px;
+      }
+
+      .footer-bottom { padding: 16px 24px 28px; }
+
+      .quick-facts { gap: 0; }
+      .qf-sep { display: none; }
+      .qf-item { padding: 4px 0; display: block; }
+    }
+
+    @media (max-width: 600px) {
+      .tracker-header-row { flex-direction: column; gap: 10px; }
+      .priority-table thead th,
+      .priority-table tbody td { padding: 10px 12px; }
+      .h1b-heading { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">ImmiTracker</a>
+    <ul class="nav-links">
+      <li><a href="#">Visa Types</a></li>
+      <li><a href="#">Priority Dates</a></li>
+      <li><a href="#">H-1B Cap</a></li>
+      <li><a href="#">Green Card</a></li>
+      <li><a href="#">Resources</a></li>
+    </ul>
+    <div class="nav-right">
+      <span class="lang-toggle">EN | 中文</span>
+      <a href="#" class="btn-nav">Track My Case</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="section-white">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-label label">Immigration Made Legible</div>
+      <h1>Navigate your US immigration journey.</h1>
+      <p class="hero-sub">Clear timelines, plain-language explanations, and up-to-date priority date data — so you always know where you stand.</p>
+      <div class="hero-ctas">
+        <a href="#visa-types" class="btn-primary">Explore Visa Types</a>
+        <a href="#tracker" class="btn-text-link">Check Priority Dates <span>&#x2192;</span></a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat-block">
+        <div class="stat-block-label label">Latest Bulletin</div>
+        <div class="stat-row">
+          <div class="stat-row-header">Visa Bulletin</div>
+          <div class="stat-row-value">
+            <span class="bulletin-badge"><span class="bulletin-dot"></span> March 2026 Available</span>
+          </div>
+          <div class="stat-row-sub">U.S. Department of State · Vol. 55 No. 6</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-row-header">EB-2 India — Final Action</div>
+          <div class="stat-row-value">Jan 01, 2012</div>
+          <div class="stat-row-sub">↑ Advanced 2 weeks from February</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-row-header">EB-3 China — Final Action</div>
+          <div class="stat-row-value">Jul 01, 2020</div>
+          <div class="stat-row-sub">No movement this month</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-row-header">EB-1 All Chargeability</div>
+          <div class="stat-row-value">Current</div>
+          <div class="stat-row-sub">No backlog for most countries</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── Visa Types Section ── -->
+<section class="section-stone" id="visa-types">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="label">Your Options</div>
+      <h2>Understand your visa options</h2>
+    </div>
+    <div class="visa-grid">
+      <div class="visa-item">
+        <div class="visa-item-name">H-1B — Specialty Occupation</div>
+        <div class="visa-item-desc">For professionals in fields that require at least a bachelor's degree. Employer-sponsored, subject to annual lottery.</div>
+      </div>
+      <div class="visa-item">
+        <div class="visa-item-name">O-1 — Extraordinary Ability</div>
+        <div class="visa-item-desc">For individuals with extraordinary achievement in sciences, arts, education, business, or athletics. No annual cap.</div>
+      </div>
+      <div class="visa-item">
+        <div class="visa-item-name">L-1 — Intracompany Transfer</div>
+        <div class="visa-item-desc">Allows multinational companies to transfer employees in managerial, executive, or specialized knowledge roles.</div>
+      </div>
+      <div class="visa-item">
+        <div class="visa-item-name">EB-1 — Priority Workers</div>
+        <div class="visa-item-desc">Employment-based green card for persons with extraordinary ability, outstanding professors, or multinational managers.</div>
+      </div>
+      <div class="visa-item">
+        <div class="visa-item-name">EB-2 — Advanced Degree</div>
+        <div class="visa-item-desc">Green card for professionals holding advanced degrees or those with exceptional ability. Includes the NIW self-petition option.</div>
+      </div>
+      <div class="visa-item">
+        <div class="visa-item-name">EB-3 — Skilled Workers</div>
+        <div class="visa-item-desc">For skilled workers, professionals, and unskilled workers whose positions cannot be filled by qualified US workers.</div>
+      </div>
+      <div class="visa-item">
+        <div class="visa-item-name">F-1 — Student Visa</div>
+        <div class="visa-item-desc">For full-time students at accredited US institutions. Includes OPT and STEM OPT extensions for post-graduation work.</div>
+      </div>
+      <div class="visa-item">
+        <div class="visa-item-name">TN — USMCA Professionals</div>
+        <div class="visa-item-desc">Available to Canadian and Mexican citizens in qualifying professions under the USMCA trade agreement.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── H-1B Detail Section ── -->
+<section class="section-white" id="h1b">
+  <div class="section-inner">
+    <div class="breadcrumb">
+      <a href="#">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="#">Visa Types</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>H-1B</span>
+    </div>
+
+    <div class="h1b-body">
+      <h2 class="h1b-heading">H-1B Specialty Occupation Visa</h2>
+
+      <div class="quick-facts">
+        <span class="qf-item">Duration: 3 years (extendable to 6+)</span>
+        <span class="qf-sep">·</span>
+        <span class="qf-item">Employer-sponsored</span>
+        <span class="qf-sep">·</span>
+        <span class="qf-item">Annual cap: 65,000 + 20,000</span>
+        <span class="qf-sep">·</span>
+        <span class="qf-item">Dual intent allowed</span>
+      </div>
+
+      <p>The H-1B visa is the most common path for foreign professionals to work in the United States. It requires a US employer to sponsor you for a position in a "specialty occupation" — a role that typically demands at least a bachelor's degree or its equivalent in a specific field. Every spring, USCIS conducts a lottery for the following fiscal year's cap-subject H-1B petitions, making early preparation essential.</p>
+
+      <div class="subsection-title">Eligibility Requirements</div>
+      <ul class="checklist">
+        <li><span class="check-mark">✓</span>You hold a bachelor's degree (or higher) in the relevant specialty field, or its equivalent</li>
+        <li><span class="check-mark">✓</span>The position qualifies as a "specialty occupation" requiring theoretical or practical application of highly specialized knowledge</li>
+        <li><span class="check-mark">✓</span>A US employer is willing to sponsor and file a petition on your behalf</li>
+        <li><span class="check-mark">✓</span>The employer obtains a certified Labor Condition Application (LCA) from the Department of Labor</li>
+        <li><span class="check-mark">✓</span>You will be paid at least the prevailing wage for the occupation in the area of intended employment</li>
+      </ul>
+
+      <div class="subsection-title">Application Process</div>
+      <ol class="process-steps">
+        <li class="step-item">
+          <span class="step-num">1</span>
+          <div class="step-content">
+            <div class="step-title">Employer files Labor Condition Application (LCA)</div>
+            <div class="step-desc">Your sponsoring employer submits an LCA to the Department of Labor, attesting to prevailing wage compliance and working conditions. Processing typically takes 7–10 business days.</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">2</span>
+          <div class="step-content">
+            <div class="step-title">Register for the H-1B lottery (March)</div>
+            <div class="step-desc">Between March 1–20 each year, employers submit electronic registrations. USCIS then conducts a random selection. In FY 2025, approximately 470,342 registrations were submitted for 85,000 available slots.</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">3</span>
+          <div class="step-content">
+            <div class="step-title">Receive lottery selection notice</div>
+            <div class="step-desc">Selected registrants are notified by late March. Your employer then has 90 days to file the full H-1B petition with USCIS, targeting an October 1 start date.</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">4</span>
+          <div class="step-content">
+            <div class="step-title">Employer files Form I-129 petition</div>
+            <div class="step-desc">The full petition includes your credentials, job description, LCA, and supporting documentation. Premium processing (15 business days) is available for an additional fee of $2,805.</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">5</span>
+          <div class="step-content">
+            <div class="step-title">USCIS adjudicates the petition</div>
+            <div class="step-desc">USCIS reviews and either approves, issues a Request for Evidence (RFE), or denies. Standard processing can take 3–6 months. An approval notice (I-797) is issued upon approval.</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">6</span>
+          <div class="step-content">
+            <div class="step-title">Visa stamp and entry (if outside the US)</div>
+            <div class="step-desc">If you are abroad, schedule a consular interview at a US embassy or consulate to obtain the H-1B visa stamp. If already in the US in valid status, you can begin work on October 1.</div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="subsection-title">Frequently Asked Questions</div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>What happens if I'm not selected in the lottery?</span>
+            <span class="faq-toggle"><span class="faq-toggle-plus">+</span><span class="faq-toggle-minus">−</span></span>
+          </div>
+          <div class="faq-answer">If your registration is not selected, you are not prohibited from registering again the following year. In the meantime, you may explore cap-exempt options (universities, nonprofit research organizations), or alternative visa categories such as O-1, L-1, or TN if you qualify.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Can I change employers on H-1B?</span>
+            <span class="faq-toggle"><span class="faq-toggle-plus">+</span><span class="faq-toggle-minus">−</span></span>
+          </div>
+          <div class="faq-answer">Yes. Under H-1B portability (AC21), you can begin working for a new employer as soon as they file an H-1B transfer petition on your behalf — you do not have to wait for USCIS approval, provided your prior H-1B was previously approved and you are maintaining valid status.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Does H-1B allow me to apply for a green card?</span>
+            <span class="faq-toggle"><span class="faq-toggle-plus">+</span><span class="faq-toggle-minus">−</span></span>
+          </div>
+          <div class="faq-answer">Yes. The H-1B is a "dual intent" visa, meaning you can simultaneously hold immigrant intent (i.e., plan to pursue a green card) without jeopardizing your H-1B status. Your employer can file an I-140 immigrant petition on your behalf while you are in H-1B status.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>What is the H-1B cap exemption?</span>
+            <span class="faq-toggle"><span class="faq-toggle-plus">+</span><span class="faq-toggle-minus">−</span></span>
+          </div>
+          <div class="faq-answer">Certain employers are exempt from the annual H-1B cap: institutions of higher education, affiliated nonprofit entities, nonprofit research organizations, and government research organizations. Employees working at or for these institutions can be sponsored year-round without going through the lottery.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── Priority Date Tracker ── -->
+<section class="section-stone" id="tracker">
+  <div class="section-inner">
+    <div class="tracker-header-row">
+      <h2>Green Card Priority Date Tracker</h2>
+      <span class="updated-badge">Updated: March 2026</span>
+    </div>
+
+    <div class="tab-switcher">
+      <button class="tab-btn active" onclick="switchTab(this, 'final')">Final Action Dates</button>
+      <button class="tab-btn" onclick="switchTab(this, 'filing')">Dates for Filing</button>
+    </div>
+
+    <!-- Final Action Dates Table -->
+    <div id="tab-final">
+      <table class="priority-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>All Chargeability</th>
+            <th>China (Mainland)</th>
+            <th>India</th>
+            <th>Mexico</th>
+            <th>Philippines</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="cat-label">EB-1</span></td>
+            <td class="date-val">Current</td>
+            <td class="current">Nov 08, 2022</td>
+            <td class="current">Jan 01, 2022</td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+          </tr>
+          <tr>
+            <td><span class="cat-label">EB-2</span></td>
+            <td class="date-val">Current</td>
+            <td class="current">Jun 22, 2020</td>
+            <td class="current">Jan 01, 2012</td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+          </tr>
+          <tr>
+            <td><span class="cat-label">EB-3</span></td>
+            <td class="date-val">Current</td>
+            <td class="current">Jul 01, 2020</td>
+            <td class="current">Aug 01, 2012</td>
+            <td class="date-val">Current</td>
+            <td class="current">Jul 01, 2020</td>
+          </tr>
+          <tr>
+            <td><span class="cat-label">EB-3 (Other)</span></td>
+            <td class="date-val">Current</td>
+            <td class="current">Nov 22, 2019</td>
+            <td class="current">Nov 22, 2019</td>
+            <td class="date-val">Current</td>
+            <td class="current">Nov 22, 2019</td>
+          </tr>
+          <tr>
+            <td><span class="cat-label">EB-4</span></td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+            <td class="current">Nov 22, 2019</td>
+            <td class="current">Mar 08, 2020</td>
+          </tr>
+          <tr>
+            <td><span class="cat-label">EB-5 (Rural)</span></td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Dates for Filing Table (hidden by default) -->
+    <div id="tab-filing" style="display:none;">
+      <table class="priority-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>All Chargeability</th>
+            <th>China (Mainland)</th>
+            <th>India</th>
+            <th>Mexico</th>
+            <th>Philippines</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="cat-label">EB-1</span></td>
+            <td class="date-val">Current</td>
+            <td class="current">Jan 01, 2023</td>
+            <td class="current">Apr 01, 2022</td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+          </tr>
+          <tr>
+            <td><span class="cat-label">EB-2</span></td>
+            <td class="date-val">Current</td>
+            <td class="current">Aug 01, 2020</td>
+            <td class="current">Jun 01, 2012</td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+          </tr>
+          <tr>
+            <td><span class="cat-label">EB-3</span></td>
+            <td class="date-val">Current</td>
+            <td class="current">Sep 01, 2020</td>
+            <td class="current">Jan 01, 2013</td>
+            <td class="date-val">Current</td>
+            <td class="current">Sep 08, 2020</td>
+          </tr>
+          <tr>
+            <td><span class="cat-label">EB-3 (Other)</span></td>
+            <td class="date-val">Current</td>
+            <td class="current">Feb 01, 2020</td>
+            <td class="current">Feb 01, 2020</td>
+            <td class="date-val">Current</td>
+            <td class="current">Feb 01, 2020</td>
+          </tr>
+          <tr>
+            <td><span class="cat-label">EB-4</span></td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+            <td class="current">Mar 01, 2020</td>
+            <td class="current">Jun 15, 2020</td>
+          </tr>
+          <tr>
+            <td><span class="cat-label">EB-5 (Rural)</span></td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+            <td class="date-val">Current</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- EB-2 India Trend Chart -->
+    <div class="chart-section">
+      <div class="chart-title">EB-2 India — Final Action Date Historical Trend (2020–2026)</div>
+      <div class="chart-wrap">
+        <!--
+          Y-axis: date values mapped to years: 2009=0, 2013=max
+          X-axis: months Jan 2020 – Mar 2026 (75 months)
+          SVG viewport: 900 × 220, plot area: x 60–860, y 20–180
+        -->
+        <svg class="trend-chart" viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="EB-2 India Final Action Date trend from 2020 to 2026">
+
+          <!-- Grid lines -->
+          <line x1="60" y1="20" x2="860" y2="20" stroke="#E8E3DD" stroke-width="1"/>
+          <line x1="60" y1="60" x2="860" y2="60" stroke="#E8E3DD" stroke-width="1"/>
+          <line x1="60" y1="100" x2="860" y2="100" stroke="#E8E3DD" stroke-width="1"/>
+          <line x1="60" y1="140" x2="860" y2="140" stroke="#E8E3DD" stroke-width="1"/>
+          <line x1="60" y1="180" x2="860" y2="180" stroke="#E8E3DD" stroke-width="1"/>
+
+          <!-- Y-axis labels (years as priority dates) -->
+          <text x="52" y="24" text-anchor="end" font-family="'Courier New', monospace" font-size="10" fill="#A09D98">2013</text>
+          <text x="52" y="64" text-anchor="end" font-family="'Courier New', monospace" font-size="10" fill="#A09D98">2012</text>
+          <text x="52" y="104" text-anchor="end" font-family="'Courier New', monospace" font-size="10" fill="#A09D98">2011</text>
+          <text x="52" y="144" text-anchor="end" font-family="'Courier New', monospace" font-size="10" fill="#A09D98">2010</text>
+          <text x="52" y="184" text-anchor="end" font-family="'Courier New', monospace" font-size="10" fill="#A09D98">2009</text>
+
+          <!-- X-axis year markers -->
+          <text x="60"  y="200" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#A09D98">Jan 2020</text>
+          <text x="195" y="200" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#A09D98">Jan 2021</text>
+          <text x="330" y="200" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#A09D98">Jan 2022</text>
+          <text x="465" y="200" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#A09D98">Jan 2023</text>
+          <text x="600" y="200" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#A09D98">Jan 2024</text>
+          <text x="735" y="200" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#A09D98">Jan 2025</text>
+          <text x="848" y="200" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#A09D98">Mar 2026</text>
+
+          <!-- Axes -->
+          <line x1="60" y1="20" x2="60" y2="185" stroke="#E8E3DD" stroke-width="1.5"/>
+          <line x1="60" y1="180" x2="862" y2="180" stroke="#E8E3DD" stroke-width="1.5"/>
+
+          <!--
+            EB-2 India approximate priority date history (plotted):
+            Y scale: 2009-01 = 180 (bottom), 2013-01 = 20 (top); each year = 40px
+            2020-01: ~2009-09  → y≈174
+            2021-01: ~2009-01  → y=180
+            2021-06: ~2010-06  → y≈160 (retrogression recovery)
+            2022-01: ~2011-01  → y≈140
+            2022-06: ~2011-09  → y≈128
+            2023-01: ~2011-01  → y≈140 (retrogressed)
+            2023-07: ~2011-06  → y≈130
+            2024-01: ~2011-08  → y≈125
+            2024-06: ~2011-10  → y≈120
+            2025-01: ~2012-01  → y≈100
+            2025-07: ~2012-01  → y≈100
+            2026-01: ~2012-01  → y≈100
+            2026-03: ~2012-01  → y≈100
+          -->
+          <polyline
+            points="
+              60,174
+              90,176
+              105,178
+              120,180
+              150,178
+              165,172
+              195,164
+              240,155
+              285,148
+              330,140
+              360,132
+              390,135
+              420,140
+              450,138
+              465,136
+              495,132
+              510,130
+              540,128
+              570,126
+              600,122
+              630,118
+              665,112
+              695,108
+              720,105
+              735,103
+              760,101
+              790,100
+              820,100
+              848,100
+            "
+            fill="none"
+            stroke="#7C9E8A"
+            stroke-width="2"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          />
+
+          <!-- Current date dot -->
+          <circle cx="848" cy="100" r="4" fill="#7C9E8A"/>
+          <text x="854" y="97" font-family="'Courier New', monospace" font-size="9" fill="#7C9E8A">Jan 2012</text>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-logo">ImmiTracker</span>
+      <p class="footer-tagline">Built for immigrants navigating one of life's most consequential processes. For informational purposes only. Not legal advice. Consult a licensed immigration attorney for your specific situation.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+      <div class="footer-links-col">
+        <h4>Visa Types</h4>
+        <ul>
+          <li><a href="#">H-1B</a></li>
+          <li><a href="#">O-1</a></li>
+          <li><a href="#">L-1</a></li>
+          <li><a href="#">EB-1</a></li>
+          <li><a href="#">EB-2 / NIW</a></li>
+          <li><a href="#">EB-3</a></li>
+        </ul>
+      </div>
+      <div class="footer-links-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Priority Dates</a></li>
+          <li><a href="#">H-1B Lottery</a></li>
+          <li><a href="#">Form I-485</a></li>
+          <li><a href="#">PERM Labor Cert.</a></li>
+          <li><a href="#">Visa Bulletin Archive</a></li>
+          <li><a href="#">Glossary</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-bottom-text">Data sourced from U.S. Department of State &amp; USCIS · Updated monthly</span>
+    <span class="footer-lang">EN / 中文</span>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(el) {
+    var item = el.parentElement;
+    item.classList.toggle('open');
+  }
+
+  function switchTab(btn, tabId) {
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('tab-final').style.display = tabId === 'final' ? 'block' : 'none';
+    document.getElementById('tab-filing').style.display = tabId === 'filing' ? 'block' : 'none';
+  }
+</script>
+
+</body>
+</html>

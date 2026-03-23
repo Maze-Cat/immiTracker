@@ -9,6 +9,7 @@ export async function GET() {
     }
     return NextResponse.json(bulletin);
   } catch (error) {
+    console.error('[visa-bulletin/current] Failed to fetch bulletin data:', error);
     return NextResponse.json({ error: 'Failed to fetch bulletin data' }, { status: 500 });
   }
 }
