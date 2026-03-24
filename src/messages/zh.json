@@ -70,7 +70,8 @@
       "processing": "审理周期",
       "agency": "主管机构",
       "validity": "有效期",
-      "categories": "类别"
+      "categories": "类别",
+      "maxStay": "单次停留"
     }
   },
   "footer": {

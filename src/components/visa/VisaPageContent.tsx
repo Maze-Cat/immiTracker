@@ -43,12 +43,12 @@ const visaStats: Record<string, { labelKey: string; value: string }[]> = {
   ],
   l1: [
     { labelKey: 'stats.maxDuration', value: '5–7 yr' },
-    { labelKey: 'stats.processing', value: '2–4 mo' },
+    { labelKey: 'stats.annualCap', value: 'None' },
     { labelKey: 'stats.form', value: 'I-129' },
   ],
   b1b2: [
-    { labelKey: 'stats.maxDuration', value: '6 mo stay' },
     { labelKey: 'stats.validity', value: '1–10 yr' },
+    { labelKey: 'stats.maxStay', value: '6 mo' },
     { labelKey: 'stats.form', value: 'DS-160' },
   ],
   niw: [
@@ -197,7 +197,7 @@ export default async function VisaPageContent({ locale, slug }: VisaPageContentP
               </div>
             </div>
 
-            {/* Additional Sections (e.g. NIW guide on green card page) */}
+            {/* Additional Sections (e.g. NIW preparation guide on green card page) */}
             {content.additionalSections?.map((section, i) => (
               <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm mb-5 overflow-hidden">
                 <div className="flex items-center gap-2.5 px-5 py-4 border-b border-gray-100">
@@ -208,14 +208,29 @@ export default async function VisaPageContent({ locale, slug }: VisaPageContentP
                 </div>
                 <div className="px-5 py-5">
                   <p className="text-sm text-gray-600 leading-relaxed mb-4">{section.content}</p>
-                  {section.bullets && (
-                    <ul className="space-y-2.5">
-                      {section.bullets.map((bullet, j) => (
-                        <li key={j} className="flex gap-2.5 items-start text-sm text-gray-600 leading-relaxed">
-                          <span className="text-teal-500 mt-0.5 flex-shrink-0">•</span>
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
+                  {section.bullets && section.bullets.length > 0 && (
+                    <ul className="space-y-3">
+                      {section.bullets.map((bullet, j) => {
+                        const [boldPart, ...rest] = bullet.split(' — ');
+                        const detail = rest.join(' — ');
+                        return (
+                          <li key={j} className="flex gap-3 items-start">
+                            <div className="w-[22px] h-[22px] rounded-full bg-teal-50 text-teal-700 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                              {j + 1}
+                            </div>
+                            <div className="text-sm text-gray-600 leading-relaxed">
+                              {detail ? (
+                                <>
+                                  <span className="font-semibold text-gray-800">{boldPart}</span>
+                                  {' — '}{detail}
+                                </>
+                              ) : (
+                                bullet
+                              )}
+                            </div>
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </div>
@@ -278,7 +293,7 @@ export default async function VisaPageContent({ locale, slug }: VisaPageContentP
               </div>
             </div>
 
-            {(slug === 'perm' || slug === 'green-card') && (
+            {(slug === 'perm' || slug === 'green-card' || slug === 'niw') && (
               <Link
                 href={`/${locale}/tracker`}
                 className="bg-gradient-to-br from-teal-600 to-teal-700 text-white rounded-2xl p-5 no-underline block hover:-translate-y-0.5 transition-transform shadow-md"

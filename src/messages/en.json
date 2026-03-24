@@ -70,7 +70,8 @@
       "processing": "Processing",
       "agency": "Agency",
       "validity": "Valid",
-      "categories": "Categories"
+      "categories": "Categories",
+      "maxStay": "Max Stay"
     }
   },
   "footer": {

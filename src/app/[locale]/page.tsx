@@ -30,6 +30,7 @@ interface VisaCardConfig {
   tKey: 'opt' | 'stemOpt' | 'h1b' | 'h4' | 'l1' | 'b1b2' | 'greenCard' | 'niw' | 'perm';
   emoji: string;
   code: string;
+  codeZh?: string;
   tagClass: string;
   topBar: string;
 }
@@ -88,6 +89,7 @@ const visaCardData: VisaCardConfig[] = [
     tKey: 'greenCard',
     emoji: '🇺🇸',
     code: 'Green Card',
+    codeZh: '绿卡',
     tagClass: 'bg-purple-50 text-purple-700',
     topBar: 'from-purple-600 to-purple-400',
   },
@@ -280,7 +282,7 @@ export default async function HomePage({ params }: HomePageProps) {
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
-            {visaCardData.map(({ slug, tKey, emoji, code, tagClass, topBar }) => (
+            {visaCardData.map(({ slug, tKey, emoji, code, codeZh, tagClass, topBar }) => (
               <Link
                 key={slug}
                 href={`/${locale}/visa/${slug}`}
@@ -290,7 +292,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 <div className={`absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl bg-gradient-to-r ${topBar}`} />
                 <div className="text-[26px] mb-3">{emoji}</div>
                 <p className="text-[18px] font-extrabold text-gray-800 mb-1 tracking-tight">
-                  {code}
+                  {locale === 'zh' && codeZh ? codeZh : code}
                 </p>
                 <p className="text-[12px] text-gray-500 mb-3 leading-snug line-clamp-2">
                   {t(`visaCards.${tKey}.name`)}
