@@ -4,6 +4,8 @@ import stemOpt from './stem-opt';
 import h1b from './h1b';
 import h4 from './h4';
 import perm from './perm';
+import l1 from './l1';
+import b1b2 from './b1b2';
 
 const greenCardEn: VisaInfoContent = {
   slug: 'green-card',
@@ -17,6 +19,11 @@ const greenCardEn: VisaInfoContent = {
       requirement: 'Valid employment-based immigrant petition (I-140)',
       details:
         'A USCIS-approved I-140 is the core eligibility document for most EB categories. EB-1A and EB-2 NIW allow self-petition.',
+    },
+    {
+      requirement: 'EB-2 NIW: National Interest Waiver (self-petition option)',
+      details:
+        'EB-2 applicants with an advanced degree or exceptional ability may self-petition under the National Interest Waiver, skipping PERM labor certification entirely. To qualify under the Dhanasar standard, you must show: (1) your work has substantial merit and national importance; (2) you are well-positioned to advance the proposed endeavor; and (3) it would benefit the US to waive the job offer and PERM requirements.',
     },
     {
       requirement: 'Priority date is current in the Visa Bulletin',
@@ -37,10 +44,10 @@ const greenCardEn: VisaInfoContent = {
   processSteps: [
     {
       stepNumber: 1,
-      title: 'PERM Labor Certification (EB-2 / EB-3)',
+      title: 'PERM Labor Certification (EB-2 / EB-3) — or NIW Self-Petition (EB-2)',
       description:
-        'Employer conducts recruitment and files ETA-9089 with the Department of Labor to obtain a certified PERM. This establishes the priority date.',
-      estimatedTime: '6–18 months',
+        'For most EB-2 and EB-3 cases, the employer conducts recruitment and files ETA-9089 with DOL to obtain a certified PERM — this establishes the priority date. EB-2 NIW applicants skip PERM entirely and file Form I-140 directly as a self-petition, setting their own priority date at I-140 filing.',
+      estimatedTime: 'PERM: 6–18 months; NIW: skip this step',
     },
     {
       stepNumber: 2,
@@ -94,6 +101,11 @@ const greenCardEn: VisaInfoContent = {
       answer:
         'If withdrawn before the I-485 has been pending 180 days, it may affect your case. After 180 days of I-485 pending with an approved I-140, you retain portability rights even if the I-140 is later withdrawn.',
     },
+    {
+      question: 'What is the EB-2 National Interest Waiver (NIW), and who qualifies?',
+      answer:
+        'The NIW is a waiver available within the EB-2 preference category that allows qualified individuals to skip the PERM labor certification process and self-petition — no employer sponsorship required. Under the 2016 Dhanasar standard, you must demonstrate three things: (1) your proposed endeavor has substantial merit and national importance (e.g., STEM research, healthcare, education, public policy); (2) you are well-positioned to advance that endeavor (based on education, skills, record of success); and (3) on balance, it benefits the US to waive the normal job offer and PERM requirements. The NIW is particularly popular among researchers, scientists, engineers, physicians, and entrepreneurs. It does not eliminate per-country priority date backlogs — EB-2 NIW applicants from India and China still face long waits — but it can significantly speed up the early steps for nationals from less-backlogged countries.',
+    },
   ],
 };
 
@@ -108,6 +120,11 @@ const greenCardZh: VisaInfoContent = {
       requirement: '持有有效的职业移民请愿书（I-140）',
       details:
         'USCIS批准的I-140是大多数EB类别的核心资格文件。EB-1A和EB-2 NIW可自行申请。',
+    },
+    {
+      requirement: 'EB-2 NIW：国家利益豁免（自行申请途径）',
+      details:
+        '拥有高等学位或特殊能力的EB-2申请人可通过国家利益豁免（NIW）自行申请，完全跳过PERM劳工认证步骤。依据Dhanasar标准，申请人需证明：（1）拟从事的工作具有实质性价值且对国家具有重要意义；（2）申请人具备推进该工作的良好条件；（3）豁免职位要约和PERM要求符合美国整体利益。',
     },
     {
       requirement: '优先日期已在签证公告中排期',
@@ -126,10 +143,10 @@ const greenCardZh: VisaInfoContent = {
   processSteps: [
     {
       stepNumber: 1,
-      title: 'PERM劳工认证（EB-2/EB-3）',
+      title: 'PERM劳工认证（EB-2/EB-3）——或NIW自行申请（EB-2）',
       description:
-        '雇主完成招聘程序并向劳工部提交ETA-9089表格，以获得PERM认证。此步骤确立优先日期。',
-      estimatedTime: '6至18个月',
+        '大多数EB-2和EB-3案件，雇主须完成招聘程序并向劳工部提交ETA-9089表格以获得PERM认证——此步骤确立优先日期。EB-2 NIW申请人可完全跳过PERM，直接以自行申请人身份提交I-140表格，优先日期以I-140申请日期为准。',
+      estimatedTime: 'PERM：6至18个月；NIW：跳过此步骤',
     },
     {
       stepNumber: 2,
@@ -182,6 +199,11 @@ const greenCardZh: VisaInfoContent = {
       answer:
         '如果在I-485申请不足180天时被撤回，可能会影响您的案件。但若I-485已申请满180天且I-140已获批，即使之后被撤回，您仍保留可携带权利。',
     },
+    {
+      question: '什么是EB-2国家利益豁免（NIW）？哪些人符合申请条件？',
+      answer:
+        'NIW是EB-2优先级类别下的一项豁免，允许符合条件的申请人跳过PERM劳工认证，以自行申请人身份提交请愿——无需雇主担保。根据2016年Dhanasar标准，申请人需证明三点：（1）拟从事的工作具有实质性价值且对国家具有重要意义（如STEM研究、医疗、教育、公共政策等领域）；（2）申请人具备推进该工作的良好条件（基于教育背景、专业技能和既往成就）；（3）综合考量，豁免正常职位要约和PERM要求符合美国整体利益。NIW在研究人员、科学家、工程师、医生及创业者群体中尤为流行。NIW不能消除各国排期积压问题——来自印度和中国的EB-2 NIW申请人仍面临漫长等待——但对于非积压国籍的申请人，可显著加快申请前期步骤。',
+    },
   ],
 };
 
@@ -194,6 +216,8 @@ const visaDataMap: Record<string, BilingualVisaInfo> = {
   h4,
   perm,
   'green-card': greenCard,
+  l1,
+  'b1b2': b1b2,
 };
 
 export default visaDataMap;
