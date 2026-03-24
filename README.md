@@ -4,8 +4,8 @@ Comprehensive, bilingual (English / 中文) US immigration information website w
 
 ## Features
 
-- **6 Visa Guides** — In-depth bilingual pages covering OPT, STEM OPT, H-1B, H-4, PERM, and Green Card (eligibility, process steps, timelines, FAQs)
-- **Priority Date Tracker** — Live data from the monthly USCIS Visa Bulletin with historical trend tracking
+- **8 Visa Guides** — In-depth bilingual pages covering OPT, STEM OPT, H-1B, H-4, L-1, B-1/B-2, PERM, and Green Card (with NIW explanation) — eligibility, process steps, timelines, FAQs
+- **Priority Date Tracker** — Live data from 12 months of USCIS Visa Bulletins; shows month-over-month PD changes (exact days) and a vertical bar chart of historical trends by country
 - **Bilingual Support** — Full English and Simplified Chinese (`/en/*` and `/zh/*` routes)
 - **Auto-Updating Data** — Cron job fetches and parses the latest DOS Visa Bulletin automatically
 - **Accessible** — WCAG 2.1 compliant with proper ARIA attributes, keyboard navigation, and semantic HTML

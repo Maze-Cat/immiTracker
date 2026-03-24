@@ -70,7 +70,8 @@
       "processing": "Processing",
       "agency": "Agency",
       "validity": "Valid",
-      "categories": "Categories"
+      "categories": "Categories",
+      "maxStay": "Max Stay"
     }
   },
   "footer": {
@@ -79,6 +80,9 @@
     "visaTypes": "Visa Types",
     "resources": "Resources",
     "priorityTracker": "Priority Date Tracker",
+    "visaBulletin": "USCIS Visa Bulletin",
+    "uscisGov": "USCIS.gov",
+    "deptOfState": "U.S. Dept of State",
     "dataSource": "Data sourced from the U.S. Department of State.",
     "notAffiliated": "Not affiliated with USCIS or the U.S. Government."
   },
@@ -89,6 +93,8 @@
   "common": {
     "loading": "Loading...",
     "error": "Failed to load data. Please try again.",
+    "current": "Current",
+    "unavailable": "Unavailable",
     "learnMore": "Learn More",
     "backToTop": "Back to Top",
     "lastUpdated": "Last Updated"
@@ -115,7 +121,12 @@
       "eb3ChinaDate": "Jun 1, 2019 · Final Action",
       "eb3ChinaChange": "+1 month vs last bulletin",
       "eb2IndiaDate": "Sep 15, 2013 · Final Action",
-      "trendBadge": "+2 mo avg"
+      "trendBadge": "+2 mo avg",
+      "announcementTemplate": "{month} Visa Bulletin is now available — EB-2 China: {date}",
+      "livePillTemplate": "{month} Bulletin Updated",
+      "chartA": "Chart A",
+      "loadingBulletin": "Loading bulletin data…",
+      "loadingAnnouncement": "Loading latest bulletin…"
     },
     "visaSection": {
       "eyebrow": "Visa Types",
@@ -123,13 +134,15 @@
       "subtitle": "From your first student visa to permanent residency — we cover it all."
     },
     "visaCards": {
-      "opt": { "name": "Optional Practical Training", "tag": "Student", "emoji": "🎓" },
-      "stemOpt": { "name": "STEM OPT Extension", "tag": "Student", "emoji": "🔬" },
-      "h1b": { "name": "Specialty Occupation Work Visa", "tag": "Work", "emoji": "💼" },
-      "h4": { "name": "H-1B Dependent Visa", "tag": "Family", "emoji": "👨‍👩‍👧" },
-      "l1": { "name": "Intracompany Transferee Visa", "tag": "Work", "emoji": "🏢" },
-      "b1b2": { "name": "Business & Tourist Visa", "tag": "Visitor", "emoji": "✈️" },
-      "greenCard": { "name": "Permanent Residency", "tag": "Green Card", "emoji": "🇺🇸" }
+      "opt": { "code": "OPT", "name": "Optional Practical Training", "tag": "Student", "emoji": "🎓" },
+      "stemOpt": { "code": "STEM OPT", "name": "STEM OPT Extension", "tag": "Student", "emoji": "🔬" },
+      "h1b": { "code": "H-1B", "name": "Specialty Occupation Work Visa", "tag": "Work", "emoji": "💼" },
+      "h4": { "code": "H-4", "name": "H-1B Dependent Visa", "tag": "Family", "emoji": "👨‍👩‍👧" },
+      "l1": { "code": "L-1", "name": "Intracompany Transferee Visa", "tag": "Work", "emoji": "🏢" },
+      "b1b2": { "code": "B-1/B-2", "name": "Business & Tourist Visa", "tag": "Visitor", "emoji": "✈️" },
+      "greenCard": { "code": "Green Card", "name": "Permanent Residency", "tag": "Green Card", "emoji": "🇺🇸" },
+      "niw": { "code": "NIW", "name": "National Interest Waiver", "tag": "Green Card", "emoji": "🎯" },
+      "perm": { "code": "PERM", "name": "Labor Certification", "tag": "Green Card", "emoji": "📋" }
     },
     "features": {
       "eyebrow": "Why ImmiTracker",
