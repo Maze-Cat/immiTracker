@@ -102,6 +102,22 @@ const greenCard: BilingualVisaInfo = {
         answer: 'Yes. Derivative beneficiaries (spouse and unmarried children under 21) can be included in your I-140 and can file their own I-485 or pursue consular processing when your priority date is current.',
       },
     ],
+    additionalSections: [
+      {
+        icon: '🎯',
+        title: 'NIW (National Interest Waiver) Preparation Guide',
+        content: 'The EB-2 National Interest Waiver allows you to self-petition for a green card without employer sponsorship or PERM labor certification. Under the Dhanasar framework (Matter of Dhanasar, 2016), you must demonstrate three prongs: (1) your proposed endeavor has substantial merit and national importance, (2) you are well positioned to advance the endeavor, and (3) on balance, it would be beneficial to waive the job offer and labor certification requirements.',
+        bullets: [
+          'Publications & Citations — Peer-reviewed journal articles, conference papers, and citation counts demonstrating your impact in the field.',
+          'Recommendation Letters — 5–8 strong letters from independent experts (not just collaborators) who can speak to the national importance of your work.',
+          'A Clear Proposed Endeavor — Define a specific, forward-looking plan for your work in the US that addresses a nationally important issue.',
+          'Evidence of National Impact — Patents, media coverage, government grants, or adoption of your work by industry or policy makers.',
+          'Personal Qualifications — Advanced degrees, awards, professional memberships, and a track record of success in your field.',
+          'Dual-Track Strategy — Many applicants file NIW alongside a PERM-based EB-2 or EB-3 to hedge against processing delays or denial.',
+          'Premium Processing — Available for I-140 petitions, guaranteeing a response within 15 business days for an additional fee.',
+        ],
+      },
+    ],
   },
 
   zh: {
@@ -203,6 +219,22 @@ const greenCard: BilingualVisaInfo = {
       {
         question: '我的家庭成员可以随我一起申请绿卡吗？',
         answer: '可以。配偶和21岁以下未婚子女作为随行受益人，可被纳入您的I-140申请，在您的优先日期排到后各自提交I-485或进行领事馆程序。',
+      },
+    ],
+    additionalSections: [
+      {
+        icon: '🎯',
+        title: 'NIW（国家利益豁免）准备指南',
+        content: 'EB-2国家利益豁免允许您在无需雇主担保或PERM劳工证的情况下自行申请绿卡。依据Dhanasar框架（Matter of Dhanasar, 2016），您须证明三个要素：(1) 您提议的事业具有实质性价值和国家级重要性；(2) 您有充分条件推进该事业；(3) 综合衡量，豁免工作邀请和劳工证要求对美国有利。',
+        bullets: [
+          '学术发表与引用 — 同行评审期刊论文、会议论文及引用数量，证明您在该领域的影响力。',
+          '推荐信 — 5至8封来自独立专家（不仅是合作者）的有力推荐信，专门阐述您工作的国家级重要性。',
+          '明确的拟议事业 — 定义一个具体的、前瞻性的在美工作计划，针对国家级重要议题。',
+          '国家级影响力证据 — 专利、媒体报道、政府资助、或您的工作被行业或政策制定者采纳的证据。',
+          '个人资质 — 高等学历、奖项、专业会员资格以及在相关领域的成功履历。',
+          '双轨策略 — 许多申请人同时提交NIW和基于PERM的EB-2或EB-3申请，以对冲审理延迟或拒签风险。',
+          '加急处理 — I-140请愿书可申请加急处理，支付额外费用后保证15个工作日内获得回复。',
+        ],
       },
     ],
   },

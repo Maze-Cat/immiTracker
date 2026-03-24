@@ -41,6 +41,21 @@ const visaStats: Record<string, { labelKey: string; value: string }[]> = {
     { labelKey: 'stats.categories', value: 'EB-1–EB-5' },
     { labelKey: 'stats.form', value: 'I-485 / DS-260' },
   ],
+  l1: [
+    { labelKey: 'stats.maxDuration', value: '5–7 yr' },
+    { labelKey: 'stats.processing', value: '2–4 mo' },
+    { labelKey: 'stats.form', value: 'I-129' },
+  ],
+  b1b2: [
+    { labelKey: 'stats.maxDuration', value: '6 mo stay' },
+    { labelKey: 'stats.validity', value: '1–10 yr' },
+    { labelKey: 'stats.form', value: 'DS-160' },
+  ],
+  niw: [
+    { labelKey: 'stats.processing', value: '6–12 mo' },
+    { labelKey: 'stats.categories', value: 'EB-2' },
+    { labelKey: 'stats.form', value: 'I-140' },
+  ],
 };
 
 export default async function VisaPageContent({ locale, slug }: VisaPageContentProps) {
@@ -181,6 +196,31 @@ export default async function VisaPageContent({ locale, slug }: VisaPageContentP
                 <p className="text-sm text-gray-600 leading-relaxed">{content.timeline}</p>
               </div>
             </div>
+
+            {/* Additional Sections (e.g. NIW guide on green card page) */}
+            {content.additionalSections?.map((section, i) => (
+              <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm mb-5 overflow-hidden">
+                <div className="flex items-center gap-2.5 px-5 py-4 border-b border-gray-100">
+                  <div className="w-8 h-8 rounded-lg bg-teal-50 flex items-center justify-center text-base">
+                    {section.icon}
+                  </div>
+                  <h2 className="text-[15px] font-bold text-gray-800">{section.title}</h2>
+                </div>
+                <div className="px-5 py-5">
+                  <p className="text-sm text-gray-600 leading-relaxed mb-4">{section.content}</p>
+                  {section.bullets && (
+                    <ul className="space-y-2.5">
+                      {section.bullets.map((bullet, j) => (
+                        <li key={j} className="flex gap-2.5 items-start text-sm text-gray-600 leading-relaxed">
+                          <span className="text-teal-500 mt-0.5 flex-shrink-0">•</span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            ))}
 
             {/* FAQ */}
             <div className="mb-5">
