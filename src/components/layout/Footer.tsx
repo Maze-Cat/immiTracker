@@ -3,18 +3,21 @@ import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 
 const visaLinks = [
-  { label: 'OPT', slug: 'opt' },
-  { label: 'STEM OPT', slug: 'stem-opt' },
-  { label: 'H-1B', slug: 'h1b' },
-  { label: 'H-4', slug: 'h4' },
-  { label: 'L-1', slug: 'l1' },
-  { label: 'B-1/B-2', slug: 'b1b2' },
-  { label: 'Green Card', slug: 'green-card' },
-];
+  { key: 'opt', slug: 'opt' },
+  { key: 'stemOpt', slug: 'stem-opt' },
+  { key: 'h1b', slug: 'h1b' },
+  { key: 'h4', slug: 'h4' },
+  { key: 'l1', slug: 'l1' },
+  { key: 'b1b2', slug: 'b1b2' },
+  { key: 'greenCard', slug: 'green-card' },
+  { key: 'niw', slug: 'niw' },
+  { key: 'perm', slug: 'perm' },
+] as const;
 
 export default function Footer() {
   const locale = useLocale();
   const t = useTranslations('footer');
+  const navT = useTranslations('nav');
 
   return (
     <footer className="bg-gray-800 text-gray-400">
@@ -40,13 +43,13 @@ export default function Footer() {
           <div>
             <h4 className="text-white text-sm font-semibold mb-4">{t('visaTypes')}</h4>
             <ul className="space-y-2">
-              {visaLinks.map(({ label, slug }) => (
+              {visaLinks.map(({ key, slug }) => (
                 <li key={slug}>
                   <Link
                     href={`/${locale}/visa/${slug}`}
                     className="text-sm text-gray-500 hover:text-teal-400 transition-colors"
                   >
-                    {label}
+                    {navT(key)}
                   </Link>
                 </li>
               ))}

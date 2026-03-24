@@ -27,7 +27,7 @@ interface HomePageProps {
 
 interface VisaCardConfig {
   slug: string;
-  tKey: 'opt' | 'stemOpt' | 'h1b' | 'h4' | 'l1' | 'b1b2' | 'greenCard';
+  tKey: 'opt' | 'stemOpt' | 'h1b' | 'h4' | 'l1' | 'b1b2' | 'greenCard' | 'niw' | 'perm';
   emoji: string;
   code: string;
   tagClass: string;
@@ -90,6 +90,22 @@ const visaCardData: VisaCardConfig[] = [
     code: 'Green Card',
     tagClass: 'bg-purple-50 text-purple-700',
     topBar: 'from-purple-600 to-purple-400',
+  },
+  {
+    slug: 'niw',
+    tKey: 'niw',
+    emoji: '🎯',
+    code: 'NIW',
+    tagClass: 'bg-amber-50 text-amber-700',
+    topBar: 'from-amber-500 to-amber-400',
+  },
+  {
+    slug: 'perm',
+    tKey: 'perm',
+    emoji: '📋',
+    code: 'PERM',
+    tagClass: 'bg-emerald-50 text-emerald-700',
+    topBar: 'from-emerald-600 to-emerald-400',
   },
 ];
 
