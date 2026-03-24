@@ -1,7 +1,25 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
+import { getLatestBulletin } from '@/lib/visa-bulletin/store';
+import { ensureBulletinData } from '@/lib/visa-bulletin/auto-fetch';
 
 export const revalidate = 3600;
+
+/** Format an ISO date like "2019-06-08" into a locale-aware display string */
+function formatPriorityDate(isoDate: string, locale: string): string {
+  if (isoDate === 'C') return locale === 'zh' ? '当前' : 'Current';
+  if (isoDate === 'U') return locale === 'zh' ? '不可用' : 'Unavailable';
+  try {
+    const d = new Date(isoDate + 'T00:00:00');
+    return d.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  } catch {
+    return isoDate;
+  }
+}
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -9,7 +27,7 @@ interface HomePageProps {
 
 interface VisaCardConfig {
   slug: string;
-  tKey: 'opt' | 'stemOpt' | 'h1b' | 'h4' | 'perm' | 'greenCard';
+  tKey: 'opt' | 'stemOpt' | 'h1b' | 'h4' | 'l1' | 'b1b2' | 'greenCard';
   emoji: string;
   code: string;
   tagClass: string;
@@ -50,12 +68,20 @@ const visaCardData: VisaCardConfig[] = [
     topBar: 'from-orange-500 to-yellow-400',
   },
   {
-    slug: 'perm',
-    tKey: 'perm',
-    emoji: '📋',
-    code: 'PERM',
-    tagClass: 'bg-purple-50 text-purple-700',
-    topBar: 'from-purple-600 to-purple-400',
+    slug: 'l1',
+    tKey: 'l1',
+    emoji: '🏢',
+    code: 'L-1',
+    tagClass: 'bg-indigo-50 text-indigo-700',
+    topBar: 'from-indigo-600 to-indigo-400',
+  },
+  {
+    slug: 'b1b2',
+    tKey: 'b1b2',
+    emoji: '✈️',
+    code: 'B-1/B-2',
+    tagClass: 'bg-rose-50 text-rose-700',
+    topBar: 'from-rose-500 to-rose-400',
   },
   {
     slug: 'green-card',
@@ -71,6 +97,59 @@ export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
 
+  // In dev mode, auto-fetch bulletin if store is empty (avoids manual curl after restart)
+  await ensureBulletinData();
+  const bulletin = await getLatestBulletin();
+  const eb = bulletin?.employmentBased?.finalActionDates;
+
+  const eb2ChinaDate = eb?.['EB2']?.china ?? 'U';
+  const eb3ChinaDate = eb?.['EB3']?.china ?? 'U';
+  const eb2IndiaDate = eb?.['EB2']?.india ?? 'U';
+
+  // bulletinMonth is already like "April 2026", no need to append year
+  const bulletinLabel = bulletin?.bulletinMonth ?? '';
+
+  // Dynamic announcement text
+  const announcementText = bulletin
+    ? locale === 'zh'
+      ? `${bulletinLabel} 签证公告已发布 — EB-2 中国排期：${formatPriorityDate(eb2ChinaDate, locale)}`
+      : `${bulletinLabel} Visa Bulletin is now available — EB-2 China: ${formatPriorityDate(eb2ChinaDate, locale)}`
+    : locale === 'zh' ? '正在加载最新公告…' : 'Loading latest bulletin…';
+
+  const livePillText = bulletin
+    ? locale === 'zh'
+      ? `${bulletinLabel} 公告已更新`
+      : `${bulletinLabel} Bulletin Updated`
+    : locale === 'zh' ? '加载中…' : 'Loading…';
+
+  // Build live data cards config
+  const liveCards = [
+    {
+      emoji: '🇨🇳',
+      iconBg: 'bg-teal-50',
+      badgeBg: 'bg-teal-50 text-teal-700',
+      label: t('hero.eb2China'),
+      date: formatPriorityDate(eb2ChinaDate, locale),
+      subLabel: locale === 'zh' ? '表A' : 'Chart A',
+    },
+    {
+      emoji: '🇨🇳',
+      iconBg: 'bg-orange-50',
+      badgeBg: 'bg-orange-50 text-orange-700',
+      label: t('hero.eb3China'),
+      date: formatPriorityDate(eb3ChinaDate, locale),
+      subLabel: locale === 'zh' ? '表A' : 'Chart A',
+    },
+    {
+      emoji: '🇮🇳',
+      iconBg: 'bg-purple-50',
+      badgeBg: 'bg-purple-50 text-purple-700',
+      label: t('hero.eb2Label'),
+      date: formatPriorityDate(eb2IndiaDate, locale),
+      subLabel: locale === 'zh' ? '表A' : 'Chart A',
+    },
+  ];
+
   return (
     <>
       {/* Announcement Bar */}
@@ -78,7 +157,7 @@ export default async function HomePage({ params }: HomePageProps) {
         <span className="bg-orange-500 text-white text-[11px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full flex-shrink-0">
           {t('announcementBadge')}
         </span>
-        <span>{t('announcementBar')}</span>
+        <span>{announcementText}</span>
       </div>
 
       {/* Hero */}
@@ -93,7 +172,7 @@ export default async function HomePage({ params }: HomePageProps) {
             {/* Live pill */}
             <div className="inline-flex items-center gap-2 bg-white border border-teal-100 rounded-full px-3.5 py-1.5 text-xs font-semibold text-teal-700 mb-6 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
-              {t('hero.livePill')}
+              {livePillText}
             </div>
 
             <h1 className="text-[46px] leading-[1.15] font-extrabold tracking-tight text-gray-800 mb-5">
@@ -105,12 +184,12 @@ export default async function HomePage({ params }: HomePageProps) {
             </p>
 
             <div className="flex flex-wrap gap-3 items-center">
-              <Link
-                href={`/${locale}/visa/h1b`}
+              <a
+                href="#visa-types"
                 className="bg-gradient-to-r from-teal-600 to-teal-700 text-white font-bold text-[15px] px-7 py-3.5 rounded-xl shadow-[0_4px_14px_rgba(13,148,136,0.4)] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(13,148,136,0.5)] transition-all no-underline"
               >
                 {t('hero.ctaPrimary')}
-              </Link>
+              </a>
               <Link
                 href={`/${locale}/tracker`}
                 className="bg-white text-gray-700 font-semibold text-[15px] px-7 py-3.5 rounded-xl border border-gray-200 shadow-sm hover:border-teal-500 hover:text-teal-600 hover:-translate-y-px transition-all no-underline"
@@ -144,62 +223,35 @@ export default async function HomePage({ params }: HomePageProps) {
 
           {/* Right — live data preview cards */}
           <div className="flex flex-col gap-3.5">
-            {/* Card 1: EB-2 India */}
-            <div className="bg-white rounded-2xl p-4 shadow-md flex gap-3.5 items-start hover:-translate-y-0.5 transition-transform">
-              <div className="w-11 h-11 rounded-xl bg-teal-50 flex items-center justify-center text-2xl flex-shrink-0">
-                📅
+            {bulletin ? (
+              liveCards.map((card, idx) => (
+                <div key={idx} className="bg-white rounded-2xl p-4 shadow-md flex gap-3.5 items-start hover:-translate-y-0.5 transition-transform">
+                  <div className={`w-11 h-11 rounded-xl ${card.iconBg} flex items-center justify-center text-2xl flex-shrink-0`}>
+                    {card.emoji}
+                  </div>
+                  <div>
+                    <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wide">
+                      {t('hero.liveDataLabel')}
+                    </p>
+                    <p className="text-[15px] font-bold text-gray-800 mt-0.5">{card.label}</p>
+                    <p className="text-[13px] text-gray-500">{card.date} · {card.subLabel}</p>
+                    <span className={`inline-flex items-center gap-1 mt-1.5 ${card.badgeBg} text-[11px] font-bold px-2.5 py-0.5 rounded-full`}>
+                      {bulletinLabel}
+                    </span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="bg-white rounded-2xl p-6 shadow-md text-center text-gray-400 text-sm">
+                {locale === 'zh' ? '公告数据加载中…' : 'Loading bulletin data…'}
               </div>
-              <div>
-                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wide">
-                  {t('hero.liveDataLabel')}
-                </p>
-                <p className="text-[15px] font-bold text-gray-800 mt-0.5">{t('hero.eb2Label')}</p>
-                <p className="text-[13px] text-gray-500">{t('hero.eb2IndiaDate')}</p>
-                <span className="inline-flex items-center gap-1 mt-1.5 bg-teal-50 text-teal-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                  ↑ {t('hero.eb2IndiaChange')}
-                </span>
-              </div>
-            </div>
-
-            {/* Card 2: EB-3 India */}
-            <div className="bg-white rounded-2xl p-4 shadow-md flex gap-3.5 items-start hover:-translate-y-0.5 transition-transform">
-              <div className="w-11 h-11 rounded-xl bg-orange-50 flex items-center justify-center text-2xl flex-shrink-0">
-                📊
-              </div>
-              <div>
-                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wide">
-                  {t('hero.liveDataLabel')}
-                </p>
-                <p className="text-[15px] font-bold text-gray-800 mt-0.5">{t('hero.eb3Label')}</p>
-                <p className="text-[13px] text-gray-500">{t('hero.eb3IndiaDate')}</p>
-                <span className="inline-flex items-center gap-1 mt-1.5 bg-orange-50 text-orange-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                  ↑ {t('hero.eb3IndiaChange')}
-                </span>
-              </div>
-            </div>
-
-            {/* Card 3: EB-2 China */}
-            <div className="bg-white rounded-2xl p-4 shadow-md flex gap-3.5 items-start hover:-translate-y-0.5 transition-transform">
-              <div className="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center text-2xl flex-shrink-0">
-                🌐
-              </div>
-              <div>
-                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wide">
-                  {t('hero.liveDataLabel')}
-                </p>
-                <p className="text-[15px] font-bold text-gray-800 mt-0.5">{t('hero.eb2China')}</p>
-                <p className="text-[13px] text-gray-500">{t('hero.eb2ChinaDate')}</p>
-                <span className="inline-flex items-center gap-1 mt-1.5 bg-teal-50 text-teal-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                  {t('hero.asOfLabel')}
-                </span>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </section>
 
       {/* Visa Cards Grid */}
-      <section className="bg-white py-[72px] px-4">
+      <section id="visa-types" className="bg-white py-[72px] px-4 scroll-mt-16">
         <div className="max-w-7xl mx-auto">
           <p className="text-xs font-extrabold uppercase tracking-[1.5px] text-teal-600 mb-2">
             {t('visaSection.eyebrow')}
@@ -300,12 +352,12 @@ export default async function HomePage({ params }: HomePageProps) {
             >
               {t('cta.primary')}
             </Link>
-            <Link
-              href={`/${locale}/visa/h1b`}
+            <a
+              href="#visa-types"
               className="bg-transparent text-white font-semibold text-[15px] px-7 py-3 rounded-xl border-2 border-white/50 hover:bg-white/10 hover:border-white transition-all no-underline"
             >
               {t('cta.secondary')}
-            </Link>
+            </a>
           </div>
         </div>
       </section>

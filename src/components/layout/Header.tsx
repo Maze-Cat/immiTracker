@@ -10,7 +10,8 @@ const visaLinks = [
   { key: 'stemOpt', slug: 'stem-opt' },
   { key: 'h1b', slug: 'h1b' },
   { key: 'h4', slug: 'h4' },
-  { key: 'perm', slug: 'perm' },
+  { key: 'l1', slug: 'l1' },
+  { key: 'b1b2', slug: 'b1b2' },
   { key: 'greenCard', slug: 'green-card' },
 ] as const;
 
@@ -48,14 +49,7 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-1 flex-1">
-          <Link
-            href={`/${locale}/tracker`}
-            className="text-sm font-medium text-gray-500 px-3.5 py-1.5 rounded-lg hover:bg-teal-50 hover:text-teal-700 transition-colors"
-          >
-            {t('tracker')}
-          </Link>
-
-          {/* Visa dropdown */}
+          {/* Visa dropdown — listed first */}
           <div className="relative group">
             <button
               className="text-sm font-medium text-gray-500 px-3.5 py-1.5 rounded-lg hover:bg-teal-50 hover:text-teal-700 transition-colors flex items-center gap-1 cursor-pointer border-none bg-transparent"
@@ -91,6 +85,13 @@ export default function Header() {
               ))}
             </div>
           </div>
+
+          <Link
+            href={`/${locale}/tracker`}
+            className="text-sm font-medium text-gray-500 px-3.5 py-1.5 rounded-lg hover:bg-teal-50 hover:text-teal-700 transition-colors"
+          >
+            {t('tracker')}
+          </Link>
         </nav>
 
         {/* Right side */}
@@ -119,14 +120,6 @@ export default function Header() {
             </button>
           </div>
 
-          {/* CTA */}
-          <Link
-            href={`/${locale}/tracker`}
-            className="hidden sm:inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white text-sm font-bold px-4 py-2 rounded-[9px] shadow-[0_2px_8px_rgba(249,115,22,0.35)] hover:-translate-y-px hover:shadow-[0_4px_14px_rgba(249,115,22,0.4)] transition-all no-underline"
-          >
-            {t('trackDates')}
-          </Link>
-
           {/* Mobile menu button */}
           <button
             className="md:hidden p-2 text-gray-500 hover:text-teal-600 transition-colors"
@@ -147,13 +140,6 @@ export default function Header() {
       {/* Mobile nav */}
       {mobileOpen && (
         <nav aria-label="Mobile navigation" className="md:hidden border-t border-gray-100 bg-white px-4 py-3 flex flex-col gap-1">
-          <Link
-            href={`/${locale}/tracker`}
-            className="text-sm font-medium text-gray-600 px-3 py-2 rounded-lg hover:bg-teal-50 hover:text-teal-700"
-            onClick={() => setMobileOpen(false)}
-          >
-            {t('tracker')}
-          </Link>
           {visaLinks.map(({ key, slug }) => (
             <Link
               key={slug}

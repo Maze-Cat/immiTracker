@@ -16,27 +16,64 @@ const BULLETIN_HREF_PATTERNS = [
   /\/content\/travel\/en\/legal\/visa-law0\/visa-bulletin\/\d{4}\/visa-bulletin-[^"'\s]+/i,
 ];
 
+const MONTH_ORDER: Record<string, number> = {
+  january: 1, february: 2, march: 3, april: 4, may: 5, june: 6,
+  july: 7, august: 8, september: 9, october: 10, november: 11, december: 12,
+};
+
+
 /**
- * Extract the first matching bulletin URL from the index page HTML.
- * Returns the full absolute URL, or null if nothing matched.
+ * Extract ALL bulletin URLs from the index page, sorted by date descending.
+ * Deduplicates by year+month so each month appears only once (prefers .html URLs).
  */
-function extractLatestBulletinUrl(indexHtml: string): string | null {
-  // Try each pattern in order of specificity
+function extractAllBulletinUrls(indexHtml: string): Array<{ href: string; year: number; month: number }> {
+  const byMonthKey = new Map<string, { href: string; year: number; month: number }>();
+
   for (const pattern of BULLETIN_HREF_PATTERNS) {
-    const match = indexHtml.match(pattern);
-    if (match) {
+    const globalPattern = new RegExp(pattern.source, 'gi');
+    let match;
+    while ((match = globalPattern.exec(indexHtml)) !== null) {
       const href = match[0];
-      return href.startsWith('http') ? href : `${DOS_BASE_URL}${href}`;
+      const parts = href.match(/visa-bulletin-for-(\w+)-(\d{4})/i);
+      if (parts) {
+        const monthNum = MONTH_ORDER[parts[1].toLowerCase()] ?? 0;
+        const year = parseInt(parts[2], 10);
+        const fullHref = href.startsWith('http') ? href : `${DOS_BASE_URL}${href}`;
+        const key = `${year}-${monthNum}`;
+        if (monthNum > 0) {
+          const existing = byMonthKey.get(key);
+          // Prefer URLs ending in .html
+          if (!existing || (fullHref.endsWith('.html') && !existing.href.endsWith('.html'))) {
+            byMonthKey.set(key, { href: fullHref, year, month: monthNum });
+          }
+        }
+      }
     }
   }
 
-  // Broader fallback: any href inside a visa-bulletin year directory
-  const fallback = indexHtml.match(
-    /href="(\/content\/travel\/en\/legal\/visa-law0\/visa-bulletin\/\d{4}\/[^"]+\.html)"/i,
-  );
-  if (fallback) return `${DOS_BASE_URL}${fallback[1]}`;
+  const allMatches = Array.from(byMonthKey.values());
+  // Sort by year desc, then month desc
+  allMatches.sort((a, b) => b.year - a.year || b.month - a.month);
+  return allMatches;
+}
 
-  return null;
+/**
+ * Fetch a single bulletin page by URL, parse it, and store it.
+ */
+async function fetchAndStoreSingleBulletin(url: string): Promise<{ bulletinMonth: string }> {
+  console.log(`[fetcher] Fetching bulletin: ${url}`);
+  const response = await fetch(url, {
+    next: { revalidate: 0 },
+    signal: AbortSignal.timeout(15_000),
+  });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch bulletin page (HTTP ${response.status}): ${url}`);
+  }
+  const html = await response.text();
+  console.log(`[fetcher] Received HTML (${html.length} chars) from ${url}`);
+  const bulletin = parseVisaBulletin(html);
+  await storeBulletin(bulletin);
+  return { bulletinMonth: bulletin.bulletinMonth };
 }
 
 /**
@@ -46,42 +83,46 @@ function extractLatestBulletinUrl(indexHtml: string): string | null {
  * Throws on network errors or if the bulletin URL cannot be located.
  */
 export async function fetchAndStoreBulletin(): Promise<{ bulletinMonth: string }> {
-  // Step 1: Fetch the index page
-  const indexResponse = await fetch(DOS_INDEX_URL, {
-    next: { revalidate: 0 },
-    signal: AbortSignal.timeout(10_000),
-  });
-  if (!indexResponse.ok) {
-    throw new Error(
-      `Failed to fetch Visa Bulletin index (HTTP ${indexResponse.status}): ${DOS_INDEX_URL}`,
-    );
-  }
-  const indexHtml = await indexResponse.text();
+  const indexHtml = await fetchIndexPage();
+  const urls = extractAllBulletinUrls(indexHtml);
 
-  // Step 2: Find the latest bulletin URL
-  const bulletinUrl = extractLatestBulletinUrl(indexHtml);
-  if (!bulletinUrl) {
+  if (urls.length === 0) {
     throw new Error(
-      'Could not locate the latest Visa Bulletin URL in the DOS index page. ' +
+      'Could not locate any Visa Bulletin URL in the DOS index page. ' +
       'The site structure may have changed.',
     );
   }
 
-  // Step 3: Fetch the bulletin page
-  const bulletinResponse = await fetch(bulletinUrl, {
+  // Fetch up to 12 months of bulletins for historical tracking
+  const maxMonths = Math.min(urls.length, 12);
+  let result: { bulletinMonth: string } | null = null;
+
+  for (let i = 0; i < maxMonths; i++) {
+    try {
+      const r = await fetchAndStoreSingleBulletin(urls[i].href);
+      if (i === 0) result = r;
+      console.log(`[fetcher] Stored bulletin ${i + 1}/${maxMonths}: ${r.bulletinMonth}`);
+    } catch (err) {
+      console.warn(`[fetcher] Failed to fetch bulletin ${i + 1} (${urls[i].href}):`, err instanceof Error ? err.message : err);
+    }
+  }
+
+  if (!result) {
+    throw new Error('Failed to fetch any bulletin');
+  }
+
+  return result;
+}
+
+async function fetchIndexPage(): Promise<string> {
+  const response = await fetch(DOS_INDEX_URL, {
     next: { revalidate: 0 },
     signal: AbortSignal.timeout(10_000),
   });
-  if (!bulletinResponse.ok) {
+  if (!response.ok) {
     throw new Error(
-      `Failed to fetch bulletin page (HTTP ${bulletinResponse.status}): ${bulletinUrl}`,
+      `Failed to fetch Visa Bulletin index (HTTP ${response.status}): ${DOS_INDEX_URL}`,
     );
   }
-  const bulletinHtml = await bulletinResponse.text();
-
-  // Step 4: Parse and store
-  const bulletin = parseVisaBulletin(bulletinHtml);
-  await storeBulletin(bulletin);
-
-  return { bulletinMonth: bulletin.bulletinMonth };
+  return response.text();
 }

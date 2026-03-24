@@ -7,7 +7,8 @@
     "stemOpt": "STEM OPT",
     "h1b": "H-1B",
     "h4": "H-4",
-    "perm": "PERM",
+    "l1": "L-1",
+    "b1b2": "B-1/B-2",
     "greenCard": "绿卡",
     "tagline": "美国移民指南",
     "trackDates": "查看排期"
@@ -15,14 +16,14 @@
   "tracker": {
     "title": "绿卡排期追踪器",
     "subtitle": "追踪最新 USCIS 签证公告排期日期",
-    "finalAction": "最终行动日期",
-    "datesForFiling": "递交申请日期",
+    "finalAction": "表A",
+    "datesForFiling": "表B",
     "lastUpdated": "最后更新",
     "bulletinMonth": "公告月份",
     "employmentBased": "职业移民",
     "familyBased": "家庭移民",
     "historicalTrends": "历史趋势",
-    "historicalTrendsDesc": "排期日期随时间的变化趋势——完整图表即将上线",
+    "historicalTrendsDesc": "按类别和国家查看排期日期随时间的变化",
     "category": "类别",
     "allChargeability": "所有国家",
     "china": "中国",
@@ -34,6 +35,8 @@
     "noData": "暂无公告数据。",
     "current": "当前",
     "unavailable": "不可用",
+    "eb2China": "EB-2 中国",
+    "eb3China": "EB-3 中国",
     "eb2India": "EB-2 印度",
     "eb3India": "EB-3 印度",
     "chartComingSoon": "完整互动图表即将上线",
@@ -79,7 +82,7 @@
   },
   "meta": {
     "title": "ImmiTracker — 美国移民指南",
-    "description": "涵盖OPT、STEM OPT、H-1B、H-4、PERM及绿卡的全面双语移民信息"
+    "description": "涵盖OPT、STEM OPT、H-1B、H-4、L-1、B-1/B-2及绿卡的全面双语移民信息"
   },
   "common": {
     "loading": "加载中...",
@@ -89,26 +92,27 @@
     "lastUpdated": "最后更新"
   },
   "home": {
-    "announcementBar": "2026年3月签证公告已发布——EB-2印度排期推进至2013年1月",
+    "announcementBar": "最新签证公告已发布",
     "announcementBadge": "新",
     "hero": {
       "title": "您的美国移民",
       "titleAccent": "指南",
-      "subtitle": "为正在申请OPT、H-1B、PERM及绿卡的移民提供全面的双语信息。",
+      "subtitle": "为正在申请OPT、H-1B、L-1及绿卡的移民提供全面的双语信息。",
       "ctaPrimary": "探索签证类型",
       "ctaSecondary": "查看优先日期 →",
       "socialProof": "数千名移民申请者信赖",
-      "livePill": "最新2026年3月公告已更新",
+      "livePill": "公告已更新",
       "liveDataLabel": "实时排期数据",
       "eb2Label": "EB-2 印度",
       "eb3Label": "EB-3 印度",
       "eb2China": "EB-2 中国",
-      "asOfLabel": "截至2026年3月公告",
-      "eb2IndiaDate": "2013年1月1日 · 最终行动",
-      "eb2IndiaChange": "较上月前进2个月",
-      "eb3IndiaDate": "2012年1月1日 · 最终行动",
-      "eb3IndiaChange": "较上月前进1个月",
+      "eb3China": "EB-3 中国",
+      "asOfLabel": "截至最新公告",
       "eb2ChinaDate": "2019年6月8日 · 最终行动",
+      "eb2ChinaChange": "较上月前进2个月",
+      "eb3ChinaDate": "2019年6月1日 · 最终行动",
+      "eb3ChinaChange": "较上月前进1个月",
+      "eb2IndiaDate": "2013年9月15日 · 最终行动",
       "trendBadge": "平均前进2个月"
     },
     "visaSection": {
@@ -121,7 +125,8 @@
       "stemOpt": { "name": "STEM OPT延期", "tag": "学生", "emoji": "🔬" },
       "h1b": { "name": "专业技术工作签证", "tag": "工作", "emoji": "💼" },
       "h4": { "name": "H-1B家属签证", "tag": "家庭", "emoji": "👨‍👩‍👧" },
-      "perm": { "name": "劳工认证", "tag": "绿卡", "emoji": "📋" },
+      "l1": { "name": "跨国公司内部调动签证", "tag": "工作", "emoji": "🏢" },
+      "b1b2": { "name": "商务/旅游签证", "tag": "访客", "emoji": "✈️" },
       "greenCard": { "name": "永久居留权", "tag": "绿卡", "emoji": "🇺🇸" }
     },
     "features": {

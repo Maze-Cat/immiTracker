@@ -1,4 +1,5 @@
 import * as cheerio from 'cheerio';
+import type { AnyNode, Element } from 'domhandler';
 import type { VisaBulletin, CategoryTable, ChargeabilityRow } from '@/types/visa-bulletin';
 
 // ---------------------------------------------------------------------------
@@ -97,7 +98,7 @@ function mapColumnIndex(headerText: string): keyof ChargeabilityRow | null {
 // Table parsing
 // ---------------------------------------------------------------------------
 
-function parseTable($: cheerio.CheerioAPI, tableEl: cheerio.Element, isEB: boolean): CategoryTable {
+function parseTable($: cheerio.CheerioAPI, tableEl: Element, isEB: boolean): CategoryTable {
   const result: CategoryTable = {};
 
   const rows = $(tableEl).find('tr').toArray();
@@ -147,15 +148,17 @@ type TableKind = 'eb-final' | 'eb-filing' | 'fb-final' | 'fb-filing' | null;
 
 function classifyHeading(text: string): TableKind {
   const t = text.toLowerCase();
-  const isEB = /employ|^[aA]\.\s/.test(t) || /\beb\b/.test(t);
-  const isFB = /family|^[bB]\.\s/.test(t) || /\bfb\b/.test(t);
+  // Match on keywords only — "A." / "B." section letters don't indicate EB vs FB
+  const isEB = /employment/i.test(t) || /\beb\b/.test(t);
+  const isFB = /family/i.test(t) || /\bfb\b/.test(t);
   const isFinal = /final action/i.test(t);
   const isFiling = /filing|dates for filing/i.test(t);
 
-  if (isEB && isFinal) return 'eb-final';
-  if (isEB && isFiling) return 'eb-filing';
+  // Check FB first — if both match (shouldn't happen), family takes priority
   if (isFB && isFinal) return 'fb-final';
   if (isFB && isFiling) return 'fb-filing';
+  if (isEB && isFinal) return 'eb-final';
+  if (isEB && isFiling) return 'eb-filing';
   return null;
 }
 
@@ -191,7 +194,7 @@ export function parseVisaBulletin(html: string): VisaBulletin {
 
   // Collect all relevant elements in document order
   $('h2, h3, h4, p, table').each((_, el) => {
-    const tagName = el.type === 'tag' ? (el as cheerio.Element & { name: string }).name.toLowerCase() : '';
+    const tagName = el.type === 'tag' ? (el as Element).name.toLowerCase() : '';
 
     if (['h2', 'h3', 'h4', 'p'].includes(tagName)) {
       const text = $(el).text().trim();

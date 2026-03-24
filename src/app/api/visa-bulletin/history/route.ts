@@ -1,13 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getHistoricalData } from '@/lib/visa-bulletin/store';
+import { getHistoricalData, getAllBulletins } from '@/lib/visa-bulletin/store';
+
+const VALID_CATEGORIES = ['EB1', 'EB2', 'EB3', 'EB4', 'EB5', 'F1', 'F2A', 'F2B', 'F3', 'F4'];
+const VALID_CHARGEABILITIES = ['allChargeability', 'china', 'india', 'mexico', 'philippines'];
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
+
+  // If mode=all, return all bulletins for the chart component
+  if (searchParams.get('mode') === 'all') {
+    try {
+      const bulletins = await getAllBulletins();
+      return NextResponse.json({ bulletins });
+    } catch (error) {
+      console.error('[visa-bulletin/history] Failed to fetch all bulletins:', error);
+      return NextResponse.json({ error: 'Failed to fetch historical data' }, { status: 500 });
+    }
+  }
+
   const category = searchParams.get('category') || 'EB2';
   const chargeability = searchParams.get('chargeability') || 'CHINA';
-
-  const VALID_CATEGORIES = ['EB1', 'EB2', 'EB3', 'EB4', 'EB5', 'F1', 'F2A', 'F2B', 'F3', 'F4'];
-  const VALID_CHARGEABILITIES = ['allChargeability', 'china', 'india', 'mexico', 'philippines'];
 
   if (!VALID_CATEGORIES.includes(category.toUpperCase())) {
     return NextResponse.json(

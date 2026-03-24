@@ -7,7 +7,8 @@ const visaLinks = [
   { label: 'STEM OPT', slug: 'stem-opt' },
   { label: 'H-1B', slug: 'h1b' },
   { label: 'H-4', slug: 'h4' },
-  { label: 'PERM', slug: 'perm' },
+  { label: 'L-1', slug: 'l1' },
+  { label: 'B-1/B-2', slug: 'b1b2' },
   { label: 'Green Card', slug: 'green-card' },
 ];
 

@@ -12,6 +12,7 @@ export default function TrackerClient() {
   const t = useTranslations('tracker');
   const locale = useLocale();
   const [bulletin, setBulletin] = useState<VisaBulletin | null>(null);
+  const [previousBulletin, setPreviousBulletin] = useState<VisaBulletin | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [tableMode, setTableMode] = useState<TableMode>('finalAction');
@@ -24,8 +25,9 @@ export default function TrackerClient() {
         if (!r.ok) throw new Error('non-ok');
         return r.json();
       })
-      .then((data: VisaBulletin) => {
-        setBulletin(data);
+      .then((data: { current: VisaBulletin; previous: VisaBulletin | null }) => {
+        setBulletin(data.current);
+        setPreviousBulletin(data.previous);
         setLoading(false);
       })
       .catch((err) => {
@@ -65,12 +67,24 @@ export default function TrackerClient() {
       ? bulletin.familyBased.finalActionDates
       : bulletin.familyBased.datesForFiling;
 
+  const prevEbData = previousBulletin
+    ? tableMode === 'finalAction'
+      ? previousBulletin.employmentBased.finalActionDates
+      : previousBulletin.employmentBased.datesForFiling
+    : undefined;
+
+  const prevFbData = previousBulletin
+    ? tableMode === 'finalAction'
+      ? previousBulletin.familyBased.finalActionDates
+      : previousBulletin.familyBased.datesForFiling
+    : undefined;
+
   return (
     <div>
       {/* Bulletin badge + meta */}
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <span className="bg-teal-50 text-teal-700 text-xs font-bold px-3 py-1.5 rounded-full">
-          {t('bulletinMonth')}: {bulletin.bulletinMonth} {bulletin.bulletinYear}
+          {t('bulletinMonth')}: {bulletin.bulletinMonth}
         </span>
         <span className="text-xs text-gray-400">
           {t('lastUpdated')}: {new Date(bulletin.fetchedAt).toLocaleDateString()}
@@ -115,6 +129,7 @@ export default function TrackerClient() {
       {section === 'employment' && (
         <PriorityDateTable
           data={ebData}
+          previousData={prevEbData}
           type={tableMode}
           title={t('employmentBased')}
         />
@@ -122,6 +137,7 @@ export default function TrackerClient() {
       {section === 'family' && (
         <PriorityDateTable
           data={fbData}
+          previousData={prevFbData}
           type={tableMode}
           title={t('familyBased')}
         />

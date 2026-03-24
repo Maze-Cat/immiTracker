@@ -20,7 +20,16 @@ if (isProduction && !hasKV) {
 // ---------------------------------------------------------------------------
 
 const LATEST_KEY = 'bulletin:latest';
-const store = new Map<string, VisaBulletin>();
+
+// Use globalThis to share the Map across module reloads in Next.js dev mode.
+// Without this, server components and API routes may get separate Map instances.
+const globalStore = globalThis as unknown as {
+  __bulletinStore?: Map<string, VisaBulletin>;
+};
+if (!globalStore.__bulletinStore) {
+  globalStore.__bulletinStore = new Map<string, VisaBulletin>();
+}
+const store = globalStore.__bulletinStore;
 
 function bulletinKey(bulletin: VisaBulletin): string {
   // Derive a sortable key from the bulletin's month string, e.g. "March 2026" → "bulletin:2026-03"
@@ -55,16 +64,55 @@ function normaliseChargeabilityKey(chargeability: string): keyof ChargeabilityRo
 
 export async function storeBulletin(bulletin: VisaBulletin): Promise<void> {
   // TODO: Replace with Vercel KV in production
-  // await kv.set(LATEST_KEY, bulletin);
-  // await kv.set(bulletinKey(bulletin), bulletin);
-  store.set(LATEST_KEY, bulletin);
-  store.set(bulletinKey(bulletin), bulletin);
+  const key = bulletinKey(bulletin);
+  store.set(key, bulletin);
+
+  // Only update the "latest" pointer if this bulletin is newer than what's currently stored
+  const currentLatest = store.get(LATEST_KEY);
+  if (!currentLatest) {
+    store.set(LATEST_KEY, bulletin);
+  } else {
+    const currentKey = bulletinKey(currentLatest);
+    if (key >= currentKey) {
+      store.set(LATEST_KEY, bulletin);
+    }
+  }
 }
 
 export async function getLatestBulletin(): Promise<VisaBulletin | null> {
   // TODO: Replace with Vercel KV in production
   // return await kv.get<VisaBulletin>(LATEST_KEY);
   return store.get(LATEST_KEY) ?? null;
+}
+
+export async function getPreviousBulletin(): Promise<VisaBulletin | null> {
+  // Get all dated bulletin keys (exclude sentinel), sort descending, return second one
+  const datedKeys: string[] = [];
+  for (const key of store.keys()) {
+    if (key !== LATEST_KEY && key.startsWith('bulletin:')) {
+      datedKeys.push(key);
+    }
+  }
+  datedKeys.sort((a, b) => b.localeCompare(a));
+  if (datedKeys.length < 2) return null;
+  return store.get(datedKeys[1]) ?? null;
+}
+
+export async function getAllBulletins(): Promise<VisaBulletin[]> {
+  // Return all stored bulletins in ascending chronological order
+  const datedKeys: string[] = [];
+  for (const key of store.keys()) {
+    if (key !== LATEST_KEY && key.startsWith('bulletin:')) {
+      datedKeys.push(key);
+    }
+  }
+  datedKeys.sort((a, b) => a.localeCompare(b));
+  const bulletins: VisaBulletin[] = [];
+  for (const key of datedKeys) {
+    const b = store.get(key);
+    if (b) bulletins.push(b);
+  }
+  return bulletins;
 }
 
 export async function getHistoricalData(
