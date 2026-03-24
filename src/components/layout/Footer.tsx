@@ -75,7 +75,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm text-gray-500 hover:text-teal-400 transition-colors"
                 >
-                  USCIS Visa Bulletin
+                  {t('visaBulletin')}
                 </a>
               </li>
               <li>
@@ -85,7 +85,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm text-gray-500 hover:text-teal-400 transition-colors"
                 >
-                  USCIS.gov
+                  {t('uscisGov')}
                 </a>
               </li>
               <li>
@@ -95,7 +95,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm text-gray-500 hover:text-teal-400 transition-colors"
                 >
-                  U.S. Dept of State
+                  {t('deptOfState')}
                 </a>
               </li>
             </ul>

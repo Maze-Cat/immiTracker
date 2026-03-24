@@ -79,6 +79,9 @@
     "visaTypes": "签证类型",
     "resources": "资源",
     "priorityTracker": "排期追踪器",
+    "visaBulletin": "USCIS签证公告",
+    "uscisGov": "USCIS.gov",
+    "deptOfState": "美国国务院",
     "dataSource": "数据来源：美国国务院。",
     "notAffiliated": "与USCIS或美国政府无关。"
   },
@@ -89,6 +92,8 @@
   "common": {
     "loading": "加载中...",
     "error": "数据加载失败，请重试。",
+    "current": "当前",
+    "unavailable": "不可用",
     "learnMore": "了解更多",
     "backToTop": "返回顶部",
     "lastUpdated": "最后更新"
@@ -115,7 +120,12 @@
       "eb3ChinaDate": "2019年6月1日 · 最终行动",
       "eb3ChinaChange": "较上月前进1个月",
       "eb2IndiaDate": "2013年9月15日 · 最终行动",
-      "trendBadge": "平均前进2个月"
+      "trendBadge": "平均前进2个月",
+      "announcementTemplate": "{month} 签证公告已发布 — EB-2 中国排期：{date}",
+      "livePillTemplate": "{month} 公告已更新",
+      "chartA": "表A",
+      "loadingBulletin": "公告数据加载中…",
+      "loadingAnnouncement": "正在加载最新公告…"
     },
     "visaSection": {
       "eyebrow": "签证类型",
@@ -123,15 +133,15 @@
       "subtitle": "从留学生签证到永久居留权——我们全程为您提供信息。"
     },
     "visaCards": {
-      "opt": { "name": "选择性实习培训", "tag": "学生", "emoji": "🎓" },
-      "stemOpt": { "name": "STEM OPT延期", "tag": "学生", "emoji": "🔬" },
-      "h1b": { "name": "专业技术工作签证", "tag": "工作", "emoji": "💼" },
-      "h4": { "name": "H-1B家属签证", "tag": "家庭", "emoji": "👨‍👩‍👧" },
-      "l1": { "name": "跨国公司内部调动签证", "tag": "工作", "emoji": "🏢" },
-      "b1b2": { "name": "商务/旅游签证", "tag": "访客", "emoji": "✈️" },
-      "greenCard": { "name": "永久居留权", "tag": "绿卡", "emoji": "🇺🇸" },
-      "niw": { "name": "国家利益豁免", "tag": "绿卡", "emoji": "🎯" },
-      "perm": { "name": "劳工认证", "tag": "绿卡", "emoji": "📋" }
+      "opt": { "code": "OPT", "name": "选择性实习培训", "tag": "学生", "emoji": "🎓" },
+      "stemOpt": { "code": "STEM OPT", "name": "STEM OPT延期", "tag": "学生", "emoji": "🔬" },
+      "h1b": { "code": "H-1B", "name": "专业技术工作签证", "tag": "工作", "emoji": "💼" },
+      "h4": { "code": "H-4", "name": "H-1B家属签证", "tag": "家庭", "emoji": "👨‍👩‍👧" },
+      "l1": { "code": "L-1", "name": "跨国公司内部调动签证", "tag": "工作", "emoji": "🏢" },
+      "b1b2": { "code": "B-1/B-2", "name": "商务/旅游签证", "tag": "访客", "emoji": "✈️" },
+      "greenCard": { "code": "绿卡", "name": "永久居留权", "tag": "绿卡", "emoji": "🇺🇸" },
+      "niw": { "code": "NIW", "name": "国家利益豁免", "tag": "绿卡", "emoji": "🎯" },
+      "perm": { "code": "PERM", "name": "劳工认证", "tag": "绿卡", "emoji": "📋" }
     },
     "features": {
       "eyebrow": "为何选择 ImmiTracker",
