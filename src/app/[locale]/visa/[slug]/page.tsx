@@ -8,7 +8,7 @@ interface VisaPageProps {
 }
 
 export async function generateStaticParams() {
-  const slugs = ['opt', 'stem-opt', 'h1b', 'h4', 'perm', 'green-card'];
+  const slugs = ['opt', 'stem-opt', 'h1b', 'h4', 'perm', 'green-card', 'l1', 'b1b2', 'niw'];
   const locales = ['en', 'zh'];
   return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
 }

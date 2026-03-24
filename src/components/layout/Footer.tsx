@@ -10,6 +10,8 @@ const visaLinks = [
   { label: 'L-1', slug: 'l1' },
   { label: 'B-1/B-2', slug: 'b1b2' },
   { label: 'Green Card', slug: 'green-card' },
+  { label: 'NIW', slug: 'niw' },
+  { label: 'PERM', slug: 'perm' },
 ];
 
 export default function Footer() {
