@@ -15,6 +15,13 @@ export interface EligibilityRequirement {
   details: string;
 }
 
+export interface AdditionalSection {
+  icon: string;
+  title: string;
+  content: string;
+  bullets?: string[];
+}
+
 export interface VisaInfoContent {
   slug: string;
   title: string;
@@ -24,6 +31,7 @@ export interface VisaInfoContent {
   processSteps: ProcessStep[];
   timeline: string;
   faqs: FAQItem[];
+  additionalSections?: AdditionalSection[];
 }
 
 export interface BilingualVisaInfo {

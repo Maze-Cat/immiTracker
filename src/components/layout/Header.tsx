@@ -13,6 +13,8 @@ const visaLinks = [
   { key: 'l1', slug: 'l1' },
   { key: 'b1b2', slug: 'b1b2' },
   { key: 'greenCard', slug: 'green-card' },
+  { key: 'niw', slug: 'niw' },
+  { key: 'perm', slug: 'perm' },
 ] as const;
 
 export default function Header() {
