@@ -102,6 +102,22 @@ const greenCard: BilingualVisaInfo = {
         answer: 'Yes. Derivative beneficiaries (spouse and unmarried children under 21) can be included in your I-140 and can file their own I-485 or pursue consular processing when your priority date is current.',
       },
     ],
+    additionalSections: [
+      {
+        icon: '🎯',
+        title: 'NIW (National Interest Waiver) Preparation Guide',
+        content: 'The EB-2 National Interest Waiver allows you to self-petition for a green card without employer sponsorship or PERM labor certification. Under the Dhanasar framework (Matter of Dhanasar, 2016), you must satisfy three prongs: (1) the proposed endeavor has substantial merit and national importance, (2) you are well-positioned to advance the endeavor, and (3) on balance, it is beneficial to waive the job offer and labor certification requirements.',
+        bullets: [
+          'Publications & Citations — Peer-reviewed papers in reputable journals with meaningful citation counts demonstrate your research impact. Quality matters more than quantity.',
+          'Recommendation Letters — Obtain 5–8 letters, ideally from independent experts (not your advisor or co-authors) who can speak to the national importance of your work.',
+          'A Clear Proposed Endeavor — Define a specific, forward-looking plan for your work in the US. Vague descriptions like "continue doing research" are weak; specific goals like "develop novel diagnostic tools for early cancer detection" are strong.',
+          'Evidence of National Impact — Show your work benefits the US broadly: government grants, industry adoption, media coverage, policy influence, or commercialized patents.',
+          'Personal Qualifications — Degrees, awards, professional memberships, reviewing/judging for journals or conferences, and invited talks all demonstrate you are well-positioned.',
+          'Dual-Track Strategy — Consider filing NIW and PERM-based EB-2/EB-3 concurrently. If NIW is approved faster, you benefit; if not, PERM provides a backup path with potentially an earlier priority date.',
+          'Premium Processing — Available for I-140 (15 business days, ~$2,805). Strongly recommended for NIW to get a quick decision and start the priority date clock.',
+        ],
+      },
+    ],
   },
 
   zh: {
@@ -203,6 +219,22 @@ const greenCard: BilingualVisaInfo = {
       {
         question: '我的家庭成员可以随我一起申请绿卡吗？',
         answer: '可以。配偶和21岁以下未婚子女作为随行受益人，可被纳入您的I-140申请，在您的优先日期排到后各自提交I-485或进行领事馆程序。',
+      },
+    ],
+    additionalSections: [
+      {
+        icon: '🎯',
+        title: 'NIW（国家利益豁免）准备指南',
+        content: 'EB-2国家利益豁免允许您在无需雇主担保或PERM劳工证的情况下自行申请绿卡。依据Dhanasar框架（Matter of Dhanasar, 2016），您须满足三个条件：(1) 拟议事业具有实质性价值和国家重要性；(2) 您有能力推进该事业；(3) 综合考量后，豁免工作邀请和劳工证要求符合国家利益。',
+        bullets: [
+          '论文与引用 — 在知名期刊发表的同行评审论文及有意义的引用次数可证明您的研究影响力。质量比数量更重要。',
+          '推荐信 — 准备5至8封推荐信，最好来自独立专家（非您的导师或合著者），能够就您的工作对国家的重要意义发表意见。',
+          '明确的拟议事业 — 定义一个具体的、面向未来的在美工作计划。"继续做研究"等模糊描述缺乏说服力；"开发用于早期癌症检测的新型诊断工具"等具体目标则很有力。',
+          '国家影响力证据 — 证明您的工作对美国具有广泛影响：政府资助、行业采用、媒体报道、政策影响或已商业化的专利。',
+          '个人资质 — 学位、奖项、专业协会会员资格、期刊或会议审稿/评委经历、受邀演讲等均可证明您有能力推进拟议事业。',
+          '双轨策略 — 考虑同时提交NIW和基于PERM的EB-2/EB-3申请。如果NIW更快获批，您可从中受益；如果不行，PERM提供备选路径，且可能拥有更早的优先日期。',
+          '加急处理 — I-140可选加急处理（15个工作日，约$2,805）。强烈建议NIW申请使用加急，以尽快获得决定并确立优先日期。',
+        ],
       },
     ],
   },

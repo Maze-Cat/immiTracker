@@ -6,9 +6,9 @@ import { ensureBulletinData } from '@/lib/visa-bulletin/auto-fetch';
 export const revalidate = 3600;
 
 /** Format an ISO date like "2019-06-08" into a locale-aware display string */
-function formatPriorityDate(isoDate: string, locale: string): string {
-  if (isoDate === 'C') return locale === 'zh' ? '当前' : 'Current';
-  if (isoDate === 'U') return locale === 'zh' ? '不可用' : 'Unavailable';
+function formatPriorityDate(isoDate: string, locale: string, currentLabel: string, unavailableLabel: string): string {
+  if (isoDate === 'C') return currentLabel;
+  if (isoDate === 'U') return unavailableLabel;
   try {
     const d = new Date(isoDate + 'T00:00:00');
     return d.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', {
@@ -30,6 +30,7 @@ interface VisaCardConfig {
   tKey: 'opt' | 'stemOpt' | 'h1b' | 'h4' | 'l1' | 'b1b2' | 'greenCard' | 'niw' | 'perm';
   emoji: string;
   code: string;
+  codeZh?: string;
   tagClass: string;
   topBar: string;
 }
@@ -88,13 +89,14 @@ const visaCardData: VisaCardConfig[] = [
     tKey: 'greenCard',
     emoji: '🇺🇸',
     code: 'Green Card',
+    codeZh: '绿卡',
     tagClass: 'bg-purple-50 text-purple-700',
     topBar: 'from-purple-600 to-purple-400',
   },
   {
     slug: 'niw',
     tKey: 'niw',
-    emoji: '🏆',
+    emoji: '🎯',
     code: 'NIW',
     tagClass: 'bg-amber-50 text-amber-700',
     topBar: 'from-amber-500 to-amber-400',
@@ -112,11 +114,15 @@ const visaCardData: VisaCardConfig[] = [
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
+  const commonT = await getTranslations({ locale, namespace: 'common' });
 
   // In dev mode, auto-fetch bulletin if store is empty (avoids manual curl after restart)
   await ensureBulletinData();
   const bulletin = await getLatestBulletin();
   const eb = bulletin?.employmentBased?.finalActionDates;
+
+  const currentLabel = commonT('current');
+  const unavailableLabel = commonT('unavailable');
 
   const eb2ChinaDate = eb?.['EB2']?.china ?? 'U';
   const eb3ChinaDate = eb?.['EB3']?.china ?? 'U';
@@ -127,16 +133,12 @@ export default async function HomePage({ params }: HomePageProps) {
 
   // Dynamic announcement text
   const announcementText = bulletin
-    ? locale === 'zh'
-      ? `${bulletinLabel} 签证公告已发布 — EB-2 中国排期：${formatPriorityDate(eb2ChinaDate, locale)}`
-      : `${bulletinLabel} Visa Bulletin is now available — EB-2 China: ${formatPriorityDate(eb2ChinaDate, locale)}`
-    : locale === 'zh' ? '正在加载最新公告…' : 'Loading latest bulletin…';
+    ? t('hero.announcementTemplate', { month: bulletinLabel, date: formatPriorityDate(eb2ChinaDate, locale, currentLabel, unavailableLabel) })
+    : t('hero.loadingAnnouncement');
 
   const livePillText = bulletin
-    ? locale === 'zh'
-      ? `${bulletinLabel} 公告已更新`
-      : `${bulletinLabel} Bulletin Updated`
-    : locale === 'zh' ? '加载中…' : 'Loading…';
+    ? t('hero.livePillTemplate', { month: bulletinLabel })
+    : commonT('loading');
 
   // Build live data cards config
   const liveCards = [
@@ -145,24 +147,24 @@ export default async function HomePage({ params }: HomePageProps) {
       iconBg: 'bg-teal-50',
       badgeBg: 'bg-teal-50 text-teal-700',
       label: t('hero.eb2China'),
-      date: formatPriorityDate(eb2ChinaDate, locale),
-      subLabel: locale === 'zh' ? '表A' : 'Chart A',
+      date: formatPriorityDate(eb2ChinaDate, locale, currentLabel, unavailableLabel),
+      subLabel: t('hero.chartA'),
     },
     {
       emoji: '🇨🇳',
       iconBg: 'bg-orange-50',
       badgeBg: 'bg-orange-50 text-orange-700',
       label: t('hero.eb3China'),
-      date: formatPriorityDate(eb3ChinaDate, locale),
-      subLabel: locale === 'zh' ? '表A' : 'Chart A',
+      date: formatPriorityDate(eb3ChinaDate, locale, currentLabel, unavailableLabel),
+      subLabel: t('hero.chartA'),
     },
     {
       emoji: '🇮🇳',
       iconBg: 'bg-purple-50',
       badgeBg: 'bg-purple-50 text-purple-700',
       label: t('hero.eb2Label'),
-      date: formatPriorityDate(eb2IndiaDate, locale),
-      subLabel: locale === 'zh' ? '表A' : 'Chart A',
+      date: formatPriorityDate(eb2IndiaDate, locale, currentLabel, unavailableLabel),
+      subLabel: t('hero.chartA'),
     },
   ];
 
@@ -259,7 +261,7 @@ export default async function HomePage({ params }: HomePageProps) {
               ))
             ) : (
               <div className="bg-white rounded-2xl p-6 shadow-md text-center text-gray-400 text-sm">
-                {locale === 'zh' ? '公告数据加载中…' : 'Loading bulletin data…'}
+                {t('hero.loadingBulletin')}
               </div>
             )}
           </div>
@@ -280,7 +282,7 @@ export default async function HomePage({ params }: HomePageProps) {
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
-            {visaCardData.map(({ slug, tKey, emoji, code, tagClass, topBar }) => (
+            {visaCardData.map(({ slug, tKey, emoji, code, codeZh, tagClass, topBar }) => (
               <Link
                 key={slug}
                 href={`/${locale}/visa/${slug}`}
@@ -290,7 +292,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 <div className={`absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl bg-gradient-to-r ${topBar}`} />
                 <div className="text-[26px] mb-3">{emoji}</div>
                 <p className="text-[18px] font-extrabold text-gray-800 mb-1 tracking-tight">
-                  {code}
+                  {locale === 'zh' && codeZh ? codeZh : code}
                 </p>
                 <p className="text-[12px] text-gray-500 mb-3 leading-snug line-clamp-2">
                   {t(`visaCards.${tKey}.name`)}

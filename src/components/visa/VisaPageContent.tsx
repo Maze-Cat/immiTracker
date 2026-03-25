@@ -41,6 +41,21 @@ const visaStats: Record<string, { labelKey: string; value: string }[]> = {
     { labelKey: 'stats.categories', value: 'EB-1–EB-5' },
     { labelKey: 'stats.form', value: 'I-485 / DS-260' },
   ],
+  l1: [
+    { labelKey: 'stats.maxDuration', value: '5–7 yr' },
+    { labelKey: 'stats.annualCap', value: 'None' },
+    { labelKey: 'stats.form', value: 'I-129' },
+  ],
+  b1b2: [
+    { labelKey: 'stats.validity', value: '1–10 yr' },
+    { labelKey: 'stats.maxStay', value: '6 mo' },
+    { labelKey: 'stats.form', value: 'DS-160' },
+  ],
+  niw: [
+    { labelKey: 'stats.processing', value: '6–12 mo' },
+    { labelKey: 'stats.categories', value: 'EB-2' },
+    { labelKey: 'stats.form', value: 'I-140' },
+  ],
 };
 
 export default async function VisaPageContent({ locale, slug }: VisaPageContentProps) {
@@ -182,6 +197,46 @@ export default async function VisaPageContent({ locale, slug }: VisaPageContentP
               </div>
             </div>
 
+            {/* Additional Sections (e.g. NIW preparation guide on green card page) */}
+            {content.additionalSections?.map((section, i) => (
+              <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm mb-5 overflow-hidden">
+                <div className="flex items-center gap-2.5 px-5 py-4 border-b border-gray-100">
+                  <div className="w-8 h-8 rounded-lg bg-teal-50 flex items-center justify-center text-base">
+                    {section.icon}
+                  </div>
+                  <h2 className="text-[15px] font-bold text-gray-800">{section.title}</h2>
+                </div>
+                <div className="px-5 py-5">
+                  <p className="text-sm text-gray-600 leading-relaxed mb-4">{section.content}</p>
+                  {section.bullets && section.bullets.length > 0 && (
+                    <ul className="space-y-3">
+                      {section.bullets.map((bullet, j) => {
+                        const [boldPart, ...rest] = bullet.split(' — ');
+                        const detail = rest.join(' — ');
+                        return (
+                          <li key={j} className="flex gap-3 items-start">
+                            <div className="w-[22px] h-[22px] rounded-full bg-teal-50 text-teal-700 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                              {j + 1}
+                            </div>
+                            <div className="text-sm text-gray-600 leading-relaxed">
+                              {detail ? (
+                                <>
+                                  <span className="font-semibold text-gray-800">{boldPart}</span>
+                                  {' — '}{detail}
+                                </>
+                              ) : (
+                                bullet
+                              )}
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            ))}
+
             {/* FAQ */}
             <div className="mb-5">
               <h2 className="text-xl font-bold text-gray-800 mb-4">{t('faqs')}</h2>
@@ -238,7 +293,7 @@ export default async function VisaPageContent({ locale, slug }: VisaPageContentP
               </div>
             </div>
 
-            {(slug === 'perm' || slug === 'green-card') && (
+            {(slug === 'perm' || slug === 'green-card' || slug === 'niw') && (
               <Link
                 href={`/${locale}/tracker`}
                 className="bg-gradient-to-br from-teal-600 to-teal-700 text-white rounded-2xl p-5 no-underline block hover:-translate-y-0.5 transition-transform shadow-md"
