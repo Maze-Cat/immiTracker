@@ -27,7 +27,7 @@ interface HomePageProps {
 
 interface VisaCardConfig {
   slug: string;
-  tKey: 'opt' | 'stemOpt' | 'h1b' | 'h4' | 'l1' | 'b1b2' | 'greenCard';
+  tKey: 'opt' | 'stemOpt' | 'h1b' | 'h4' | 'l1' | 'b1b2' | 'greenCard' | 'niw' | 'perm';
   emoji: string;
   code: string;
   tagClass: string;
@@ -90,6 +90,22 @@ const visaCardData: VisaCardConfig[] = [
     code: 'Green Card',
     tagClass: 'bg-purple-50 text-purple-700',
     topBar: 'from-purple-600 to-purple-400',
+  },
+  {
+    slug: 'niw',
+    tKey: 'niw',
+    emoji: '🏆',
+    code: 'NIW',
+    tagClass: 'bg-amber-50 text-amber-700',
+    topBar: 'from-amber-500 to-amber-400',
+  },
+  {
+    slug: 'perm',
+    tKey: 'perm',
+    emoji: '📋',
+    code: 'PERM',
+    tagClass: 'bg-emerald-50 text-emerald-700',
+    topBar: 'from-emerald-600 to-emerald-400',
   },
 ];
 
@@ -225,7 +241,7 @@ export default async function HomePage({ params }: HomePageProps) {
           <div className="flex flex-col gap-3.5">
             {bulletin ? (
               liveCards.map((card, idx) => (
-                <div key={idx} className="bg-white rounded-2xl p-4 shadow-sm flex gap-3.5 items-start">
+                <div key={idx} className="border-l-[3px] border-teal-400 bg-white/60 rounded-r-lg pl-4 pr-4 py-3.5 flex gap-3.5 items-start cursor-default select-none">
                   <div className={`w-11 h-11 rounded-xl ${card.iconBg} flex items-center justify-center text-2xl flex-shrink-0`}>
                     {card.emoji}
                   </div>

@@ -145,7 +145,9 @@
       "h4": { "name": "H-1B Dependent Visa", "tag": "Family", "emoji": "👨‍👩‍👧" },
       "l1": { "name": "Intracompany Transferee Visa", "tag": "Work", "emoji": "🏢" },
       "b1b2": { "name": "Business & Tourist Visa", "tag": "Visitor", "emoji": "✈️" },
-      "greenCard": { "name": "Permanent Residency", "tag": "Green Card", "emoji": "🇺🇸" }
+      "greenCard": { "name": "Permanent Residency", "tag": "Green Card", "emoji": "🇺🇸" },
+      "niw": { "name": "National Interest Waiver", "tag": "Green Card", "emoji": "🏆" },
+      "perm": { "name": "Labor Certification", "tag": "Green Card", "emoji": "📋" }
     },
     "features": {
       "eyebrow": "Why ImmiTracker",

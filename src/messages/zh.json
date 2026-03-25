@@ -145,7 +145,9 @@
       "h4": { "name": "H-1B家属签证", "tag": "家庭", "emoji": "👨‍👩‍👧" },
       "l1": { "name": "跨国公司内部调动签证", "tag": "工作", "emoji": "🏢" },
       "b1b2": { "name": "商务/旅游签证", "tag": "访客", "emoji": "✈️" },
-      "greenCard": { "name": "永久居留权", "tag": "绿卡", "emoji": "🇺🇸" }
+      "greenCard": { "name": "永久居留权", "tag": "绿卡", "emoji": "🇺🇸" },
+      "niw": { "name": "国家利益豁免", "tag": "绿卡", "emoji": "🏆" },
+      "perm": { "name": "劳工证", "tag": "绿卡", "emoji": "📋" }
     },
     "features": {
       "eyebrow": "为何选择 ImmiTracker",
