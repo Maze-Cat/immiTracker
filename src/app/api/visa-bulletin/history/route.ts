@@ -11,7 +11,9 @@ export async function GET(request: NextRequest) {
   if (searchParams.get('mode') === 'all') {
     try {
       const bulletins = await getAllBulletins();
-      return NextResponse.json({ bulletins });
+      return NextResponse.json({ bulletins }, {
+        headers: { 'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400' },
+      });
     } catch (error) {
       console.error('[visa-bulletin/history] Failed to fetch all bulletins:', error);
       return NextResponse.json({ error: 'Failed to fetch historical data' }, { status: 500 });
@@ -39,7 +41,9 @@ export async function GET(request: NextRequest) {
 
   try {
     const history = await getHistoricalData(category, chargeability, months);
-    return NextResponse.json(history);
+    return NextResponse.json(history, {
+      headers: { 'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400' },
+    });
   } catch (error) {
     console.error('[visa-bulletin/history] Failed to fetch historical data:', error);
     return NextResponse.json({ error: 'Failed to fetch historical data' }, { status: 500 });
