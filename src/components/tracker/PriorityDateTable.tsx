@@ -153,7 +153,7 @@ export default function PriorityDateTable({
                   <td className="px-4 py-3 font-bold text-gray-800">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-teal-500 flex-shrink-0" />
-                      {category}
+                      {t.has(`categoryNames.${category}`) ? t(`categoryNames.${category}`) : category}
                     </div>
                   </td>
                   {chargeabilityKeys.map((key) => (

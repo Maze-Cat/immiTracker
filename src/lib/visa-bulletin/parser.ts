@@ -64,7 +64,7 @@ function parseMonthDate(year: string, mon: string, day: string): string {
 function canonicaliseRowKey(raw: string, isEB: boolean): string {
   const v = raw.trim();
   if (isEB) {
-    const ordinal = v.match(/^(\d+)(st|nd|rd|th)$/i);
+    const ordinal = v.match(/^(\d+)(st|nd|rd|th)\b/i);
     if (ordinal) return `EB${ordinal[1]}`;
     // Already like "EB1", "EB-1", "E1", etc.
     const eb = v.match(/^E[B-]?(\d)/i);
@@ -72,7 +72,7 @@ function canonicaliseRowKey(raw: string, isEB: boolean): string {
   } else {
     const fbNum = v.match(/^F?(\d[A-Z]?)$/i);
     if (fbNum) return `F${fbNum[1].toUpperCase()}`;
-    const ordinal = v.match(/^(\d+)(st|nd|rd|th)$/i);
+    const ordinal = v.match(/^(\d+)(st|nd|rd|th)\b/i);
     if (ordinal) return `F${ordinal[1]}`;
   }
   return v.toUpperCase();

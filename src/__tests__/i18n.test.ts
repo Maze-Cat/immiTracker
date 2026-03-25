@@ -107,6 +107,47 @@ describe('i18n translation keys', () => {
     expect(zhKeys).toContain('meta.description');
   });
 
+  // -------------------------------------------------------------------
+  // Tests for recently added i18n keys
+  // -------------------------------------------------------------------
+
+  it('both locale files have avgDaysPerMonth and loadingSkeleton keys', () => {
+    const required = ['tracker.avgDaysPerMonth', 'tracker.loadingSkeleton'];
+    for (const key of required) {
+      expect(enKeys).toContain(key);
+      expect(zhKeys).toContain(key);
+    }
+  });
+
+  it('both locale files have categoryNames for all EB and FB categories', () => {
+    const categories = [
+      'tracker.categoryNames.EB1',
+      'tracker.categoryNames.EB2',
+      'tracker.categoryNames.EB3',
+      'tracker.categoryNames.EB4',
+      'tracker.categoryNames.EB5',
+      'tracker.categoryNames.OTHER WORKERS',
+      'tracker.categoryNames.CERTAIN RELIGIOUS WORKERS',
+      'tracker.categoryNames.F1',
+      'tracker.categoryNames.F2A',
+      'tracker.categoryNames.F2B',
+      'tracker.categoryNames.F3',
+      'tracker.categoryNames.F4',
+    ];
+    for (const key of categories) {
+      expect(enKeys).toContain(key);
+      expect(zhKeys).toContain(key);
+    }
+  });
+
+  it('categoryNames values are non-empty and human-readable (contain hyphen for EB/F categories)', () => {
+    const enCat = (enMessages as Record<string, Record<string, Record<string, string>>>).tracker.categoryNames;
+    expect(enCat['EB1']).toBe('EB-1');
+    expect(enCat['EB5']).toBe('EB-5');
+    expect(enCat['OTHER WORKERS']).toBe('Other Workers');
+    expect(enCat['F2A']).toBe('F-2A');
+  });
+
   it('no translation values are empty strings', () => {
     function checkValues(obj: Record<string, unknown>, prefix = '') {
       for (const [key, value] of Object.entries(obj)) {

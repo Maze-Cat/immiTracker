@@ -243,7 +243,7 @@ export default async function HomePage({ params }: HomePageProps) {
           <div className="flex flex-col gap-3.5">
             {bulletin ? (
               liveCards.map((card, idx) => (
-                <div key={idx} className="bg-white rounded-2xl p-4 shadow-md flex gap-3.5 items-start hover:-translate-y-0.5 transition-transform">
+                <div key={idx} className="border-l-[3px] border-teal-400 bg-white/60 rounded-r-lg pl-4 pr-4 py-3.5 flex gap-3.5 items-start cursor-default select-none">
                   <div className={`w-11 h-11 rounded-xl ${card.iconBg} flex items-center justify-center text-2xl flex-shrink-0`}>
                     {card.emoji}
                   </div>

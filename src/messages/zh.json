@@ -25,7 +25,7 @@
     "employmentBased": "职业移民",
     "familyBased": "家庭移民",
     "historicalTrends": "历史趋势",
-    "historicalTrendsDesc": "按类别和国家查看排期日期随时间的变化",
+    "historicalTrendsDesc": "展示过去一年内每个月排期前进或后退的天数，按类别和国家分类",
     "category": "类别",
     "allChargeability": "所有国家",
     "china": "中国",
@@ -43,7 +43,23 @@
     "eb3India": "EB-3 印度",
     "chartComingSoon": "完整互动图表即将上线",
     "autoUpdated": "每月自动从USCIS签证公告更新",
-    "trendBadge": "平均前进2个月"
+    "trendBadge": "平均前进2个月",
+    "avgDaysPerMonth": "过去一年平均每月前进 {days} 天",
+    "loadingSkeleton": "正在获取最新公告数据...",
+    "categoryNames": {
+      "EB1": "EB-1",
+      "EB2": "EB-2",
+      "EB3": "EB-3",
+      "EB4": "EB-4",
+      "EB5": "EB-5",
+      "OTHER WORKERS": "其他工人",
+      "CERTAIN RELIGIOUS WORKERS": "宗教工作者",
+      "F1": "F-1",
+      "F2A": "F-2A",
+      "F2B": "F-2B",
+      "F3": "F-3",
+      "F4": "F-4"
+    }
   },
   "visa": {
     "overview": "概述",

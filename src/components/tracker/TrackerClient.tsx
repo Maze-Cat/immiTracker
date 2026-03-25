@@ -40,10 +40,44 @@ export default function TrackerClient() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-2 border-teal-600 border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm text-gray-400">{t('loading')}</p>
+      <div className="animate-pulse">
+        {/* Skeleton badge */}
+        <div className="flex items-center gap-3 mb-6">
+          <div className="h-7 w-48 bg-gray-200 rounded-full" />
+          <div className="h-4 w-32 bg-gray-100 rounded" />
+        </div>
+        {/* Skeleton tab bar */}
+        <div className="flex bg-gray-100 rounded-xl p-1 w-fit mb-6 gap-0.5">
+          <div className="h-9 w-32 bg-gray-200 rounded-[9px]" />
+          <div className="h-9 w-32 bg-gray-200 rounded-[9px]" />
+        </div>
+        {/* Skeleton section pills */}
+        <div className="flex gap-2 mb-5">
+          <div className="h-8 w-28 bg-gray-200 rounded-full" />
+          <div className="h-8 w-24 bg-gray-200 rounded-full" />
+        </div>
+        {/* Skeleton table */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-6">
+          <div className="px-5 py-4 border-b border-gray-100">
+            <div className="h-5 w-40 bg-gray-200 rounded" />
+          </div>
+          <div className="p-4 space-y-3">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="flex items-center gap-4">
+                <div className="h-4 w-16 bg-gray-200 rounded" />
+                <div className="h-4 w-20 bg-gray-100 rounded flex-1" />
+                <div className="h-4 w-20 bg-gray-100 rounded flex-1" />
+                <div className="h-4 w-20 bg-gray-100 rounded flex-1" />
+                <div className="h-4 w-20 bg-gray-100 rounded flex-1" />
+                <div className="h-4 w-20 bg-gray-100 rounded flex-1" />
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Skeleton chart */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mt-8">
+          <div className="h-5 w-36 bg-gray-200 rounded mb-4" />
+          <div className="h-[280px] bg-gray-50 rounded-xl" />
         </div>
       </div>
     );
@@ -97,7 +131,7 @@ export default function TrackerClient() {
           <button
             key={mode}
             onClick={() => setTableMode(mode)}
-            className={`px-4 py-2 rounded-[9px] text-[13px] font-semibold transition-all ${
+            className={`px-4 py-2 rounded-[9px] text-[13px] font-semibold transition-all active:scale-95 ${
               tableMode === mode
                 ? 'bg-white text-teal-600 shadow-sm'
                 : 'text-gray-500 hover:text-gray-700'
@@ -114,7 +148,7 @@ export default function TrackerClient() {
           <button
             key={s}
             onClick={() => setSection(s)}
-            className={`px-4 py-1.5 rounded-full text-sm font-semibold border-[1.5px] transition-all ${
+            className={`px-4 py-1.5 rounded-full text-sm font-semibold border-[1.5px] transition-all active:scale-95 ${
               section === s
                 ? 'border-teal-600 text-teal-600 bg-teal-50'
                 : 'border-gray-200 text-gray-500 hover:border-teal-300 hover:text-teal-600'

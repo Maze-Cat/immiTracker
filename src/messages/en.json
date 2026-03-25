@@ -25,7 +25,7 @@
     "employmentBased": "Employment-Based",
     "familyBased": "Family-Based",
     "historicalTrends": "Historical Trends",
-    "historicalTrendsDesc": "Priority date movement over time by category and country",
+    "historicalTrendsDesc": "Days moved forward or backward each month over the past year, by category and country",
     "category": "Category",
     "allChargeability": "All Chargeability",
     "china": "China",
@@ -43,7 +43,23 @@
     "eb3India": "EB-3 India",
     "chartComingSoon": "Full interactive chart coming soon",
     "autoUpdated": "Auto-updated monthly from USCIS Visa Bulletin",
-    "trendBadge": "+2 mo avg"
+    "trendBadge": "+2 mo avg",
+    "avgDaysPerMonth": "Avg. {days} days/month over the past year",
+    "loadingSkeleton": "Fetching latest bulletin data...",
+    "categoryNames": {
+      "EB1": "EB-1",
+      "EB2": "EB-2",
+      "EB3": "EB-3",
+      "EB4": "EB-4",
+      "EB5": "EB-5",
+      "OTHER WORKERS": "Other Workers",
+      "CERTAIN RELIGIOUS WORKERS": "Religious Workers",
+      "F1": "F-1",
+      "F2A": "F-2A",
+      "F2B": "F-2B",
+      "F3": "F-3",
+      "F4": "F-4"
+    }
   },
   "visa": {
     "overview": "Overview",

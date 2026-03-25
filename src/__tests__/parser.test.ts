@@ -169,4 +169,79 @@ describe('parseVisaBulletin', () => {
     expect(result.employmentBased.finalActionDates['EB1'].allChargeability).toBe('2022-01-01');
     expect(result.employmentBased.finalActionDates['EB1'].china).toBe('2021-03-15');
   });
+
+  // -------------------------------------------------------------------
+  // Tests for canonicaliseRowKey — ordinal rows with trailing text
+  // -------------------------------------------------------------------
+
+  describe('canonicaliseRowKey via full-table parsing', () => {
+    function makeEBHtml(rows: string[]): string {
+      const rowHtml = rows
+        .map((label) => `<tr><td>${label}</td><td>C</td><td>C</td><td>C</td><td>C</td><td>C</td></tr>`)
+        .join('\n');
+      return `<html>
+        <title>Visa Bulletin for April 2026</title>
+        <h2>Employment-Based Final Action Dates</h2>
+        <table>
+          <tr><th>Category</th><th>All Chargeability</th><th>China</th><th>India</th><th>Mexico</th><th>Philippines</th></tr>
+          ${rowHtml}
+        </table>
+      </html>`;
+    }
+
+    it('maps "1st" → "EB1"', () => {
+      const result = parseVisaBulletin(makeEBHtml(['1st']));
+      expect(result.employmentBased.finalActionDates['EB1']).toBeDefined();
+    });
+
+    it('maps "2nd" → "EB2"', () => {
+      const result = parseVisaBulletin(makeEBHtml(['2nd']));
+      expect(result.employmentBased.finalActionDates['EB2']).toBeDefined();
+    });
+
+    it('maps "3rd" → "EB3"', () => {
+      const result = parseVisaBulletin(makeEBHtml(['3rd']));
+      expect(result.employmentBased.finalActionDates['EB3']).toBeDefined();
+    });
+
+    it('maps "5th Unreserved (Including Derivative Beneficiaries)" → "EB5"', () => {
+      const result = parseVisaBulletin(
+        makeEBHtml(['5th Unreserved (Including Derivative Beneficiaries)']),
+      );
+      expect(result.employmentBased.finalActionDates['EB5']).toBeDefined();
+    });
+
+    it('maps "4th" → "EB4"', () => {
+      const result = parseVisaBulletin(makeEBHtml(['4th']));
+      expect(result.employmentBased.finalActionDates['EB4']).toBeDefined();
+    });
+
+    it('maps "OTHER WORKERS" to uppercase key via toUpperCase fallback', () => {
+      const result = parseVisaBulletin(makeEBHtml(['OTHER WORKERS']));
+      expect(result.employmentBased.finalActionDates['OTHER WORKERS']).toBeDefined();
+    });
+
+    it('maps "CERTAIN RELIGIOUS WORKERS" to uppercase key via toUpperCase fallback', () => {
+      const result = parseVisaBulletin(makeEBHtml(['CERTAIN RELIGIOUS WORKERS']));
+      expect(result.employmentBased.finalActionDates['CERTAIN RELIGIOUS WORKERS']).toBeDefined();
+    });
+
+    it('handles a full realistic table with ordinals and special rows', () => {
+      const result = parseVisaBulletin(
+        makeEBHtml([
+          '1st',
+          '2nd',
+          '3rd',
+          'Other Workers',
+          '4th',
+          'Certain Religious Workers',
+          '5th Unreserved (Including Derivative Beneficiaries)',
+        ]),
+      );
+      const eb = result.employmentBased.finalActionDates;
+      expect(Object.keys(eb)).toEqual(
+        expect.arrayContaining(['EB1', 'EB2', 'EB3', 'EB4', 'EB5', 'OTHER WORKERS', 'CERTAIN RELIGIOUS WORKERS']),
+      );
+    });
+  });
 });

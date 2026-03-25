@@ -126,7 +126,23 @@ export default function HistoricalChart() {
     return rows;
   }, [bulletins, category, tableType]);
 
-  const activeCountries = COUNTRIES.filter((c) => selectedCountries.has(c.key));
+  const activeCountries = useMemo(
+    () => COUNTRIES.filter((c) => selectedCountries.has(c.key)),
+    [selectedCountries],
+  );
+
+  const avgAnnotation = useMemo(() => {
+    const avgs: { key: ChartCountry; label: string; avg: number }[] = [];
+    for (const c of activeCountries) {
+      const values = changeRows
+        .map((r) => r.changes[c.key])
+        .filter((d): d is number => d !== null);
+      if (values.length === 0) continue;
+      const avg = Math.round(values.reduce((a, b) => a + b, 0) / values.length);
+      avgs.push({ key: c.key, label: getCountryLabel(c.key, locale), avg });
+    }
+    return avgs;
+  }, [changeRows, activeCountries, locale]);
 
   // Compute min/max days for y-axis scaling
   const { minDays, maxDays } = useMemo(() => {
@@ -443,6 +459,27 @@ export default function HistoricalChart() {
                 </div>
               ))}
             </div>
+
+            {/* Average annotation */}
+            {avgAnnotation.length > 0 && (
+              <div className="flex flex-wrap gap-3 justify-center mt-3 px-2">
+                {avgAnnotation.map(({ key, label, avg }) => {
+                  const color = COUNTRIES.find((c) => c.key === key)?.color ?? '#666';
+                  return (
+                    <span
+                      key={key}
+                      className="inline-flex items-center gap-1.5 text-[11px] font-medium text-gray-500"
+                    >
+                      <span
+                        className="w-2 h-2 rounded-full inline-block"
+                        style={{ backgroundColor: color }}
+                      />
+                      {label}: {t('avgDaysPerMonth', { days: `${avg > 0 ? '+' : ''}${avg}` })}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
 
             <div className="h-6" />
           </div>
