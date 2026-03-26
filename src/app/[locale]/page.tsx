@@ -357,7 +357,7 @@ export default async function HomePage({ params }: HomePageProps) {
         </div>
       </section>
 
-      {/* CTA Banner */}
+      {/* CTA Banner + Subscribe */}
       <section className="relative bg-gradient-to-br from-teal-700 via-teal-600 to-cyan-600 py-16 px-4 text-center overflow-hidden">
         <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-white/5 pointer-events-none" />
         <div className="max-w-xl mx-auto relative z-10">
@@ -379,13 +379,11 @@ export default async function HomePage({ params }: HomePageProps) {
               {t('cta.secondary')}
             </a>
           </div>
-        </div>
-      </section>
 
-      {/* Subscribe Section */}
-      <section className="bg-white py-12 px-4">
-        <div className="max-w-xl mx-auto">
-          <SubscribeForm />
+          {/* Subscribe inline */}
+          <div className="mt-10 pt-8 border-t border-white/20">
+            <SubscribeForm variant="dark" />
+          </div>
         </div>
       </section>
     </>
