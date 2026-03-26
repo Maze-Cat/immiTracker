@@ -1,5 +1,7 @@
 import { parseVisaBulletin } from './parser';
-import { storeBulletin } from './store';
+import { getLatestBulletin, storeBulletin } from './store';
+import { notifySubscribers } from '@/lib/email/notify';
+import type { VisaBulletin } from '@/types/visa-bulletin';
 
 const DOS_INDEX_URL =
   'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html';
@@ -60,7 +62,7 @@ function extractAllBulletinUrls(indexHtml: string): Array<{ href: string; year: 
 /**
  * Fetch a single bulletin page by URL, parse it, and store it.
  */
-async function fetchAndStoreSingleBulletin(url: string): Promise<{ bulletinMonth: string }> {
+async function fetchAndStoreSingleBulletin(url: string): Promise<VisaBulletin> {
   console.log(`[fetcher] Fetching bulletin: ${url}`);
   const response = await fetch(url, {
     next: { revalidate: 0 },
@@ -73,16 +75,25 @@ async function fetchAndStoreSingleBulletin(url: string): Promise<{ bulletinMonth
   console.log(`[fetcher] Received HTML (${html.length} chars) from ${url}`);
   const bulletin = parseVisaBulletin(html);
   await storeBulletin(bulletin);
-  return { bulletinMonth: bulletin.bulletinMonth };
+  return bulletin;
 }
 
 /**
  * Fetch the latest DOS Visa Bulletin, parse it, store it, and return the
- * bulletin month string.
+ * bulletin month string along with whether the bulletin changed.
  *
  * Throws on network errors or if the bulletin URL cannot be located.
  */
-export async function fetchAndStoreBulletin(): Promise<{ bulletinMonth: string }> {
+export async function fetchAndStoreBulletin(): Promise<{ bulletinMonth: string; changed: boolean }> {
+  // Get the currently stored latest bulletin for change detection + email diff
+  let previousBulletin: Awaited<ReturnType<typeof getLatestBulletin>> = null;
+  try {
+    previousBulletin = await getLatestBulletin();
+  } catch (err) {
+    console.warn('[fetcher] Could not read current latest bulletin for change detection:', err);
+  }
+  const previousLatestMonth = previousBulletin?.bulletinMonth ?? null;
+
   const indexHtml = await fetchIndexPage();
   const urls = extractAllBulletinUrls(indexHtml);
 
@@ -95,23 +106,42 @@ export async function fetchAndStoreBulletin(): Promise<{ bulletinMonth: string }
 
   // Fetch up to 12 months of bulletins for historical tracking
   const maxMonths = Math.min(urls.length, 12);
-  let result: { bulletinMonth: string } | null = null;
+  let latestBulletin: VisaBulletin | null = null;
 
   for (let i = 0; i < maxMonths; i++) {
     try {
-      const r = await fetchAndStoreSingleBulletin(urls[i].href);
-      if (i === 0) result = r;
-      console.log(`[fetcher] Stored bulletin ${i + 1}/${maxMonths}: ${r.bulletinMonth}`);
+      const bulletin = await fetchAndStoreSingleBulletin(urls[i].href);
+      if (i === 0) latestBulletin = bulletin;
+      console.log(`[fetcher] Stored bulletin ${i + 1}/${maxMonths}: ${bulletin.bulletinMonth}`);
     } catch (err) {
       console.warn(`[fetcher] Failed to fetch bulletin ${i + 1} (${urls[i].href}):`, err instanceof Error ? err.message : err);
     }
   }
 
-  if (!result) {
+  if (!latestBulletin) {
     throw new Error('Failed to fetch any bulletin');
   }
 
-  return result;
+  // Detect whether this is a new bulletin month
+  const changed = previousLatestMonth !== null && latestBulletin.bulletinMonth !== previousLatestMonth;
+
+  if (changed) {
+    console.log(
+      `[fetcher] New bulletin detected: ${previousLatestMonth} -> ${latestBulletin.bulletinMonth}. Notifying subscribers.`,
+    );
+    // Fire-and-forget: don't let notification failures break the cron
+    notifySubscribers(latestBulletin, previousBulletin)
+      .then((r) => {
+        console.log(`[fetcher] Notification result: ${r.sent} sent, ${r.failed} failed`);
+      })
+      .catch((err) => {
+        console.error('[fetcher] Failed to notify subscribers:', err);
+      });
+  } else {
+    console.log(`[fetcher] No change in bulletin month (${latestBulletin.bulletinMonth}).`);
+  }
+
+  return { bulletinMonth: latestBulletin.bulletinMonth, changed };
 }
 
 async function fetchIndexPage(): Promise<string> {

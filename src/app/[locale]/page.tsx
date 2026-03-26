@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { getLatestBulletin } from '@/lib/visa-bulletin/store';
 import { ensureBulletinData } from '@/lib/visa-bulletin/auto-fetch';
+import SubscribeForm from '@/components/tracker/SubscribeForm';
 
 export const revalidate = 3600;
 
@@ -237,6 +238,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 <strong className="text-gray-700">5,000+</strong> {t('hero.socialProof')}
               </span>
             </div>
+
           </div>
 
           {/* Right — live data preview cards */}
@@ -377,6 +379,13 @@ export default async function HomePage({ params }: HomePageProps) {
               {t('cta.secondary')}
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* Subscribe Section */}
+      <section className="bg-white py-12 px-4">
+        <div className="max-w-xl mx-auto">
+          <SubscribeForm />
         </div>
       </section>
     </>
