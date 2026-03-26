@@ -1,0 +1,26 @@
+name: Fetch Visa Bulletin
+
+on:
+  schedule:
+    # Run every 6 hours: 3am, 9am, 3pm, 9pm UTC
+    # (11pm, 5am, 11am, 5pm ET — covers DOS business hours well)
+    - cron: '0 3,9,15,21 * * *'
+  workflow_dispatch: # Allow manual trigger from GitHub UI
+
+jobs:
+  fetch-bulletin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Trigger bulletin fetch
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json" \
+            "${{ secrets.SITE_URL }}/api/cron/fetch-bulletin")
+          echo "HTTP status: $response"
+          if [ "$response" -ne 200 ]; then
+            echo "::error::Fetch bulletin failed with status $response"
+            exit 1
+          fi
