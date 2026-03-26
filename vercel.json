@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/fetch-bulletin",
-      "schedule": "0 21 * * *"
+      "schedule": "0 10 * * *"
     }
   ]
 }
