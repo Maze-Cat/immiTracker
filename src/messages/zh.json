@@ -59,6 +59,18 @@
       "F2B": "F-2B",
       "F3": "F-3",
       "F4": "F-4"
+    },
+    "subscribe": {
+      "title": "获取通知",
+      "description": "订阅以在签证公告更新时收到邮件通知。",
+      "emailPlaceholder": "输入您的邮箱",
+      "subscribeButton": "订阅",
+      "unsubscribeButton": "取消订阅",
+      "success": "公告更新时我们将通知您！",
+      "alreadySubscribed": "您已经订阅了！",
+      "unsubscribeSuccess": "已取消订阅。",
+      "invalidEmail": "请输入有效的邮箱地址。",
+      "error": "出现错误，请重试。"
     }
   },
   "visa": {

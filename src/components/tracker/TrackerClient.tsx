@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import PriorityDateTable from './PriorityDateTable';
 import HistoricalChart from './HistoricalChart';
+import SubscribeForm from './SubscribeForm';
 import type { VisaBulletin } from '@/types/visa-bulletin';
 
 type TableMode = 'finalAction' | 'datesForFiling';
@@ -180,6 +181,11 @@ export default function TrackerClient() {
       {/* Historical chart */}
       <div className="mt-8">
         <HistoricalChart />
+      </div>
+
+      {/* Email subscription */}
+      <div className="mt-8">
+        <SubscribeForm />
       </div>
     </div>
   );

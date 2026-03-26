@@ -59,6 +59,18 @@
       "F2B": "F-2B",
       "F3": "F-3",
       "F4": "F-4"
+    },
+    "subscribe": {
+      "title": "Get Notified",
+      "description": "Subscribe to receive email notifications when the visa bulletin is updated.",
+      "emailPlaceholder": "Enter your email",
+      "subscribeButton": "Subscribe",
+      "unsubscribeButton": "Unsubscribe",
+      "success": "You'll be notified when the bulletin changes!",
+      "alreadySubscribed": "You're already subscribed!",
+      "unsubscribeSuccess": "You've been unsubscribed.",
+      "invalidEmail": "Please enter a valid email address.",
+      "error": "Something went wrong. Please try again."
     }
   },
   "visa": {
