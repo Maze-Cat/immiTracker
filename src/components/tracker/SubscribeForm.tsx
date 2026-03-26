@@ -67,8 +67,11 @@ export default function SubscribeForm({ variant = 'default' }: { variant?: Varia
   if (isDark) {
     return (
       <div>
-        <p className="text-[14px] text-white/70 mb-3 flex items-center justify-center gap-1.5">
-          <span>🔔</span> {t('description')}
+        <h3 className="text-[18px] font-bold text-white mb-1.5 flex items-center justify-center gap-2">
+          <span>🔔</span> {t('title')}
+        </h3>
+        <p className="text-[14px] text-white/70 mb-4 text-center">
+          {t('description')}
         </p>
         {showForm ? (
           <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2.5 max-w-md mx-auto">
