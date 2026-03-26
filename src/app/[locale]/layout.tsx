@@ -2,8 +2,10 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import FeedbackWidget from '@/components/feedback/FeedbackWidget';
 
 const locales = ['en', 'zh'];
 
@@ -42,6 +44,8 @@ export default async function LocaleLayout({
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <FeedbackWidget />
+          <Analytics />
         </NextIntlClientProvider>
       </body>
     </html>

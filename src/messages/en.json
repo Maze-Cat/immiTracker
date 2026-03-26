@@ -127,6 +127,21 @@
     "backToTop": "Back to Top",
     "lastUpdated": "Last Updated"
   },
+  "feedback": {
+    "button": "Feedback",
+    "title": "Share Your Feedback",
+    "subtitle": "Help us improve ImmiTracker",
+    "ratingLabel": "How would you rate your experience?",
+    "messageLabel": "Any comments? (optional)",
+    "messagePlaceholder": "Tell us what you think...",
+    "submit": "Submit Feedback",
+    "submitting": "Submitting...",
+    "successTitle": "Thank you!",
+    "successMessage": "Your feedback helps us improve ImmiTracker.",
+    "rateLimit": "Please wait a few minutes before submitting again.",
+    "error": "Something went wrong. Please try again.",
+    "ratingRequired": "Please select a rating."
+  },
   "home": {
     "announcementBar": "Latest Visa Bulletin is now available",
     "announcementBadge": "New",
