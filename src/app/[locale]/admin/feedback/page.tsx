@@ -12,6 +12,7 @@ interface FeedbackEntry {
 
 interface FeedbackStats {
   total: number;
+  subscriberCount: number;
   avgRating: number;
   distribution: Record<number, number>;
 }
@@ -145,7 +146,11 @@ export default function AdminFeedbackPage() {
         </div>
 
         {/* Stats cards */}
-        <div className="mb-8 grid gap-4 sm:grid-cols-3">
+        <div className="mb-8 grid gap-4 sm:grid-cols-4">
+          <div className="rounded-2xl border border-teal-100 bg-teal-50 p-6 shadow-sm">
+            <p className="text-sm font-medium text-teal-600">Email Subscribers</p>
+            <p className="mt-2 text-3xl font-bold text-teal-700">{stats.subscriberCount}</p>
+          </div>
           <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
             <p className="text-sm font-medium text-gray-500">Total Feedback</p>
             <p className="mt-2 text-3xl font-bold text-gray-900">{stats.total}</p>
