@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAllFeedback, getFeedbackCount } from '@/lib/feedback/store';
+import { getSubscriberCount } from '@/lib/email/subscribers';
 
 // ---------------------------------------------------------------------------
 // GET /api/admin/feedback?key=<ADMIN_SECRET>
@@ -16,9 +17,10 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const [entries, count] = await Promise.all([
+    const [entries, count, subscriberCount] = await Promise.all([
       getAllFeedback(),
       getFeedbackCount(),
+      getSubscriberCount(),
     ]);
 
     // Compute stats
@@ -37,6 +39,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       stats: {
         total: count,
+        subscriberCount,
         avgRating: Math.round(avgRating * 100) / 100,
         distribution: {
           1: distribution[0],
