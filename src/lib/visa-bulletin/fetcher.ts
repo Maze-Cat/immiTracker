@@ -129,14 +129,13 @@ export async function fetchAndStoreBulletin(): Promise<{ bulletinMonth: string; 
     console.log(
       `[fetcher] New bulletin detected: ${previousLatestMonth} -> ${latestBulletin.bulletinMonth}. Notifying subscribers.`,
     );
-    // Fire-and-forget: don't let notification failures break the cron
-    notifySubscribers(latestBulletin, previousBulletin)
-      .then((r) => {
-        console.log(`[fetcher] Notification result: ${r.sent} sent, ${r.failed} failed`);
-      })
-      .catch((err) => {
-        console.error('[fetcher] Failed to notify subscribers:', err);
-      });
+    // MUST await — in serverless, fire-and-forget gets killed before completion
+    try {
+      const r = await notifySubscribers(latestBulletin, previousBulletin);
+      console.log(`[fetcher] Notification result: ${r.sent} sent, ${r.failed} failed`);
+    } catch (err) {
+      console.error('[fetcher] Failed to notify subscribers:', err);
+    }
   } else {
     console.log(`[fetcher] No change in bulletin month (${latestBulletin.bulletinMonth}).`);
   }
