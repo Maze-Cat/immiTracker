@@ -66,7 +66,9 @@ export default function AdminFeedbackPage() {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`/api/admin/feedback?key=${encodeURIComponent(secret)}`);
+      const res = await fetch('/api/admin/feedback', {
+        headers: { Authorization: `Bearer ${secret}` },
+      });
       if (res.status === 401) {
         setError('Invalid admin key.');
         setAuthenticated(false);

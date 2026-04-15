@@ -1,6 +1,7 @@
 import { parseVisaBulletin } from './parser';
 import { getLatestBulletin, storeBulletin } from './store';
 import { notifySubscribers } from '@/lib/email/notify';
+import { sendAlert } from '@/lib/email/alert';
 import type { VisaBulletin } from '@/types/visa-bulletin';
 
 const DOS_INDEX_URL =
@@ -133,8 +134,31 @@ export async function fetchAndStoreBulletin(): Promise<{ bulletinMonth: string; 
     try {
       const r = await notifySubscribers(latestBulletin, previousBulletin);
       console.log(`[fetcher] Notification result: ${r.sent} sent, ${r.failed} failed`);
+
+      if (r.failed > 0) {
+        await sendAlert(
+          `Email notification partially failed`,
+          `Bulletin: ${latestBulletin.bulletinMonth}\nSent: ${r.sent}\nFailed: ${r.failed}`,
+        );
+      }
+
+      if (r.skipped) {
+        await sendAlert(
+          `Email not configured`,
+          `Bulletin changed: ${previousLatestMonth} → ${latestBulletin.bulletinMonth}\nRESEND_API_KEY is not set — no emails were sent.`,
+        );
+      } else if (r.sent === 0 && r.failed === 0) {
+        await sendAlert(
+          `No subscribers to notify`,
+          `Bulletin changed: ${previousLatestMonth} → ${latestBulletin.bulletinMonth}\nBut no subscribers were found.`,
+        );
+      }
     } catch (err) {
       console.error('[fetcher] Failed to notify subscribers:', err);
+      await sendAlert(
+        `Notification failed completely`,
+        `Bulletin: ${latestBulletin.bulletinMonth}\nError: ${err instanceof Error ? err.message : String(err)}`,
+      );
     }
   } else {
     console.log(`[fetcher] No change in bulletin month (${latestBulletin.bulletinMonth}).`);

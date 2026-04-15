@@ -236,10 +236,10 @@ function buildEmailHtml(bulletinMonth: string, diffs: DateDiff[]): string {
 export async function notifySubscribers(
   current: VisaBulletin,
   previous: VisaBulletin | null,
-): Promise<{ sent: number; failed: number }> {
+): Promise<{ sent: number; failed: number; skipped?: boolean }> {
   const resend = getResendClient();
   if (!resend) {
-    return { sent: 0, failed: 0 };
+    return { sent: 0, failed: 0, skipped: true };
   }
 
   let subscribers: string[];

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchAndStoreBulletin } from '@/lib/visa-bulletin/fetcher';
+import { sendAlert } from '@/lib/email/alert';
 
 function isAuthorized(request: NextRequest): boolean {
   // Vercel Cron sets this header automatically
@@ -30,6 +31,10 @@ async function handleCronRequest(request: NextRequest) {
     });
   } catch (error) {
     console.error('[cron/fetch-bulletin] Failed to fetch or store bulletin:', error);
+    await sendAlert(
+      'Cron fetch failed',
+      `Error: ${error instanceof Error ? error.message : String(error)}`,
+    );
     return NextResponse.json({ success: false, message: 'Failed to fetch bulletin' }, { status: 500 });
   }
 }
