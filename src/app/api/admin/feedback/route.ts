@@ -8,12 +8,14 @@ import { getSubscriberCount } from '@/lib/email/subscribers';
 // ---------------------------------------------------------------------------
 
 export async function GET(request: NextRequest) {
-  const key = request.nextUrl.searchParams.get('key');
   const secret = process.env.ADMIN_SECRET;
 
-  // In dev mode (no secret set), allow access
-  if (secret && key !== secret) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  // In production, require Bearer token. In dev (no secret set), allow access.
+  if (secret) {
+    const authHeader = request.headers.get('authorization');
+    if (authHeader !== `Bearer ${secret}`) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
   }
 
   try {
